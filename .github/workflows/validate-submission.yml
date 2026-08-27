@@ -4,6 +4,11 @@ on:
   pull_request:
     branches:
       - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - edited
 
 permissions:
   contents: read
@@ -13,28 +18,99 @@ jobs:
     name: Validate Submission
     runs-on: ubuntu-latest
 
+    env:
+      HEAD_REF: ${{ github.head_ref }}
+      BASE_REF: ${{ github.base_ref }}
+      BASE_SHA: ${{ github.event.pull_request.base.sha }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      PR_TITLE: ${{ github.event.pull_request.title }}
+      PR_BODY: ${{ github.event.pull_request.body }}
+
     steps:
-      # Baixa o conteúdo do repositório para o runner
+
+      # ============================================================
+      # 1. DOWNLOAD DO REPOSITÓRIO
+      # ============================================================
+
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # Mostra informações básicas do Pull Request
+
+      # ============================================================
+      # 2. INFORMAÇÕES DA ENTREGA
+      # ============================================================
+
       - name: Show submission information
         run: |
-          echo "======================================"
-          echo " COMPUTER ARCHITECTURE - SUBMISSION"
-          echo "======================================"
+          echo "================================================"
+          echo " COMPUTER ARCHITECTURE - SUBMISSION VALIDATION"
+          echo "================================================"
           echo ""
-          echo "Repository: ${{ github.repository }}"
-          echo "Author: ${{ github.actor }}"
-          echo "Branch: ${{ github.head_ref }}"
-          echo "Target: ${{ github.base_ref }}"
-          echo "Pull Request: #${{ github.event.pull_request.number }}"
+          echo "Repository : ${{ github.repository }}"
+          echo "Author     : ${{ github.actor }}"
+          echo "Branch     : $HEAD_REF"
+          echo "Target     : $BASE_REF"
+          echo "PR         : #$PR_NUMBER"
+          echo ""
+          echo "Entrega 01 - Mapeamento Inicial da Arquitetura"
           echo ""
 
-      # Descobre quais arquivos foram modificados pelo aluno
+
+      # ============================================================
+      # 3. VALIDA O NOME DA BRANCH
+      #
+      # Formato:
+      # team-XX/entrega-01
+      #
+      # Exemplos:
+      # team-01/entrega-01
+      # team-07/entrega-01
+      # team-12/entrega-01
+      # ============================================================
+
+      - name: Validate branch name
+        run: |
+          echo "Checking branch name..."
+
+          if [[ ! "$HEAD_REF" =~ ^team-[0-9]{2}/entrega-01$ ]]; then
+
+            echo ""
+            echo "ERROR: Invalid branch name."
+            echo ""
+            echo "Expected format:"
+            echo "  team-XX/entrega-01"
+            echo ""
+            echo "Example:"
+            echo "  team-01/entrega-01"
+            echo ""
+
+            exit 1
+          fi
+
+          echo "OK: Branch name is valid."
+
+
+      # ============================================================
+      # 4. IDENTIFICA A EQUIPE A PARTIR DA BRANCH
+      # ============================================================
+
+      - name: Detect team
+        id: team
+        run: |
+          TEAM=$(echo "$HEAD_REF" | cut -d'/' -f1)
+
+          echo "Detected team: $TEAM"
+
+          echo "team=$TEAM" >> "$GITHUB_OUTPUT"
+
+
+      # ============================================================
+      # 5. IDENTIFICA TODOS OS ARQUIVOS MODIFICADOS NO PR
+      # ============================================================
+
       - name: Detect changed files
         run: |
           echo "Files changed in this Pull Request:"
@@ -42,71 +118,45 @@ jobs:
 
           git diff \
             --name-only \
-            "${{ github.event.pull_request.base.sha }}" \
-            "${{ github.event.pull_request.head.sha }}" \
+            "$BASE_SHA" \
+            "$HEAD_SHA" \
             | tee changed-files.txt
 
           echo ""
           echo "Total changed files:"
           wc -l < changed-files.txt
 
-      # Impede alteração da infraestrutura da disciplina
-      - name: Protect course files
+
+      # ============================================================
+      # 6. IMPEDE ENTREGA SEM ALTERAÇÕES
+      # ============================================================
+
+      - name: Check submission contains files
         run: |
-          echo "Checking protected files..."
-
-          PROTECTED=false
-
-          while IFS= read -r file; do
-
-            case "$file" in
-              .github/*)
-                echo "ERROR: Students cannot modify GitHub Actions files:"
-                echo "  $file"
-                PROTECTED=true
-                ;;
-
-              COURSE.md)
-                echo "ERROR: COURSE.md is protected."
-                PROTECTED=true
-                ;;
-
-              PROJECT.md)
-                echo "ERROR: PROJECT.md is protected."
-                PROTECTED=true
-                ;;
-
-              CONTRIBUTING.md)
-                echo "ERROR: CONTRIBUTING.md is protected."
-                PROTECTED=true
-                ;;
-
-              CODE_OF_CONDUCT.md)
-                echo "ERROR: CODE_OF_CONDUCT.md is protected."
-                PROTECTED=true
-                ;;
-
-              LICENSE)
-                echo "ERROR: LICENSE is protected."
-                PROTECTED=true
-                ;;
-            esac
-
-          done < changed-files.txt
-
-          if [ "$PROTECTED" = true ]; then
-            echo ""
-            echo "Submission rejected."
-            echo "Restore the protected files and update the Pull Request."
+          if [ ! -s changed-files.txt ]; then
+            echo "ERROR: No files were changed."
             exit 1
           fi
 
-          echo "OK: No protected files were modified."
+          echo "OK: Submission contains changed files."
 
-      # Verifica se os arquivos estão em locais permitidos
-      - name: Validate repository structure
+
+      # ============================================================
+      # 7. PROTEGE ARQUIVOS DA DISCIPLINA
+      #
+      # O aluno NÃO pode modificar:
+      # .github/
+      # COURSE.md
+      # PROJECT.md
+      # CONTRIBUTING.md
+      # CODE_OF_CONDUCT.md
+      # LICENSE
+      # README.md da raiz
+      # ============================================================
+
+      - name: Protect course files
         run: |
-          echo "Checking repository structure..."
+          echo "Checking protected files..."
 
           INVALID=false
 
@@ -114,28 +164,14 @@ jobs:
 
             case "$file" in
 
-              groups/*)
-                echo "OK: $file"
+              .github/*)
+                echo "ERROR: GitHub configuration cannot be modified:"
+                echo "  $file"
+                INVALID=true
                 ;;
 
-              docs/*)
-                echo "OK: $file"
-                ;;
-
-              presentations/*)
-                echo "OK: $file"
-                ;;
-
-              website/*)
-                echo "OK: $file"
-                ;;
-
-              assets/*)
-                echo "OK: $file"
-                ;;
-
-              *)
-                echo "ERROR: File outside an allowed student directory:"
+              COURSE.md|PROJECT.md|CONTRIBUTING.md|CODE_OF_CONDUCT.md|LICENSE|README.md)
+                echo "ERROR: Protected course file:"
                 echo "  $file"
                 INVALID=true
                 ;;
@@ -146,50 +182,337 @@ jobs:
 
           if [ "$INVALID" = true ]; then
             echo ""
-            echo "Allowed directories:"
-            echo "  groups/"
-            echo "  docs/"
-            echo "  presentations/"
-            echo "  website/"
-            echo "  assets/"
+            echo "Submission rejected."
             exit 1
           fi
 
-          echo ""
-          echo "OK: Repository structure is valid."
+          echo "OK: No protected files were modified."
 
-      # Verifica arquivos vazios
-      - name: Check empty files
+
+      # ============================================================
+      # 8. GARANTE QUE A EQUIPE ALTERE SOMENTE SUA PRÓPRIA PASTA
+      #
+      # Exemplo:
+      # team-03 só pode modificar:
+      #
+      # groups/team-03/
+      # ============================================================
+
+      - name: Validate team directory
+        env:
+          TEAM: ${{ steps.team.outputs.team }}
         run: |
-          echo "Checking for empty files..."
+          echo "Checking team directory..."
+          echo "Expected directory: groups/$TEAM/"
+          echo ""
 
-          EMPTY=false
+          INVALID=false
 
           while IFS= read -r file; do
 
-            if [ -f "$file" ] && [ ! -s "$file" ]; then
-              echo "ERROR: Empty file detected:"
-              echo "  $file"
-              EMPTY=true
-            fi
+            case "$file" in
+
+              groups/$TEAM/*)
+                echo "OK: $file"
+                ;;
+
+              *)
+                echo "ERROR: File outside the team's directory:"
+                echo "  $file"
+                INVALID=true
+                ;;
+
+            esac
 
           done < changed-files.txt
 
-          if [ "$EMPTY" = true ]; then
+          if [ "$INVALID" = true ]; then
+
             echo ""
-            echo "Submission contains empty files."
+            echo "Students may modify only:"
+            echo "  groups/$TEAM/"
+            echo ""
+
             exit 1
           fi
 
-          echo "OK: No empty files detected."
+          echo ""
+          echo "OK: All files belong to $TEAM."
 
-      # Resultado final
+
+      # ============================================================
+      # 9. VERIFICA OS DOIS ARQUIVOS OBRIGATÓRIOS
+      #
+      # groups/team-XX/
+      # ├── README.md
+      # └── references.md
+      # ============================================================
+
+      - name: Check required files
+        env:
+          TEAM: ${{ steps.team.outputs.team }}
+        run: |
+          TEAM_DIR="groups/$TEAM"
+
+          echo "Checking required files..."
+          echo ""
+
+          ERROR=false
+
+          if [ ! -f "$TEAM_DIR/README.md" ]; then
+            echo "ERROR: Missing file:"
+            echo "  $TEAM_DIR/README.md"
+            ERROR=true
+          else
+            echo "OK: README.md found."
+          fi
+
+          if [ ! -f "$TEAM_DIR/references.md" ]; then
+            echo "ERROR: Missing file:"
+            echo "  $TEAM_DIR/references.md"
+            ERROR=true
+          else
+            echo "OK: references.md found."
+          fi
+
+          if [ "$ERROR" = true ]; then
+            exit 1
+          fi
+
+
+      # ============================================================
+      # 10. VERIFICA SE OS ARQUIVOS NÃO ESTÃO VAZIOS
+      # ============================================================
+
+      - name: Check empty files
+        env:
+          TEAM: ${{ steps.team.outputs.team }}
+        run: |
+          TEAM_DIR="groups/$TEAM"
+
+          ERROR=false
+
+          for file in \
+            "$TEAM_DIR/README.md" \
+            "$TEAM_DIR/references.md"
+          do
+
+            if [ ! -s "$file" ]; then
+              echo "ERROR: Empty file:"
+              echo "  $file"
+              ERROR=true
+            else
+              echo "OK: $file is not empty."
+            fi
+
+          done
+
+          if [ "$ERROR" = true ]; then
+            exit 1
+          fi
+
+
+      # ============================================================
+      # 11. VALIDA AS SEÇÕES OBRIGATÓRIAS DO README
+      # ============================================================
+
+      - name: Validate README structure
+        env:
+          TEAM: ${{ steps.team.outputs.team }}
+        run: |
+          FILE="groups/$TEAM/README.md"
+
+          echo "Checking README structure..."
+          echo ""
+
+          REQUIRED_SECTIONS=(
+            "## Members"
+            "## Selected Architecture"
+            "## Initial Overview"
+            "## Historical Context"
+            "## Technical Characteristics"
+            "## Relevance to Computer Architecture"
+          )
+
+          ERROR=false
+
+          for section in "${REQUIRED_SECTIONS[@]}"; do
+
+            if grep -Fqi "$section" "$FILE"; then
+              echo "OK: $section"
+            else
+              echo "ERROR: Missing section:"
+              echo "  $section"
+              ERROR=true
+            fi
+
+          done
+
+          if [ "$ERROR" = true ]; then
+            echo ""
+            echo "README.md does not contain all required sections."
+            exit 1
+          fi
+
+          echo ""
+          echo "OK: README structure is valid."
+
+
+      # ============================================================
+      # 12. VALIDA OS CAMPOS TÉCNICOS DA ARQUITETURA
+      # ============================================================
+
+      - name: Validate technical characteristics
+        env:
+          TEAM: ${{ steps.team.outputs.team }}
+        run: |
+          FILE="groups/$TEAM/README.md"
+
+          echo "Checking technical characteristics..."
+          echo ""
+
+          REQUIRED_FIELDS=(
+            "Architecture / ISA:"
+            "Word size:"
+            "Processor:"
+            "Memory:"
+            "Input/Output:"
+          )
+
+          ERROR=false
+
+          for field in "${REQUIRED_FIELDS[@]}"; do
+
+            if grep -Fqi "$field" "$FILE"; then
+              echo "OK: $field"
+            else
+              echo "ERROR: Missing technical field:"
+              echo "  $field"
+              ERROR=true
+            fi
+
+          done
+
+          if [ "$ERROR" = true ]; then
+            echo ""
+            echo "Technical characteristics are incomplete."
+            exit 1
+          fi
+
+          echo ""
+          echo "OK: Technical characteristics structure is valid."
+
+
+      # ============================================================
+      # 13. VERIFICA PELO MENOS 3 REFERÊNCIAS
+      #
+      # Aceita, por exemplo:
+      #
+      # 1. Intel...
+      # 2. Patterson...
+      # 3. IEEE...
+      #
+      # ou:
+      #
+      # - Intel...
+      # - Patterson...
+      # - IEEE...
+      # ============================================================
+
+      - name: Validate references
+        env:
+          TEAM: ${{ steps.team.outputs.team }}
+        run: |
+          FILE="groups/$TEAM/references.md"
+
+          echo "Checking references..."
+          echo ""
+
+          REFERENCE_COUNT=$(grep -E \
+            '^[[:space:]]*([0-9]+\.[[:space:]]+|-[[:space:]]+|\*[[:space:]]+)' \
+            "$FILE" \
+            | wc -l)
+
+          echo "References detected: $REFERENCE_COUNT"
+
+          if [ "$REFERENCE_COUNT" -lt 3 ]; then
+
+            echo ""
+            echo "ERROR: At least 3 references are required."
+            echo ""
+
+            exit 1
+          fi
+
+          echo "OK: Minimum number of references satisfied."
+
+
+      # ============================================================
+      # 14. VERIFICA A VINCULAÇÃO COM A ISSUE
+      #
+      # Na descrição do Pull Request deve existir:
+      #
+      # Related to #NUMERO
+      #
+      # ou
+      #
+      # Refs #NUMERO
+      # ============================================================
+
+      - name: Validate Issue reference
+        run: |
+          echo "Checking Issue reference in Pull Request..."
+          echo ""
+
+          shopt -s nocasematch
+
+          if [[ "$PR_BODY" =~ (Related[[:space:]]+to|Refs)[[:space:]]+\#[0-9]+ ]]; then
+
+            echo "OK: Pull Request is linked to an Issue."
+
+          else
+
+            echo "ERROR: Pull Request is not linked to the activity Issue."
+            echo ""
+            echo "Add one of these lines to the Pull Request description:"
+            echo ""
+            echo "  Related to #NUMBER"
+            echo ""
+            echo "or"
+            echo ""
+            echo "  Refs #NUMBER"
+            echo ""
+
+            exit 1
+          fi
+
+
+      # ============================================================
+      # 15. RESULTADO FINAL
+      # ============================================================
+
       - name: Submission approved
+        env:
+          TEAM: ${{ steps.team.outputs.team }}
         run: |
           echo ""
-          echo "======================================"
-          echo " SUBMISSION VALIDATION PASSED"
-          echo "======================================"
+          echo "================================================"
+          echo "          SUBMISSION VALIDATION PASSED"
+          echo "================================================"
           echo ""
-          echo "All automatic checks passed."
-          echo "The Pull Request is ready for review."
+          echo "Team: $TEAM"
+          echo "Delivery: Entrega 01"
+          echo ""
+          echo "[OK] Branch name"
+          echo "[OK] Team directory"
+          echo "[OK] Protected files"
+          echo "[OK] README.md"
+          echo "[OK] references.md"
+          echo "[OK] README structure"
+          echo "[OK] Technical fields"
+          echo "[OK] Minimum references"
+          echo "[OK] Issue reference"
+          echo ""
+          echo "Automatic validation completed successfully."
+          echo "The Pull Request is ready for professor review."
+          echo ""
