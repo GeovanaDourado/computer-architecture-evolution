@@ -1,0 +1,195 @@
+name: Submission Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate-submission:
+    name: Validate Submission
+    runs-on: ubuntu-latest
+
+    steps:
+      # Baixa o conteúdo do repositório para o runner
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # Mostra informações básicas do Pull Request
+      - name: Show submission information
+        run: |
+          echo "======================================"
+          echo " COMPUTER ARCHITECTURE - SUBMISSION"
+          echo "======================================"
+          echo ""
+          echo "Repository: ${{ github.repository }}"
+          echo "Author: ${{ github.actor }}"
+          echo "Branch: ${{ github.head_ref }}"
+          echo "Target: ${{ github.base_ref }}"
+          echo "Pull Request: #${{ github.event.pull_request.number }}"
+          echo ""
+
+      # Descobre quais arquivos foram modificados pelo aluno
+      - name: Detect changed files
+        run: |
+          echo "Files changed in this Pull Request:"
+          echo ""
+
+          git diff \
+            --name-only \
+            "${{ github.event.pull_request.base.sha }}" \
+            "${{ github.event.pull_request.head.sha }}" \
+            | tee changed-files.txt
+
+          echo ""
+          echo "Total changed files:"
+          wc -l < changed-files.txt
+
+      # Impede alteração da infraestrutura da disciplina
+      - name: Protect course files
+        run: |
+          echo "Checking protected files..."
+
+          PROTECTED=false
+
+          while IFS= read -r file; do
+
+            case "$file" in
+              .github/*)
+                echo "ERROR: Students cannot modify GitHub Actions files:"
+                echo "  $file"
+                PROTECTED=true
+                ;;
+
+              COURSE.md)
+                echo "ERROR: COURSE.md is protected."
+                PROTECTED=true
+                ;;
+
+              PROJECT.md)
+                echo "ERROR: PROJECT.md is protected."
+                PROTECTED=true
+                ;;
+
+              CONTRIBUTING.md)
+                echo "ERROR: CONTRIBUTING.md is protected."
+                PROTECTED=true
+                ;;
+
+              CODE_OF_CONDUCT.md)
+                echo "ERROR: CODE_OF_CONDUCT.md is protected."
+                PROTECTED=true
+                ;;
+
+              LICENSE)
+                echo "ERROR: LICENSE is protected."
+                PROTECTED=true
+                ;;
+            esac
+
+          done < changed-files.txt
+
+          if [ "$PROTECTED" = true ]; then
+            echo ""
+            echo "Submission rejected."
+            echo "Restore the protected files and update the Pull Request."
+            exit 1
+          fi
+
+          echo "OK: No protected files were modified."
+
+      # Verifica se os arquivos estão em locais permitidos
+      - name: Validate repository structure
+        run: |
+          echo "Checking repository structure..."
+
+          INVALID=false
+
+          while IFS= read -r file; do
+
+            case "$file" in
+
+              groups/*)
+                echo "OK: $file"
+                ;;
+
+              docs/*)
+                echo "OK: $file"
+                ;;
+
+              presentations/*)
+                echo "OK: $file"
+                ;;
+
+              website/*)
+                echo "OK: $file"
+                ;;
+
+              assets/*)
+                echo "OK: $file"
+                ;;
+
+              *)
+                echo "ERROR: File outside an allowed student directory:"
+                echo "  $file"
+                INVALID=true
+                ;;
+
+            esac
+
+          done < changed-files.txt
+
+          if [ "$INVALID" = true ]; then
+            echo ""
+            echo "Allowed directories:"
+            echo "  groups/"
+            echo "  docs/"
+            echo "  presentations/"
+            echo "  website/"
+            echo "  assets/"
+            exit 1
+          fi
+
+          echo ""
+          echo "OK: Repository structure is valid."
+
+      # Verifica arquivos vazios
+      - name: Check empty files
+        run: |
+          echo "Checking for empty files..."
+
+          EMPTY=false
+
+          while IFS= read -r file; do
+
+            if [ -f "$file" ] && [ ! -s "$file" ]; then
+              echo "ERROR: Empty file detected:"
+              echo "  $file"
+              EMPTY=true
+            fi
+
+          done < changed-files.txt
+
+          if [ "$EMPTY" = true ]; then
+            echo ""
+            echo "Submission contains empty files."
+            exit 1
+          fi
+
+          echo "OK: No empty files detected."
+
+      # Resultado final
+      - name: Submission approved
+        run: |
+          echo ""
+          echo "======================================"
+          echo " SUBMISSION VALIDATION PASSED"
+          echo "======================================"
+          echo ""
+          echo "All automatic checks passed."
+          echo "The Pull Request is ready for review."
