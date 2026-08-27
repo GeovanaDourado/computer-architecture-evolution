@@ -1,9 +1,15 @@
 # References
 
-This page centralizes all references used by the project.
+## Team XX
 
-Students must use IEEE citation style.
+Liste abaixo pelo menos **3 referências confiáveis** utilizadas pela equipe.
 
-Example
+1. Referência 1.
+2. Referência 2.
+3. Referência 3.
 
-[1] Andrew Tanenbaum, Structured Computer Organization.
+## Orientações
+
+- Priorize livros, artigos científicos, documentação técnica oficial, museus de computação, fabricantes e instituições reconhecidas.
+- Evite utilizar somente blogs ou páginas sem autoria identificada.
+- Inclua, quando disponível, autor, título, ano e link.
