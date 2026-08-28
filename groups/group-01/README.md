@@ -8,15 +8,15 @@ To be defined
 
 ## Members
 
--
+- Brenno Lucas
 
--
+- Gabriel Shallon
 
--
+- Geovana Dourado
 
--
+- Giovana Dutra
 
--
+- Gustavo Morais
 
 ---
 
@@ -24,7 +24,7 @@ To be defined
 
 | Week | Status |
 |-------|---------|
-|1|⬜|
+|1|x|
 |2|⬜|
 |3|⬜|
 |4|⬜|
