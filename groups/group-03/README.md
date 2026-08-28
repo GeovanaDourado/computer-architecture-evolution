@@ -9,41 +9,200 @@ To be defined
 ## Members
 
 - Tiago Henrique Souza Lima
+
 -Emanuel Borges Vale
+
 -Elaine Cardoso de Souza Barros
+
 -Augusto Spolavori Siqueira
+
 -Joao Guilherme Alves de Souza Oliveira
+
 -João Victor Ferreira de Lima Moura
 
 ---
 
 ## Weekly Progress
 
-| Week | Status |
-|-------|---------|
-|1|⬜|O MISD é, portanto, a categoria em que várias instruções — ou várias funções distintas — atuam sobre o mesmo fluxo de dados. Ela deve ser entendida como uma classificação conceitual dentro da taxonomia, e não como o nome de uma arquitetura comercial específica ou de uma família de processadores amplamente disponível. Diferentemente de SISD, SIMD e MIMD, que descrevem organizações comuns em computadores de uso geral, o MISD tem ocorrência prática rara, e a literatura não é unânime sobre quais sistemas reais se enquadram nela — ponto que retomamos nas questões de investigação, ao final deste documento.
+### Arquitetura/Processador Escolhido
 
-|2|⬜|2. Qual é a ideia central? O problema arquitetural que o MISD representa é: como aplicar processamentos diferentes a uma mesma entrada, sem exigir que todas as unidades executem a mesma operação? A resposta conceitual é distribuir o fluxo de dados para caminhos distintos de execução, cada um respondendo a uma pergunta ou aplicando uma função diferente sobre o mesmo dado. Ao final, esses resultados podem ser comparados, combinados ou usados como base para uma decisão. Isso é justamente o que diferencia o MISD do SIMD: no SIMD, uma única instrução é replicada sobre vários dados; no MISD, várias instruções distintas analisam o mesmo dado. São lógicas opostas dentro da mesma taxonomia, e é comum haver confusão entre as duas — algo que procuramos evitar ao longo deste trabalho
+**Arquitetura MISD (Multiple Instruction, Single Data)**
 
-|3|⬜| Para que serve essa organização? A literatura associa o princípio MISD a situações em que um mesmo dado precisa ser submetido a análises independentes — por exemplo, quando se deseja comparar os resultados de diferentes algoritmos aplicados à mesma entrada, ou quando a redundância de processamento é usada como mecanismo de verificação. Esse tipo de necessidade aparece com mais frequência em sistemas onde a confiabilidade do resultado importa mais do que a simplicidade da arquitetura, como em contextos de checagem cruzada de sinais. Tratamos essa aplicação como uma motivação conceitual, não como uma lista fechada de usos comprovados, já que exemplos comerciais inequívocos são difíceis de identificar.
+A arquitetura escolhida para o desenvolvimento deste projeto é a **MISD (Multiple Instruction, Single Data — Múltiplas Instruções, Um Único Dado)**, uma das classificações propostas pela taxonomia de Flynn para organização de sistemas computacionais paralelos.
 
-|4|⬜|FONTE / SENSOR │ ▼ FLUXO ÚNICO DE DADOS (D) │ ▼ CONTROLADOR  —  recebe D e disponibiliza o mesmo fluxo a caminhos distintos │ ┌─────────────┬──────────────┬──────────────┬─────────────┐ ▼             ▼              ▼              ▼ UNIDADE A     UNIDADE B      UNIDADE C      UNIDADE D verificar     analisar       detectar       validar limite        tendência      anomalia       o dado │             │              │              │ └─────────────┴──────────────┴──────────────┘ │  resultados RA, RB, RC, RD ▼ COMPARADOR / VOTADOR  —  consolida os resultados │ ▼ SAÍDA / DECISÃO  (registro, alerta ou comando)
+Nesse modelo, **diferentes unidades de processamento podem executar instruções distintas sobre um mesmo fluxo de dados**. Dessa forma, enquanto uma arquitetura tradicional pode executar uma única operação por vez sobre determinado dado, a MISD permite que diferentes operações sejam realizadas de maneira paralela ou coordenada sobre o mesmo conjunto de informações.
 
-|5|⬜|Componente Papel na proposta do grupo Observação técnica Fonte / sensor Fornece o valor ou sinal de entrada compartilhado. Definido pela aplicação; não faz parte da taxonomia. Controlador Recebe o fluxo e o disponibiliza às unidades de processamento. Não existe um controlador MISD padronizado. Unidades de processamento Executam instruções diferentes sobre o mesmo dado. Quantidade e função dependem do projeto. Registradores Guardam operandos e resultados locais de cada unidade. Conjunto definido pela implementação escolhida. Memória e cache Armazenam instruções, dados e resultados intermediários. Hierarquia não é imposta pela taxonomia. Interconexão Transporta dados e sinais de controle entre os blocos. Pode ser barramento, canais dedicados ou rede-on-chip. Comparador / votador Consolida RA–RD em uma saída única. Regra de decisão é definida pela aplicação
+A escolha da MISD está relacionada à possibilidade de analisar um mesmo dado sob diferentes perspectivas de processamento, sendo uma arquitetura conceitualmente adequada para cenários que exigem **processamento paralelo, redundância, análise simultânea e respostas rápidas**.
 
-|6|⬜|Entrada uma fonte externa fornece o dado D. 2 · Aquisição o controlador recebe D. 3 · Distribuição o mesmo D é disponibilizado a caminhos de processamento distintos. 4 · Execução concorrente cada unidade aplica sua própria instrução ou função sobre D. 5 · Consolidação os resultados são comparados, combinados ou avaliados por uma regra de decisão. 6 · Saída - Exemplo didático: um sensor fornece a leitura 85 °C. A Unidade A poderia executar verificarLimite(85); a Unidade B, analisarTendência(85, histórico); a Unidade C, detectarAnomalia(85, contexto); e a Unidade D, validarSensor(85). Cada função responde a uma pergunta diferente sobre a mesma entrada, e o comparador poderia então classificar o resultado como NORMAL, ATENÇÃO ou ALERTA. Esse exemplo tem finalidade exclusivamente didática — não descreve um sistema real documentado.
+No contexto deste projeto, a arquitetura será estudada considerando sua **organização, funcionamento, fluxo de dados, unidades de processamento e aplicação prática**, relacionando esses elementos aos conceitos de paralelismo e organização de computadores abordados na disciplina.
 
-|7|⬜|A Taxonomia de Flynn classifica a relação entre fluxos de instruções e de dados; ela não define, por si só, a organização de memória, cache, registradores ou conjunto de instruções de um sistema. Por isso, distinguimos a classificação MISD — que é conceitual — da implementação física, que é uma decisão de projeto separada. Em uma organização possível, a memória principal manteria instruções, dados e estados; a cache reduziria a latência de acessos repetidos; os registradores guardariam operandos locais de cada unidade; e uma área de resultados reuniria as saídas RA a RD antes da consolidação. Quando várias unidades leem o mesmo dado, a interconexão e as políticas de consistência de memória precisam evitar gargalos e leituras divergentes — mas, novamente, isso depende da implementação escolhida, não da classificação MISD em si.
+### Breve Contexto Histórico e Modelo da Arquitetura MISD:
 
-|8|⬜|Como ocorre a comunicação O caminho crítico da proposta é entrada → distribuição → unidades → consolidação → saída. Uma implementação concreta poderia usar barramentos compartilhados, canais ponto a ponto, controladores de memória dedicados, interfaces de E/S e mecanismos de sincronização entre as unidades. A escolha entre essas opções depende de fatores como latência, largura de banda disponível, confiabilidade exigida, custo e número de unidades envolvidas. Os principais desafios de comunicação em uma organização desse tipo seriam: latência na distribuição do fluxo compartilhado, disputa por largura de banda entre as unidades, sincronização entre caminhos com tempos de execução diferentes, possíveis gargalos no controlador, consistência dos dados lidos simultaneamente e integridade do dado original ao longo de todo o percurso. Como o grupo ainda não implementou nenhuma dessas soluções, essas afirmações devem ser lidas como hipóteses de projeto a serem aprofundadas.
+A arquitetura **MISD (Multiple Instruction, Single Data)** surgiu no contexto das pesquisas sobre **processamento paralelo**, sendo formalmente classificada na **Taxonomia de Flynn**, proposta por Michael J. Flynn em 1966. Essa classificação organiza os computadores de acordo com os fluxos de instruções e de dados, dividindo-os em SISD, SIMD, MISD e MIMD.
 
-|9|⬜|O paralelismo do MISD aparece quando diferentes instruções processam o mesmo fluxo de dados de forma simultânea ou sobreposta. Isso o diferencia do paralelismo típico do SIMD, cujo objetivo costuma ser aumentar o throughput aplicando a mesma operação a muitos dados de uma vez. No MISD, o ganho não é necessariamente de velocidade bruta: é a possibilidade de obter, ao mesmo tempo, diferentes interpretações do mesmo dado — o que favorece redundância, comparação e, em tese, maior confiabilidade do resultado final.
+Na MISD, **múltiplas instruções são executadas sobre um único fluxo de dados**. Assim, o mesmo dado pode ser encaminhado para diferentes unidades de processamento, cada uma realizando uma operação distinta. Embora seja uma arquitetura pouco comum em computadores de uso geral, seu conceito teve importância no desenvolvimento de sistemas paralelos e especializados, principalmente em aplicações que exigem **confiabilidade, redundância e processamento simultâneo**.
 
-|10|⬜|Vantagem principal e limitações Vantagem principal Permitir que um mesmo fluxo de dados seja submetido a operações diferentes, favorecendo diversidade de análise, comparação de resultados e, em aplicações críticas, maior tolerância a falhas. Principais limitações • organização rara, com poucos exemplos comerciais inequívocos; • replicação de unidades, interconexões e mecanismos de consolidação aumenta custo e consumo de energia; • maior complexidade de sincronização entre as unidades; • ausência de padronização dificulta comparação entre implementações.
-|11|⬜|
-|12|⬜|
-|13|⬜|
-|14|⬜|
-|15|⬜|
+De forma simplificada, seu modelo pode ser representado como:
+
+**Um fluxo de dados → múltiplas instruções → diferentes unidades de processamento → resultados.**
+
+Dessa forma, a MISD representa uma abordagem específica de paralelismo, na qual diferentes operações podem analisar ou transformar o mesmo dado de maneira simultânea ou coordenada.
+
+
+### Características Técnicas Básicas
+
+**ISA (Instruction Set Architecture):**
+A arquitetura MISD não possui uma ISA própria. Por ser um modelo de organização de processamento, pode utilizar diferentes conjuntos de instruções, dependendo do processador ou sistema empregado. A característica principal está na execução de **múltiplas instruções sobre um mesmo fluxo de dados**, e não no conjunto específico de instruções.
+
+**Tamanho da palavra:**
+Também não existe um tamanho de palavra definido pela arquitetura MISD. Essa característica depende do processador utilizado na implementação. Podem ser utilizados processadores com palavras de **32 ou 64 bits**, por exemplo. Portanto, o tamanho da palavra deve ser especificado de acordo com o processador escolhido para representar ou implementar o modelo MISD.
+
+**Em resumo:** a MISD define principalmente **como instruções e dados são processados**, enquanto características como ISA, número de bits, registradores e frequência dependem da implementação utilizada.
+
+
+### Processador/Família Escolhida
+
+**Família escolhida: Intel Xeon**
+
+A família **Intel Xeon** foi escolhida como referência para o projeto por ser voltada a servidores e sistemas de alto desempenho, oferecendo processamento de **64 bits, múltiplos núcleos e recursos de processamento paralelo**.
+
+No projeto de sensores, o Xeon pode atuar como **processador do servidor responsável por receber e analisar os dados coletados pelos sensores**. O mesmo dado poderá ser submetido a diferentes operações, como verificação de limites, análise de falhas e armazenamento, permitindo relacionar o sistema aos conceitos da arquitetura **MISD**.
+
+**Observação:** O **Intel Xeon não é um processador MISD puro**, mas será utilizado como **referência de hardware e plataforma de processamento para o projeto**. A arquitetura **MISD será adotada como modelo conceitual** para representar o processamento de um mesmo fluxo de dados por diferentes instruções, permitindo demonstrar como os dados coletados pelos sensores podem passar por diferentes etapas de análise dentro do sistema.
+
+### Memória
+
+No projeto, a memória será responsável por **armazenar temporariamente os dados coletados pelos sensores e disponibilizá-los ao processador para serem analisados**. Como referência, o servidor equipado com processador Intel Xeon poderá utilizar **memória RAM DDR4 ou DDR5**, oferecendo velocidade adequada para o processamento contínuo das informações.
+
+Quando um sensor realiza uma leitura, como temperatura, pressão ou vibração, o dado é enviado ao servidor e armazenado inicialmente na **memória RAM**. O processador então acessa essas informações para realizar os cálculos e análises necessários. Como a RAM é uma memória de acesso rápido, ela permite que os dados sejam lidos e processados rapidamente durante o funcionamento do sistema.
+
+Após o processamento, os resultados podem ser enviados para um **banco de dados ou armazenamento permanente**, enquanto os dados temporários permanecem na RAM apenas enquanto forem necessários.
+
+No projeto, o fluxo pode ser representado da seguinte forma:
+
+**Sensor → Memória RAM → Processador → Análise dos dados → Banco de dados**
+
+Assim, a memória atua como uma **ponte de alta velocidade entre a coleta dos dados e o processamento**, garantindo que as informações dos sensores estejam disponíveis rapidamente para as diferentes operações realizadas pelo sistema.
+
+
+### Entrada/Saída (E/S)
+
+Na arquitetura **MISD (Multiple Instruction, Single Data)**, os mecanismos de entrada e saída são responsáveis por permitir a comunicação entre o sistema de processamento e o ambiente externo. Os dispositivos de entrada fornecem os dados que serão processados, enquanto os dispositivos de saída recebem ou apresentam os resultados gerados pelo processamento.
+
+De forma geral, os dados entram no sistema por meio de dispositivos como **sensores, interfaces de comunicação ou outros equipamentos de aquisição**. Após serem recebidos e armazenados temporariamente na memória, esses dados são encaminhados para diferentes unidades ou etapas de processamento, nas quais **instruções distintas podem ser executadas sobre o mesmo fluxo de dados**. Depois do processamento, os resultados podem ser enviados para dispositivos de saída ou armazenados para utilização posterior.
+
+O fluxo básico pode ser representado como:
+
+**Entrada → Memória → Múltiplas instruções → Processamento → Saída**
+
+### Aplicação no Projeto de Sensores
+
+No projeto, os **sensores serão os principais dispositivos de entrada**, responsáveis por coletar informações como temperatura, pressão e vibração. Esses dados serão enviados ao servidor por meio de uma rede de comunicação e armazenados temporariamente na memória.
+
+Em seguida, o sistema poderá utilizar diferentes processos para analisar o mesmo dado. Por exemplo, uma mesma leitura de temperatura pode ser utilizada para **verificar limites de segurança, calcular estatísticas, identificar anomalias e gerar alertas**.
+
+Após essas análises, os resultados serão enviados para dispositivos de saída, como **computadores, smartphones ou um painel de monitoramento**, além de poderem ser armazenados em um banco de dados.
+
+Assim, no projeto, o fluxo será:
+
+**Sensores → Comunicação → Memória → Processamento MISD → Resultados → Interface/Alertas/Banco de dados**
+
+
+### Importância da Arquitetura MISD para a Evolução da Computação
+
+A arquitetura **MISD** foi importante para a evolução da computação por contribuir para o desenvolvimento de técnicas de **processamento paralelo, redundância e confiabilidade**. Um exemplo marcante de aplicação desses conceitos pode ser encontrado nos sistemas computacionais utilizados no **Ônibus Espacial (Space Shuttle)**.
+
+Nos sistemas de controle de voo do ônibus espacial, computadores trabalhavam de forma redundante para aumentar a segurança da missão. As informações recebidas dos sensores podiam ser processadas por diferentes unidades, permitindo comparar resultados e identificar possíveis falhas. Essa abordagem demonstrava como o processamento paralelo e a redundância poderiam ser utilizados em sistemas nos quais um erro poderia causar consequências graves.
+
+Esse tipo de aplicação ajudou a demonstrar a importância de utilizar **múltiplos processamentos sobre informações críticas**, contribuindo para o desenvolvimento de sistemas computacionais mais confiáveis.
+
+Atualmente, princípios semelhantes podem ser encontrados em sistemas de **aviação, automação industrial, veículos autônomos, equipamentos médicos e sistemas de monitoramento**, nos quais diferentes análises podem ser realizadas sobre os mesmos dados para aumentar a segurança e a eficiência.
+
+No nosso projeto de sensores, esse conceito pode ser aplicado de uma forma bem prática. Os sensores irão coletar informações do ambiente, como **temperatura, pressão e vibração**, e esses mesmos dados poderão ser enviados para diferentes processos de análise. Por exemplo, uma leitura de temperatura pode, ao mesmo tempo, ser utilizada para verificar se está dentro do limite considerado seguro, analisar se houve alguma alteração fora do padrão e identificar uma possível falha no equipamento. Caso seja detectado algum problema, o sistema poderá gerar um alerta para o responsável.
+
+Dessa forma, em vez de utilizar o dado coletado para apenas uma função, podemos aproveitar a mesma informação para realizar **várias análises diferentes**, tornando o sistema mais completo e confiável. Essa aplicação mostra como os conceitos relacionados à MISD podem ser utilizados no nosso projeto para melhorar o monitoramento dos sensores e permitir uma resposta mais rápida quando alguma situação anormal for identificada.
+
+### Fluxograma de Funcionamento da Arquitetura MISD no Projeto de Sensores
+
+                 ┌───────────────┐
+                 │    INÍCIO     │
+                 └───────┬───────┘
+                         │
+                         ▼
+              ┌─────────────────────┐
+              │   SENSORES (ENTRADA)│
+              │ Temperatura, pressão│
+              │    e vibração       │
+              └──────────┬──────────┘
+                         │
+                         ▼
+              ┌─────────────────────┐
+              │ TRANSMISSÃO DOS     │
+              │       DADOS         │
+              │ Wi-Fi / 4G / 5G /   │
+              │      Ethernet       │
+              └──────────┬──────────┘
+                         │
+                         ▼
+              ┌─────────────────────┐
+              │    MEMÓRIA RAM      │
+              │ Armazena os dados   │
+              │ temporariamente     │
+              └──────────┬──────────┘
+                         │
+                         ▼
+              ┌─────────────────────┐
+              │   MODELO MISD       │
+              │ Mesmo dado recebe   │
+              │ diferentes          │
+              │ instruções          │
+              └──────────┬──────────┘
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+          ▼              ▼              ▼
+   ┌────────────┐ ┌────────────┐ ┌────────────┐
+   │ PROCESSO 1 │ │ PROCESSO 2 │ │ PROCESSO 3 │
+   │ Verificar  │ │ Análise    │ │ Detectar   │
+   │ limites    │ │ estatística│ │ anomalias  │
+   └─────┬──────┘ └─────┬──────┘ └─────┬──────┘
+         │              │              │
+         ▼              ▼              ▼
+   ┌────────────┐ ┌────────────┐ ┌────────────┐
+   │ Resultado 1│ │ Resultado 2│ │ Resultado 3│
+   │ Temperatura│ │ Média /    │ │ Falha ou   │
+   │ normal?    │ │ tendência  │ │ anomalia?  │
+   └─────┬──────┘ └─────┬──────┘ └─────┬──────┘
+         │              │              │
+         └──────────────┼──────────────┘
+                        │
+                        ▼
+              ┌─────────────────────┐
+              │ CONSOLIDAÇÃO DOS    │
+              │     RESULTADOS      │
+              │ Analisa todas as    │
+              │ respostas obtidas   │
+              └──────────┬──────────┘
+                         │
+                         ▼
+              ┌─────────────────────┐
+              │    SAÍDA / AÇÃO     │
+              │ Dashboard, aplicativo│
+              │ ou alerta ao usuário│
+              └──────────┬──────────┘
+                         │
+                         ▼
+              ┌─────────────────────┐
+              │ BANCO DE DADOS      │
+              │ Armazenamento dos   │
+              │ resultados e histórico│
+              └──────────┬──────────┘
+                         │
+                         ▼
+                 ┌───────────────┐
+                 │      FIM      │
+                 └───────────────┘
+
+
 
 ---
