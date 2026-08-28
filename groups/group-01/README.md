@@ -34,9 +34,9 @@ ENIAC
 
 ## Word Size
 
+---
 
-
-## Processor
+## Processor/Family
 
 ---
 
