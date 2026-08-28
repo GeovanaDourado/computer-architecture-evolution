@@ -1,36 +1,45 @@
 # Contribution Guidelines
 
 ## Branch Naming
+Criar a branch:
+team-XX/entrega-01
 
-feature/group01-week02
 
-feature/group04-memory
+Criar a pasta:
+groups/team-XX/
 
-feature/group07-comparison
 
----
+Dentro dela, criar:
 
-## Commit Messages
 
-docs(history): add historical background
+README.md
 
-docs(cpu): describe Intel 8086
 
-docs(memory): compare cache hierarchy
+references.md
 
----
 
-## Pull Requests
+No README.md, informar:
 
-Every Pull Request must
 
-- reference the weekly Issue
-- include references
-- include images
-- follow Markdown formatting
+integrantes;
+arquitetura/processador escolhido;
+breve contexto histórico;
+características técnicas básicas:
+ISA;
+tamanho da palavra;
+processador/família;
+memória;
+entrada/saída;
+importância dessa arquitetura para a evolução da computação.
 
----
 
-## Reviews
+No references.md: pelo menos 3 referências confiáveis.
 
-Pull Requests must be approved before merging.
+
+Abrir um Pull Request para main e, na descrição, colocar:
+
+
+Related to #NÚMERO_DA_ISSUE
+
+
+A entrega só fica válida quando a GitHub Action passar e o PR estiver pronto para revisão.
