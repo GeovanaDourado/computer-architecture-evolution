@@ -2,7 +2,7 @@
 
 ## Architecture
 
-To be defined
+ENIAC
 
 ---
 
@@ -17,6 +17,38 @@ To be defined
 - Giovana Dutra
 
 - Gustavo Morais
+
+---
+
+## Historical Context
+
+---
+
+## Basic Technique Characterist
+
+---
+
+## ISA
+
+---
+
+## Word Size
+
+---
+
+## Processor
+
+---
+
+## Memory
+
+---
+
+## Input/Output
+
+---
+
+## The importance of architecture for the computing evolution.
 
 ---
 
