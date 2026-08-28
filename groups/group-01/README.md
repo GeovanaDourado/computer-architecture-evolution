@@ -4,8 +4,6 @@
 
 ENIAC
 
----
-
 ## Members
 
 - Brenno Lucas
@@ -18,15 +16,13 @@ ENIAC
 
 - Gustavo Morais
 
----
-
 ## Historical Context
 
-O projeto ENIAC foi iniciado em 1943, por John Eckhart e John Mauchly. Foi concluído em 1946, ao final da Segunda Guerra Mundial e beirando o início da Guerra Fria. O projeto foi desenvolvido para controle balístico dos Estados Unidos, com cálculos rápidos que demorariam dias pra serem resolvidos sem programação.
+O projeto ENIAC foi iniciado em 1943, por John Eckhart e John Mauchly. Foi concluído em 1946, ao final da Segunda Guerra Mundial e beirando o início da Guerra Fria. O projeto foi desenvolvido para controle balístico dos Estados Unidos, capaz de realizar por segundo uma quantidade de cálculos que demorariam horas pra serem resolvidos manualmente.
 
-## Basic Technique Characterist
+## Basic Technical Characteristics
 
----
+Computador digital eletrônico de primeira geração, baseado em válvulas eletrônicas, com aritmética decimal, processamento paralelo e programação por cabos, painéis e interruptores.
 
 ## ISA
 
@@ -38,11 +34,11 @@ O tamanho da palavra é a quantidade de dados que um computador consegue process
 
 ## Processor/Family
 
-A arquitetura do é ENIAC não corresponde à nenhuma família especefíca. Ele foi uma máquina única que foi projetada especificamente para cálculos númericos. Podemos chamar a família do ENIAC pelo próprio nome dele já que foi o único de seu tipo. A família do ENIAC foi composta de apenas um computador de primeira geração (O ENIAC), baseado em válvulas eletrônicas, com uma arquitetura decimal, baseada em acumuladores e processamento paralelo.
+A arquitetura do ENIAC não corresponde à nenhuma família especefíca. Ele foi uma máquina única que foi projetada especificamente para cálculos númericos. Podemos chamar a família do ENIAC pelo próprio nome dele já que foi o único de seu tipo. A família do ENIAC foi composta de apenas um computador de primeira geração (O ENIAC), baseado em válvulas eletrônicas, com uma arquitetura decimal, baseada em acumuladores e processamento paralelo.
 
 ## Memory
 
----
+O ENIAC utilizava principalmente 20 acumuladores, cada um capaz de armazenar um número decimal de 10 digitos, e eram utilizados tanto para realizar operações aritméticas quanto para armazenar dados e resultados intermediários. Ele também possuía tabelas de função, que armazenavam valores predefinidos (como constantes matemáticas), além de cartões perfurados usados para entrada, saída e armazenamento externo. Em 1953 foi adicionada uma memória de núcleos magnéticos capaz de armazenar 100 palavras.
 
 ## Input/Output
 
@@ -52,13 +48,11 @@ A entrada e saída de dados eram feitas por meio de cartões perfurados. A prese
 
 Primeiro computador programavel da história, revolucionário pelo seu uso de válvulas a vácuo para alcançar uma velocidade de processamento 
 
----
-
 ## Weekly Progress
 
 | Week | Status |
 |-------|---------|
-|1|x|
+|1|🟩|
 |2|⬜|
 |3|⬜|
 |4|⬜|
