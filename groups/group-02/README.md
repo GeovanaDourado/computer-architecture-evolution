@@ -7,7 +7,6 @@
 * Hayane
 * Sócrates
 * Guilherme rodrigues
-
 ## Arquitetura / Processador
 
 **Arquitetura:** Colossus
