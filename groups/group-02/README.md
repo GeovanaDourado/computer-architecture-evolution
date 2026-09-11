@@ -6,6 +6,7 @@
 * Mariana 
 * Hayane
 * Sócrates
+* Guilherme rodrigues
 
 ## Arquitetura / Processador
 
