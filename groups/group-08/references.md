@@ -1,5 +1,18 @@
 # References
 
+Use IEEE style.
+
+Example
+
+[1] Tanenbaum, A. Structured Computer Organization.
+
+[2] Patterson, D.; Hennessy, J. Computer Organization and Design.
+
+[3] IEEE Xplore
+
+[4] ACM Digital Library
+
+[5] Intel Documentation
 [1] HARTREE, D. The Eniac, an Electronic Computing Machine. Nature 158, 500–506 (1946). https://doi.org/10.1038/158500a0
 
 [2] WIKIPEDIA CONTRIBUTORS. ENIAC. Wikipedia, The Free Encyclopedia, 2026. https://en.wikipedia.org/wiki/ENIAC
