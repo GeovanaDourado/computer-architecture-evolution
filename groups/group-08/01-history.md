@@ -3,7 +3,7 @@
 ## 1.1 Architecture Name
 CISC  (Complex Instruction Set Computer, ou Computador com Conjunto Complexo de Instruções).
 ## 1.2 Year of Creation
-
+O CISC não tem um ano exato de criação, mas seu estilo de projeto começou com a criação de alguns computadores modernos nos finais de 1940 e 1950, e alguns marcos históricos como o IBM System 360 em 1964. Mas o termo **CISC** surgiu por volta de 1982, após o surgimento do RISC.
 ## 1.3 Country
 Não nasceu em um lugar especifico, mas foi consolidado nos Estados Unidos.
 ## 1.4 Inventor(s)
