@@ -204,5 +204,541 @@ Dessa forma, em vez de utilizar o dado coletado para apenas uma função, podemo
                  └───────────────┘
 
 
+---
+
+# Desenvolvimento do Projeto
+
+Após a definição da arquitetura **MISD** e da estrutura inicial do sistema, o projeto será desenvolvido a partir de cinco questões principais.
+
+Essas questões têm como objetivo organizar o desenvolvimento do projeto desde a identificação do problema até os testes e a avaliação da solução.
+
+## Questões Orientadoras
+
+### 1. Problema e solução
+
+**Qual problema o projeto pretende solucionar e como será definida a solução?**
+
+Nesta etapa, será apresentado o problema identificado, a necessidade do sistema e a solução proposta, incluindo sua relação com o conceito da arquitetura MISD.
+
+### 2. Requisitos
+
+**Quais são os requisitos necessários para o funcionamento do sistema?**
+
+Nesta etapa, serão definidos os requisitos **funcionais e não funcionais** do projeto, descrevendo o que o sistema deverá fazer e quais condições deverá atender.
+
+### 3. Arquitetura e componentes
+
+**Como será definida a arquitetura e quais componentes serão utilizados?**
+
+Nesta etapa, serão apresentados os principais componentes do sistema, como **sensores, ESP32, comunicação, computador/servidor, processamento, banco de dados e dashboard**, explicando como eles estarão relacionados.
+
+### 4. Desenvolvimento e processamento
+
+**Como o sistema será desenvolvido e como ocorrerá o processamento dos dados?**
+
+Nesta etapa, será explicado como ocorrerá a implementação do hardware e do software, desde a coleta dos dados pelos sensores até o processamento e as diferentes análises realizadas sobre o mesmo fluxo de dados.
+
+### 5. Testes e avaliação
+
+**Como serão realizados os testes e como será avaliado o funcionamento do projeto?**
+
+Nesta etapa, serão definidos os testes e critérios de avaliação utilizados para verificar se os componentes e as funcionalidades do sistema estão funcionando conforme o esperado.
 
 ---
+
+## Organização do desenvolvimento
+
+O projeto seguirá, de forma geral, o seguinte caminho:
+
+```text
+┌──────────────────────────────┐
+│ 1. PROBLEMA E SOLUÇÃO        │
+│ Identificação da necessidade │
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│ 2. REQUISITOS                │
+│ O que o sistema precisa fazer│
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│ 3. ARQUITETURA               │
+│ Componentes e funcionamento  │
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│ 4. DESENVOLVIMENTO           │
+│ Hardware, software e análise │
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│ 5. TESTES E AVALIAÇÃO        │
+│ Verificação dos resultados   │
+└──────────────────────────────┘
+```
+## Resolução:
+
+# 1. Problema e Solução
+
+> **Questão orientadora:**
+> **Qual problema o projeto pretende solucionar e como será definida a solução?**
+
+## 1.1 Identificação do problema
+
+Em ambientes que possuem equipamentos e máquinas em funcionamento, informações como **temperatura, pressão e vibração** podem ser importantes para acompanhar as condições de operação.
+
+Quando esses dados são coletados e analisados manualmente, podem surgir algumas dificuldades:
+
+* demora para identificar alterações nos valores;
+* dificuldade para acompanhar vários dados ao mesmo tempo;
+* possibilidade de erros durante a análise manual;
+* dificuldade para armazenar e consultar informações anteriores;
+* ausência de uma visualização centralizada dos dados.
+
+Dessa forma, o projeto propõe o desenvolvimento de um **protótipo de monitoramento de sensores**, capaz de coletar dados, enviá-los para um computador ou servidor e realizar diferentes análises sobre essas informações.
+
+---
+
+## 1.2 Situação sem a solução proposta
+
+Sem um sistema automatizado, o acompanhamento das informações poderia depender de verificações manuais ou de sistemas separados.
+
+Um exemplo seria um responsável precisar verificar individualmente os valores de temperatura, pressão e vibração e posteriormente comparar esses dados para identificar possíveis alterações.
+
+Esse processo pode dificultar a identificação rápida de situações que necessitam de atenção.
+
+A proposta do projeto é centralizar esse processo, permitindo que os dados sejam coletados e encaminhados para diferentes etapas de processamento.
+
+---
+
+## 1.3 Solução proposta
+
+A solução consiste em desenvolver um **protótipo de sistema de monitoramento utilizando sensores conectados a um ESP32**.
+
+O ESP32 será responsável por receber as informações dos sensores e realizar a comunicação com um computador ou servidor.
+
+Após o recebimento dos dados, o sistema poderá realizar diferentes análises utilizando o mesmo fluxo de informações.
+
+Por exemplo, uma mesma leitura de temperatura poderá ser:
+
+1. comparada com um limite definido;
+2. comparada com valores históricos;
+3. analisada para identificar possíveis alterações ou anomalias.
+
+Assim, diferentes instruções podem trabalhar sobre o **mesmo conjunto de dados**, permitindo demonstrar no projeto o princípio relacionado à arquitetura **MISD**.
+
+---
+
+# 1.4 Resolução em etapas
+
+Para desenvolver a solução proposta, o projeto será dividido em etapas. Essa divisão permite organizar o desenvolvimento desde a coleta das informações até a apresentação dos resultados.
+
+### Etapa 1 — Coleta dos dados
+
+Primeiramente, os sensores serão responsáveis por coletar informações do ambiente ou do equipamento monitorado.
+
+Os dados considerados inicialmente serão:
+
+* **temperatura**;
+* **pressão**;
+* **vibração**.
+
+```text
+┌─────────────────────┐
+│       SENSORES      │
+├─────────────────────┤
+│ Temperatura         │
+│ Pressão             │
+│ Vibração            │
+└──────────┬──────────┘
+           ↓
+      Dados coletados
+```
+
+---
+
+### Etapa 2 — Recebimento pelo ESP32
+
+Após a coleta, os dados serão enviados para o **ESP32**, que funcionará como o microcontrolador responsável por receber essas informações.
+
+```text
+Sensores
+   ↓
+ESP32
+```
+
+O ESP32 fará a ligação entre os sensores e as próximas etapas do sistema.
+
+---
+
+### Etapa 3 — Transmissão dos dados
+
+Depois de receber os dados, o ESP32 realizará a transmissão das informações para um computador ou servidor.
+
+Inicialmente, será considerada a utilização de **Wi-Fi**.
+
+```text
+Sensores
+   ↓
+ESP32
+   ↓
+Wi-Fi
+   ↓
+Computador / Servidor
+```
+
+O protocolo específico de comunicação poderá ser definido posteriormente, durante o desenvolvimento da arquitetura detalhada.
+
+---
+
+### Etapa 4 — Recebimento e organização
+
+O computador ou servidor receberá os dados enviados pelo ESP32.
+
+Nesse momento, as informações serão organizadas para que possam ser utilizadas pelas próximas etapas do sistema.
+
+```text
+ESP32
+   ↓
+Wi-Fi
+   ↓
+Computador / Servidor
+   ↓
+Organização dos dados
+```
+
+---
+
+### Etapa 5 — Processamento
+
+Depois de organizados, os dados serão encaminhados para o processamento.
+
+Essa é uma das principais etapas relacionadas ao conceito **MISD**, pois o mesmo fluxo de dados poderá ser utilizado por diferentes processos de análise.
+
+```text
+                 ┌─→ Análise de limites
+                 │
+Dados recebidos ─┼─→ Análise histórica
+                 │
+                 └─→ Análise de anomalias
+```
+
+Cada processo terá uma finalidade diferente, mas utilizará os mesmos dados recebidos pelo sistema.
+
+---
+
+### Etapa 6 — Análise dos resultados
+
+Após o processamento, cada análise produzirá um resultado.
+
+Por exemplo, considerando uma determinada temperatura:
+
+```text
+Temperatura = 85 °C
+       │
+       ├──→ Está acima do limite?
+       │
+       ├──→ Como está em relação ao histórico?
+       │
+       └──→ Existe alguma alteração fora do padrão?
+```
+
+Dessa forma, o sistema poderá gerar informações que auxiliem na interpretação dos dados coletados.
+
+---
+
+### Etapa 7 — Armazenamento
+
+Os dados coletados e os resultados obtidos poderão ser armazenados em um **banco de dados**.
+
+O armazenamento permitirá manter um histórico das informações.
+
+```text
+Dados
+  ↓
+Processamento
+  ↓
+Resultados
+  ↓
+Banco de dados
+```
+
+Isso possibilitará consultar informações anteriores e utilizá-las em análises futuras.
+
+---
+
+### Etapa 8 — Apresentação das informações
+
+Por fim, os dados e resultados poderão ser apresentados por meio de um **dashboard**.
+
+O objetivo será facilitar a visualização das informações pelo usuário.
+
+```text
+┌──────────────────────────────────┐
+│       DASHBOARD DE MONITORAMENTO │
+├──────────────────────────────────┤
+│ Temperatura: 28 °C               │
+│ Pressão:     XX                  │
+│ Vibração:    XX                  │
+│                                  │
+│ Status: NORMAL                   │
+└──────────────────────────────────┘
+```
+
+O dashboard poderá apresentar os valores atuais, resultados das análises e possíveis alertas.
+
+---
+
+# 1.5 Componentes da solução
+
+Para desenvolver o protótipo, serão utilizados diferentes componentes de hardware e software.
+
+### 1.5.1 Sensores
+
+O sistema contará inicialmente com sensores responsáveis pela coleta de diferentes tipos de informações:
+
+| Sensor                | Informação coletada |
+| --------------------- | ------------------- |
+| Sensor de temperatura | Temperatura         |
+| Sensor de pressão     | Pressão             |
+| Sensor de vibração    | Vibração            |
+
+Os sensores representam a entrada de dados do sistema.
+
+---
+
+### 1.5.2 ESP32
+
+O **ESP32** será utilizado como microcontrolador do protótipo.
+
+Sua função será receber os dados provenientes dos sensores e encaminhá-los para o restante do sistema.
+
+A escolha do ESP32 está relacionada à possibilidade de trabalhar com sensores e comunicação de rede em um protótipo de baixo custo.
+
+---
+
+### 1.5.3 Comunicação Wi-Fi
+
+A comunicação entre o ESP32 e o computador ou servidor será realizada inicialmente por **Wi-Fi**.
+
+O objetivo será transportar os dados coletados pelos sensores até o sistema responsável pelo processamento.
+
+```text
+Sensores
+   ↓
+ESP32
+   ↓
+Wi-Fi
+   ↓
+Computador / Servidor
+```
+
+---
+
+### 1.5.4 Computador / Servidor
+
+O computador ou servidor será responsável por receber os dados enviados pelo ESP32 e executar as etapas de processamento.
+
+Nesse ambiente ficará a parte de software responsável pelas análises, armazenamento e disponibilização das informações.
+
+---
+
+### 1.5.5 Processamento dos dados
+
+Depois que os dados forem recebidos, o sistema poderá utilizar diferentes processos para analisar o mesmo fluxo de informações.
+
+Por exemplo:
+
+```text
+              ┌─→ Análise de limites
+              │
+Dados ────────┼─→ Análise estatística
+              │
+              └─→ Análise de anomalias
+```
+
+Cada análise terá uma finalidade diferente, mas poderá utilizar os mesmos dados recebidos pelos sensores.
+
+---
+
+### 1.5.6 Banco de dados
+
+Após o processamento, os resultados poderão ser armazenados em um banco de dados.
+
+O armazenamento permitirá manter um histórico das informações coletadas e dos resultados das análises.
+
+```text
+Sensores
+   ↓
+ESP32
+   ↓
+Comunicação
+   ↓
+Processamento
+   ↓
+Banco de dados
+```
+
+---
+
+### 1.5.7 Dashboard
+
+Os dados armazenados e processados poderão ser apresentados em um **dashboard**.
+
+O dashboard terá como objetivo facilitar a visualização das informações, permitindo apresentar valores dos sensores, resultados das análises e possíveis alertas.
+
+---
+
+# 1.6 Fluxo completo da solução
+
+De forma geral, o funcionamento inicial do projeto poderá ser representado da seguinte maneira:
+
+```text
+┌───────────────┐
+│    Sensores   │
+│ Temp./Press./ │
+│   Vibração    │
+└───────┬───────┘
+        ↓
+┌───────────────┐
+│     ESP32     │
+└───────┬───────┘
+        ↓
+┌───────────────┐
+│      Wi-Fi    │
+└───────┬───────┘
+        ↓
+┌───────────────┐
+│ Computador /  │
+│    Servidor   │
+└───────┬───────┘
+        ↓
+┌────────────────────┐
+│ ORGANIZAÇÃO DOS    │
+│      DADOS         │
+└─────────┬──────────┘
+          ↓
+┌────────────────────┐
+│    PROCESSAMENTO   │
+└─────────┬──────────┘
+          ↓
+   ┌──────┼──────┐
+   ↓      ↓      ↓
+Limites Histórico Anomalias
+   │      │      │
+   └──────┼──────┘
+          ↓
+┌───────────────────┐
+│  Banco de Dados   │
+└─────────┬─────────┘
+          ↓
+┌───────────────────┐
+│     Dashboard     │
+└───────────────────┘
+```
+
+---
+
+# 1.7 Relação com o conceito MISD
+
+A relação com o MISD ocorre principalmente na etapa de **processamento**.
+
+O sistema recebe um fluxo de dados proveniente dos sensores e esse mesmo fluxo pode ser utilizado por diferentes análises.
+
+Por exemplo:
+
+```text
+                 MESMO FLUXO DE DADOS
+                          │
+             ┌────────────┼────────────┐
+             ↓            ↓            ↓
+        Limites       Histórico    Anomalias
+             ↓            ↓            ↓
+         Resultado     Resultado    Resultado
+```
+
+Dessa maneira, o projeto utiliza o conceito de **múltiplas instruções aplicadas sobre um mesmo fluxo de dados** como referência para organizar o processamento.
+
+É importante destacar que o projeto é um **protótipo acadêmico para demonstrar o conceito MISD**. O uso de um computador ou de uma plataforma como referência não significa que o hardware utilizado seja, fisicamente, um processador MISD.
+
+---
+
+# 1.8 Tecnologias inicialmente previstas
+
+As principais tecnologias consideradas para o desenvolvimento são:
+
+| Área                 | Tecnologia                      |
+| -------------------- | ------------------------------- |
+| Microcontrolador     | ESP32                           |
+| Sensores             | Temperatura, pressão e vibração |
+| Programação do ESP32 | C/C++                           |
+| Processamento        | Python                          |
+| Banco de dados       | SQL                             |
+| Interface            | HTML, CSS e JavaScript          |
+| Comunicação          | Wi-Fi                           |
+
+Essas tecnologias representam a proposta inicial e poderão ser ajustadas durante as próximas etapas do projeto.
+
+---
+
+# 1.9 Escopo inicial
+
+O projeto será desenvolvido inicialmente como um **protótipo acadêmico**.
+
+O objetivo não é construir um sistema industrial certificado, mas demonstrar de forma prática:
+
+* coleta de dados;
+* comunicação entre dispositivos;
+* armazenamento;
+* processamento;
+* aplicação de diferentes análises sobre os dados;
+* visualização dos resultados;
+* relação desses processos com o conceito MISD.
+
+---
+
+# 1.10 Resultado esperado
+
+Ao seguir essas etapas, espera-se que o protótipo seja capaz de:
+
+1. **Coletar** informações dos sensores;
+2. **Receber** os dados através do ESP32;
+3. **Transmitir** as informações por Wi-Fi;
+4. **Organizar** os dados no computador ou servidor;
+5. **Processar** o mesmo fluxo de dados;
+6. **Realizar diferentes análises**;
+7. **Armazenar** os resultados;
+8. **Apresentar** as informações no dashboard.
+
+### Fluxo resumido
+
+```text
+COLETAR
+   ↓
+RECEBER
+   ↓
+TRANSMITIR
+   ↓
+ORGANIZAR
+   ↓
+PROCESSAR
+   ↓
+ANALISAR
+   ↓
+ARMAZENAR
+   ↓
+VISUALIZAR
+```
+
+---
+
+# 1.11 Conclusão
+
+A solução proposta busca desenvolver um protótipo de monitoramento capaz de integrar **sensores, ESP32, comunicação, processamento, banco de dados e dashboard**.
+
+A principal característica relacionada ao tema do projeto está na utilização de um mesmo fluxo de dados para diferentes processos de análise.
+
+Com isso, o projeto estabelece uma aplicação prática e didática do conceito de **MISD**, servindo como base para as próximas etapas de definição dos requisitos, arquitetura detalhada, desenvolvimento e testes.
+
+
+
