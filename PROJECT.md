@@ -1,33 +1,43 @@
 # Semester Project
 
-## Project Title
+## Project title
 
-Computer Architecture Evolution
-
----
+**Computer Architecture Evolution**
 
 ## Goal
 
-Each group will investigate one computer architecture and document
+Each group investigates an architecture, architecture family or computational paradigm throughout the semester. The project integrates historical analysis with the technical concepts studied in Computer Architecture and Organization.
 
-- Historical context
-- System organization
-- CPU
-- Memory
-- Bus architecture
-- Input and Output
-- Instruction Set
-- Comparison with modern systems
-- Legacy
+## Project documentation
 
----
+The investigation is progressively documented in the team's directory:
 
-## Deliverables
+| File | Focus |
+|---|---|
+| `README.md` | Team and architecture overview |
+| `01-history.md` | Historical context and evolution |
+| `02-system-overview.md` | General system organization |
+| `03-cpu.md` | Processing organization |
+| `04-memory.md` | Memory organization |
+| `05-bus.md` | Buses and interconnections |
+| `06-input-output.md` | Input/output organization |
+| `07-instruction-set.md` | Instruction set / ISA |
+| `08-modern-comparison.md` | Comparison with modern systems |
+| `09-legacy.md` | Legacy and impact |
+| `10-research-question.md` | Investigation questions |
+| `references.md` | References |
 
-Weekly submissions
+The structure is architecture-aware: if a traditional concept does not apply directly to the architecture studied, the team should explain the corresponding organization instead of forcing an inappropriate classification.
 
-Final presentation
+## Weekly deliveries
 
-Museum website
+Weekly work is developed directly in the team's documentation. After completing and reviewing the requested content, the team commits/pushes its work and opens **one GitHub Issue** as the official submission record.
 
-Final documentation
+Submission rules are defined in [SUBMITIONS-GUIDE.md](SUBMITIONS-GUIDE.md).
+
+## Final deliverables
+
+- complete team documentation;
+- semester presentation;
+- consolidated project contribution;
+- digital museum / website content, according to the final instructions.

@@ -9,38 +9,28 @@
 
 2026/2
 
----
-
 ## Instructor
 
-Dr. Breno Felix
-
----
+Breno Felix
 
 ## Project
 
-Computer Architecture Evolution
-
----
+**Computer Architecture Evolution**
 
 ## Methodology
 
-Project-Based Learning (PBL)
+The semester project uses project-based and collaborative learning. Students work in teams and progressively connect the topics studied in class to a real architecture, architecture family or computational paradigm.
 
-Students will work in teams during the entire semester.
+The repository preserves the evolving technical and historical documentation. Weekly deliveries are recorded through GitHub Issues according to `SUBMITIONS-GUIDE.md`.
 
-Each week a new task will be completed and submitted using GitHub.
+## Expected outcomes
 
-The project integrates historical analysis with technical computer architecture concepts.
+Students should demonstrate:
 
----
-
-## Expected Outcomes
-
-Students should demonstrate
-
-- Historical understanding
-- Technical knowledge
-- Team collaboration
-- Technical writing
-- GitHub proficiency
+- historical understanding;
+- technical knowledge of computer organization and architecture;
+- ability to relate course concepts to real systems;
+- team collaboration;
+- technical writing and documentation;
+- responsible use of Git and GitHub;
+- ability to present and discuss technical findings.
