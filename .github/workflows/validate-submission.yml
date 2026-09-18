@@ -12,6 +12,8 @@ on:
 
 permissions:
   contents: read
+  issues: read
+  pull-requests: read
 
 jobs:
   validate-submission:
@@ -43,6 +45,7 @@ jobs:
           echo "Branch     : $HEAD_REF"
           echo "Target     : $BASE_REF"
           echo "PR         : #$PR_NUMBER"
+          echo "Title      : $PR_TITLE"
 
       - name: Validate branch name and detect group
         id: submission
@@ -52,8 +55,12 @@ jobs:
 
           if [[ ! "$HEAD_REF" =~ ^team-([0-9]{2})/entrega-([0-9]{2})$ ]]; then
             echo "ERROR: Invalid branch name."
-            echo "Expected: team-XX/entrega-NN"
-            echo "Example : team-03/entrega-02"
+            echo ""
+            echo "Expected:"
+            echo "  team-XX/entrega-NN"
+            echo ""
+            echo "Example:"
+            echo "  team-03/entrega-02"
             exit 1
           fi
 
@@ -65,47 +72,122 @@ jobs:
           echo "delivery_number=$DELIVERY_NUMBER" >> "$GITHUB_OUTPUT"
           echo "group_dir=$GROUP_DIR" >> "$GITHUB_OUTPUT"
 
-          echo "OK: Team $TEAM_NUMBER / Delivery $DELIVERY_NUMBER"
+          echo ""
+          echo "OK: Team $TEAM_NUMBER"
+          echo "OK: Delivery $DELIVERY_NUMBER"
           echo "Allowed directory: $GROUP_DIR/"
 
+      - name: Validate group exists
+        env:
+          GROUP_DIR: ${{ steps.submission.outputs.group_dir }}
+        shell: bash
+        run: |
+          echo "Checking if group exists in the repository..."
+
+          if ! git cat-file -e "${BASE_SHA}:${GROUP_DIR}" 2>/dev/null; then
+            echo "ERROR: Group directory does not exist."
+            echo ""
+            echo "Expected directory:"
+            echo "  $GROUP_DIR/"
+            echo ""
+            echo "Check the team number used in the branch."
+            exit 1
+          fi
+
+          echo "OK: Group directory exists."
+
+      - name: Validate Pull Request title
+        env:
+          DELIVERY_NUMBER: ${{ steps.submission.outputs.delivery_number }}
+        shell: bash
+        run: |
+          EXPECTED_PREFIX="[ENTREGA ${DELIVERY_NUMBER}]"
+
+          echo "Checking Pull Request title..."
+          echo "Expected prefix: $EXPECTED_PREFIX"
+
+          if [[ "$PR_TITLE" != "$EXPECTED_PREFIX"* ]]; then
+            echo ""
+            echo "ERROR: Invalid Pull Request title."
+            echo ""
+            echo "The title must start with:"
+            echo "  $EXPECTED_PREFIX"
+            echo ""
+            echo "Example:"
+            echo "  [ENTREGA ${DELIVERY_NUMBER}] Grupo 03 - Organização e comunicação"
+            exit 1
+          fi
+
+          echo "OK: Pull Request title."
+
       - name: Detect changed files
+        shell: bash
         run: |
           echo "Files changed in this Pull Request:"
-          git diff --name-status "$BASE_SHA" "$HEAD_SHA" | tee changed-files-status.txt
-          git diff --name-only "$BASE_SHA" "$HEAD_SHA" | tee changed-files.txt
           echo ""
-          echo "Total paths changed: $(wc -l < changed-files.txt)"
+
+          git diff --name-status -M "$BASE_SHA" "$HEAD_SHA" \
+            | tee changed-files-status.txt
+
+          echo ""
+          echo "Total changes:"
+          wc -l < changed-files-status.txt
 
       - name: Check submission contains changes
+        shell: bash
         run: |
-          if [ ! -s changed-files.txt ]; then
+          if [ ! -s changed-files-status.txt ]; then
             echo "ERROR: No files were changed in this Pull Request."
             exit 1
           fi
+
           echo "OK: Pull Request contains changes."
 
       - name: Validate all changed paths belong to the group
         env:
           GROUP_DIR: ${{ steps.submission.outputs.group_dir }}
+        shell: bash
         run: |
           echo "Checking changed paths..."
-          echo "Allowed path: $GROUP_DIR/"
+          echo "Allowed path:"
+          echo "  $GROUP_DIR/"
           echo ""
 
           INVALID=false
 
-          while IFS= read -r file; do
+          validate_path() {
+            local file="$1"
+
             if [[ "$file" == "$GROUP_DIR/"* ]]; then
               echo "OK: $file"
             else
               echo "ERROR: Change outside the group's directory: $file"
               INVALID=true
             fi
-          done < changed-files.txt
+          }
+
+          while IFS=$'\t' read -r status path1 path2; do
+
+            case "$status" in
+
+              R*|C*)
+                validate_path "$path1"
+                validate_path "$path2"
+                ;;
+
+              *)
+                validate_path "$path1"
+                ;;
+
+            esac
+
+          done < changed-files-status.txt
 
           if [ "$INVALID" = true ]; then
             echo ""
-            echo "Students may add, modify, rename or delete files only inside:"
+            echo "Students may add, modify, rename or delete files"
+            echo "only inside:"
+            echo ""
             echo "  $GROUP_DIR/"
             exit 1
           fi
@@ -114,49 +196,131 @@ jobs:
           echo "OK: All changed paths belong to the group."
 
       - name: Show change types
+        shell: bash
         run: |
           echo "Change types detected:"
-          echo "A = added | M = modified | D = deleted | R = renamed"
+          echo ""
+          echo "A = added"
+          echo "M = modified"
+          echo "D = deleted"
+          echo "R = renamed"
           echo ""
           cat changed-files-status.txt
           echo ""
-          echo "Multiple files and additions/deletions are allowed inside the group's directory."
+          echo "Multiple files are allowed."
+          echo "Files may be added, modified, renamed or deleted"
+          echo "inside the group's directory."
 
-      - name: Validate Issue reference
+      - name: Validate activity Issue
+        env:
+          DELIVERY_NUMBER: ${{ steps.submission.outputs.delivery_number }}
+          GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          echo "Checking Issue reference in Pull Request description..."
+          echo "Checking activity Issue..."
+
+          BODY="${PR_BODY:-}"
+
           shopt -s nocasematch
 
-          if [[ "$PR_BODY" =~ (Related[[:space:]]+to|Refs)[[:space:]]+\\#[0-9]+ ]]; then
-            echo "OK: Pull Request is linked to an Issue."
-          else
-            echo "ERROR: Pull Request is not linked to the activity Issue."
-            echo "Add one of these lines to the PR description:"
+          ISSUE_NUMBER=""
+
+          if [[ "$BODY" =~ Related[[:space:]]+to[[:space:]]+\#([0-9]+) ]]; then
+            ISSUE_NUMBER="${BASH_REMATCH[1]}"
+          elif [[ "$BODY" =~ Refs[[:space:]]+\#([0-9]+) ]]; then
+            ISSUE_NUMBER="${BASH_REMATCH[1]}"
+          fi
+
+          if [ -z "$ISSUE_NUMBER" ]; then
+            echo ""
+            echo "ERROR: No activity Issue was referenced."
+            echo ""
+            echo "Add one of the following to the PR description:"
+            echo ""
             echo "  Related to #NUMBER"
+            echo ""
             echo "or"
+            echo ""
             echo "  Refs #NUMBER"
             exit 1
           fi
+
+          echo "Referenced Issue/PR number: #$ISSUE_NUMBER"
+
+          ISSUE_JSON="$(gh api \
+            "repos/${GITHUB_REPOSITORY}/issues/${ISSUE_NUMBER}" \
+            2>/dev/null)" || {
+              echo "ERROR: #$ISSUE_NUMBER was not found."
+              exit 1
+            }
+
+          IS_PULL_REQUEST="$(echo "$ISSUE_JSON" | jq -r 'has("pull_request")')"
+
+          if [ "$IS_PULL_REQUEST" = "true" ]; then
+            echo ""
+            echo "ERROR: #$ISSUE_NUMBER is a Pull Request, not an activity Issue."
+            exit 1
+          fi
+
+          ISSUE_TITLE="$(echo "$ISSUE_JSON" | jq -r '.title')"
+          ISSUE_STATE="$(echo "$ISSUE_JSON" | jq -r '.state')"
+
+          echo "Issue title: $ISSUE_TITLE"
+          echo "Issue state: $ISSUE_STATE"
+
+          EXPECTED_PREFIX="[ENTREGA ${DELIVERY_NUMBER}]"
+
+          if [[ "$ISSUE_TITLE" != "$EXPECTED_PREFIX"* ]]; then
+            echo ""
+            echo "ERROR: The referenced Issue does not match the delivery."
+            echo ""
+            echo "Branch delivery:"
+            echo "  ENTREGA ${DELIVERY_NUMBER}"
+            echo ""
+            echo "Referenced Issue:"
+            echo "  #${ISSUE_NUMBER} - ${ISSUE_TITLE}"
+            echo ""
+            echo "Expected an Issue beginning with:"
+            echo "  ${EXPECTED_PREFIX}"
+            exit 1
+          fi
+
+          if [ "$ISSUE_STATE" != "open" ]; then
+            echo ""
+            echo "ERROR: The activity Issue is closed."
+            echo "Contact the professor if this delivery should still be accepted."
+            exit 1
+          fi
+
+          echo ""
+          echo "OK: Correct activity Issue referenced."
 
       - name: Submission approved
         env:
           TEAM_NUMBER: ${{ steps.submission.outputs.team_number }}
           DELIVERY_NUMBER: ${{ steps.submission.outputs.delivery_number }}
           GROUP_DIR: ${{ steps.submission.outputs.group_dir }}
+        shell: bash
         run: |
           echo ""
           echo "==============================================="
           echo "          SUBMISSION VALIDATION PASSED"
           echo "==============================================="
+          echo ""
           echo "Group    : $TEAM_NUMBER"
           echo "Delivery : $DELIVERY_NUMBER"
           echo "Directory: $GROUP_DIR/"
           echo ""
           echo "[OK] Branch name"
+          echo "[OK] Existing group"
+          echo "[OK] Pull Request title"
           echo "[OK] One or more changed files"
-          echo "[OK] Changes restricted to the group's directory"
-          echo "[OK] Added/modified/renamed/deleted files allowed"
-          echo "[OK] Issue reference"
+          echo "[OK] Changes restricted to group's directory"
+          echo "[OK] Multiple files allowed"
+          echo "[OK] Added files allowed"
+          echo "[OK] Modified files allowed"
+          echo "[OK] Renamed files allowed"
+          echo "[OK] Deleted files allowed"
+          echo "[OK] Correct activity Issue"
           echo ""
           echo "The Pull Request is ready for professor review."
