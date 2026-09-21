@@ -30,7 +30,7 @@ ENIAC
 |09-performance|Entrega 08|🅾️|
 |10-programming|Entrega 09|🅾️|
 |11-operation|Entrega 11|🅾️|
-|12-legacy|Entrega 11|🅾️|
+|12-legacy|Entrega 12|🅾️|
 ---
 
 ## Historical Context
