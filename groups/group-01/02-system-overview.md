@@ -2,26 +2,34 @@
 
 ## 2.1 General Description
 
-O ENIAC foi um "super-computador" para sua geração. Ele era um aparato gigantesco em formato de U, ocupando uma sala de 167 metros quadrados, pesando aproximadamente 30 toneladas e consumindo 150 mil watts de energia. Diferente dos computadores modernos, ele era altamente modular e decentralizado, composto de 40 painéis distintos que podiam operar em paralelo, ligados entre si por uma grande quantidade de cabos também modulares.
+O ENIAC foi um "super-computador" para sua geração. Ele era um aparato gigantesco, com um peso gigantesco e um consumo de energia igualmente enorme. Diferente dos computadores modernos, ele era altamente modular e decentralizado, composto de 40 painéis distintos que podiam operar em paralelo, ligados entre si por uma grande quantidade de cabos também modulares.
 
-## 2.2 Main Components
+## 2.2 Dimensions and Layout
+- Detalhes do tamanho, peso e formato geral de tudo e de cada componente, e como os componentes eram distribuídos/onde ficavam (bom usar imagens aqui)
 
-- **CPU**: A CPU não era uma unidade centralizada como geralmente imaginamos. O processamento matemático era disbtribuído entre os Acumuladores (faziam soma e/ou subtração), Multiplicador de alta velocidade (faziam Multiplicações) e o Divisor/Raiz "Quadrador" (divisão e raiz quadrada). O controle e a sincronização operacional da arquitetura eram feitos pelo "Pogramador Mestre" (controlava loops e a sequência de execução) e pela Unidae Ciclíca (que gerava pulsos de clock a 100kHz). Esses últimos dois seriam o mais semelhante à um CPU para o ENIAC.
-- **Memory**: A memória principal era composta por: 1. 20 Acumuladores, que armazenavam dados temporariamente (continuavam salvos enquanto o ENIAC se mantia ligado) para realização de contas; 2. Tabelas de Função, que eram painéis com chaves mecânicas que funcionavam como uma memória ROM para constantes matemáticas e valores que seriam reutilizados várias vezes durante a operação do ENIAC (similar à uma variável, como concebemos atualmente!).
-- **Bus**: A comunicação entre as diferentes partes da arquitetura era feita por duas redes de cabos separadas. As Bandejas de Dados transportavam os números decimais entre as unidade. As Linhas de Programa transportavam pulsos elétricos de controle que sinalizavam às unidade quando iniciar sua operação.
-- **I/O**: O ENIAC utilizava equipamento da IBM para tratar do input/output. A entrada era feita por uma leitora de cartões perfurados conectada ao Transmissor Constante. A saída era feita por uma perfuradora de cartões conectada à unidade de impressão.
+## 2.3 Vacuum Tubes
+- Como os tubos à vácuo agiam como amplificadores/interrupitores, e os tipos de tubos usados
 
-- (Podemos reescrever isso aqui tratando dos reais componentes do ENIAC (as diferentes unidades, suas funções e funcionamento))
+## 2.4 Additional Hardware Components
+- O papel de resistores, capacitores, relés e interruptores manuais
 
-## 2.3 Block Diagram
+## 2.5 Power Supply and Consumption
+- Requisitos de consumo elétrico e as linhas de energia dedicadas
 
+## 2.6 Cooling System
+- Como o sistema dissipava a quantidade enorme de calor gerada pelos tubos
+
+## 2.7 Modular Panel Organization
+- Divisão da máquina em 40 painéis distintos
+
+## 2.8 Block Diagram
+- Representação visual da lógica do hardware
 (Add image)
 
-## 2.4 Data Flow
+## 2.9 Data Flow
+- Como os dados se moviam pela arquitetura
 
-Explain how data moves through the architecture.
-
-## 2.5 Main Characteristics
+## 2.10 Main Characteristics
 
 Table
 

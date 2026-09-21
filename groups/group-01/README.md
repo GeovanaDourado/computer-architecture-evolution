@@ -16,6 +16,23 @@ ENIAC
 
 - Gustavo Morais
 
+## Issue x Submission Plan
+
+| Submission | Issue | Done |
+|------|--------|------|
+|README|Entrega 01|✅|
+|02-system-overview e 03-interconnections|Entrega 02|🅾️|
+|04-input-output|Entrega 03|🅾️|
+|05-memory|Entrega 04|🅾️|
+|06-data-pathways|Entrega 05 & Entrega 10|🅾️|
+|07-processing|Entrega 06|🅾️|
+|08-control-sequencing|Entrega 07|🅾️|
+|09-performance|Entrega 08|🅾️|
+|10-programming|Entrega 09|🅾️|
+|11-operation|Entrega 11|🅾️|
+|12-legacy|Entrega 11|🅾️|
+---
+
 ## Historical Context
 
 O projeto ENIAC foi iniciado em 1943, por John Eckhart e John Mauchly. Foi concluído em 1946, ao final da Segunda Guerra Mundial e beirando o início da Guerra Fria. O projeto foi desenvolvido para controle balístico dos Estados Unidos, capaz de realizar por segundo uma quantidade de cálculos que demorariam horas pra serem resolvidos manualmente.
@@ -47,24 +64,3 @@ A entrada e saída de dados eram feitas por meio de cartões perfurados. A prese
 ## The importance of architecture for the computing evolution.
 
 Primeiro computador programavel da história, revolucionário pelo seu uso de válvulas a vácuo para alcançar uma velocidade de processamento 
-
-## Weekly Progress
-
-| Week | Status |
-|------|--------|
-|1     |🟩      |
-|2     |⬜      |
-|3     |⬜      |
-|4     |⬜      |
-|5     |⬜      |
-|6     |⬜      |
-|7     |⬜      |
-|8     |⬜      |
-|9     |⬜      |
-|10    |⬜      |
-|11    |⬜      |
-|12    |⬜      |
-|13    |⬜      |
-|14    |⬜      |
-|15    |⬜      |
----
