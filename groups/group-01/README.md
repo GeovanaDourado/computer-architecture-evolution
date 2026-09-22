@@ -22,7 +22,7 @@ ENIAC
 |------|--------|------|------|
 |README|Entrega 01||✅|
 |02-system-overview e 03-interconnections|Entrega 02|1 - Como Funcionava a comunicação interna do ENIAC?|🅾️|
-|04-input-output|Entrega 03|2 - |🅾️|
+|04-input-output|Entrega 03|2 - Como era a interface do ENIAC?|🅾️|
 |05-memory|Entrega 04|3 - |🅾️|
 |06-data-pathways|Entrega 05 & Entrega 10|4 - |🅾️|
 |07-processing|Entrega 06|5 - |🅾️|
