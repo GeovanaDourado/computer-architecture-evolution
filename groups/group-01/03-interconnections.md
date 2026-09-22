@@ -6,29 +6,29 @@
 ## 3.2 Cable Materials and Connectors
 - Composição física dos cabos de conexão, plugues e conectores multipinos
 
-## 3.2 Digit Trays
+## 3.3 Digit Trays
 - Sobre os cabos usados para transmitir dados de valores numéricos
 
-## 3.3 Program Trunks
+## 3.4 Program Trunks
 - Cabos responsáveis por enviar pulsos de ativação e sincronização
 
-## 3.4 Patch Cords & Plugs
+## 3.5 Patch Cords & Plugs
 - Os cabos usados para rotear dados e instruções
 
-## 3.5 Signal Transmission
+## 3.6 Signal Transmission
 - Como pulsos elétricos (forma, duração, voltagem) representavam números e comandos
 
-## 3.6 Cross-Panel Communication
+## 3.7 Cross-Panel Communication
 - Como, por exemplo, um acumulador em um canto enviava dados para um multiplicador em outro canto
 
-## 3.6 Synchronization
+## 3.8 Synchronization
 - Como sinais eram mantidos em sincronia entre os cabos
 
-## 3.7 Setup Complexity
+## 3.9 Setup Complexity
 - As dificuldades de manusear os cabos na máquina
 
-## 3.8 Absence of Address Bus
+## 3.10 Absence of Address Bus
 - Porque um barramento não era necessário nessa arquitetura
 
-## 3.9 Network Diagram
+## 3.11 Network Diagram
 - Representação visual dos dados e controle de rotas

@@ -18,19 +18,19 @@ ENIAC
 
 ## Issue x Submission Plan
 
-| Submission | Issue | Done |
-|------|--------|------|
-|README|Entrega 01|✅|
-|02-system-overview e 03-interconnections|Entrega 02|🅾️|
-|04-input-output|Entrega 03|🅾️|
-|05-memory|Entrega 04|🅾️|
-|06-data-pathways|Entrega 05 & Entrega 10|🅾️|
-|07-processing|Entrega 06|🅾️|
-|08-control-sequencing|Entrega 07|🅾️|
-|09-performance|Entrega 08|🅾️|
-|10-programming|Entrega 09|🅾️|
-|11-operation|Entrega 11|🅾️|
-|12-legacy|Entrega 12|🅾️|
+| Submission | Issue | Question | Done |
+|------|--------|------|------|
+|README|Entrega 01||✅|
+|02-system-overview e 03-interconnections|Entrega 02|1 - Como Funcionava a comunicação interna do ENIAC?|🅾️|
+|04-input-output|Entrega 03|2 - |🅾️|
+|05-memory|Entrega 04|3 - |🅾️|
+|06-data-pathways|Entrega 05 & Entrega 10|4 - |🅾️|
+|07-processing|Entrega 06|5 - |🅾️|
+|08-control-sequencing|Entrega 07|6 - |🅾️|
+|09-performance|Entrega 08|7 - |🅾️|
+|10-programming|Entrega 09|8 - |🅾️|
+|11-operation|Entrega 11|9 - |🅾️|
+|12-legacy|Entrega 12||🅾️|
 ---
 
 ## Historical Context

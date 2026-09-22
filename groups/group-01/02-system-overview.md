@@ -22,12 +22,12 @@ O ENIAC foi um "super-computador" para sua geração. Ele era um aparato gigante
 ## 2.7 Modular Panel Organization
 - Divisão da máquina em 40 painéis distintos
 
-## 2.8 Block Diagram
+## 2.8 Data Flow
+- Como os dados se moviam pela arquitetura
+
+## 2.9 Block Diagram
 - Representação visual da lógica do hardware
 (Add image)
-
-## 2.9 Data Flow
-- Como os dados se moviam pela arquitetura
 
 ## 2.10 Main Characteristics
 
