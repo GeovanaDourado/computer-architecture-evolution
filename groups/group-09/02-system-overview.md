@@ -46,8 +46,6 @@ Em IA, esse fluxo se repete em várias camadas. Os dados entram como tensores, u
 
 ## 2.5 Main Characteristics
 
-| Feature | Description |
-|---------|-------------|
 | Característica | Descrição |
 |---|---|
 | Paralelismo | Muitas threads executam operações semelhantes ao mesmo tempo. |
@@ -71,3 +69,18 @@ O desempenho da GPU depende de manter muitas threads prontas para executar. Um k
 - escolhem o tipo numérico adequado, como FP32, FP16, BF16 ou INT8.
 
 Assim, ter mais núcleos não garante sozinho mais velocidade. O algoritmo e a forma como os dados percorrem a hierarquia de memória são tão importantes quanto o hardware.
+
+## 2.7 Comunicação, Limitações e Impacto
+
+Os componentes se comunicam por diferentes mecanismos, conforme o tipo de dado e a distância entre eles:
+
+- **PCI Express (PCIe):** conecta uma GPU dedicada à placa-mãe e permite a troca de comandos e dados entre CPU, memória RAM e GPU.
+- **NVLink ou interconexões equivalentes:** conectam GPUs entre si ou a outros componentes em sistemas de alto desempenho, oferecendo mais largura de banda que uma conexão PCIe comum.
+- **DMA (Direct Memory Access):** permite transferir dados entre memória e dispositivos sem exigir que a CPU copie cada parte manualmente.
+- **Barramento de memória:** liga a GPU à VRAM e determina, junto com a frequência e o tipo de memória, a quantidade de dados que pode ser movimentada por segundo.
+- **Memória compartilhada, caches e sincronização:** permitem que threads troquem ou reutilizem dados dentro da GPU. Barreiras de sincronização controlam quando um grupo pode prosseguir.
+- **Driver, runtime e comandos:** formam a interface de software pela qual a CPU configura kernels, aloca memória, inicia operações e consulta resultados.
+
+Essa organização possui limitações. A transferência pelo PCIe pode ser muito mais lenta do que o processamento interno da GPU; por isso, transferências frequentes reduzem o ganho obtido com o paralelismo. A capacidade da VRAM também limita o tamanho dos modelos e dos conjuntos de dados. Além disso, acessos desorganizados à memória, divergência entre threads, excesso de sincronização e tarefas com dependências sequenciais diminuem a ocupação e o desempenho.
+
+O impacto da comunicação é direto: quando os dados permanecem próximos das unidades de cálculo e são reutilizados por caches ou memória compartilhada, a GPU consegue manter muitas threads ocupadas. Quando os dados precisam atravessar repetidamente a CPU, a RAM e a GPU, o tempo de comunicação pode superar o tempo de cálculo. Portanto, o desempenho do sistema depende tanto da capacidade de processamento quanto da largura de banda, da latência e da forma como o software organiza os dados e os comandos.
