@@ -4,7 +4,7 @@
 
 O ENIAC, ou Eletronic Numerical Integrator and Computer, foi o primeiro computador eletrõnico de uso geral. Ele era um aparato gigantesco, e igualmente pesado. Em decorrência disso, seu consumo de energia também era exageradamente elevado. Diferente dos computadores modernos, ele era altamente modular e decentralizado, composto de 40 painéis distintos que podiam operar em paralelo, ligados entre si por uma grande quantidade de cabos também modulares.
 
-![Foto da sala do ENIAC com algumas pessoas](./images/eniac-room.jpg)  
+![Foto da sala do ENIAC com algumas pessoas](./images/photos/ENIAC-1946.jpg)  
 
 ## 2.2 Dimensions and Layout
 
@@ -47,7 +47,7 @@ E por último mas não menos importantes haviam os tubos 5T4, que eram simples d
 
 ![Representação básica do fluxo de dados](./images/basic-data-flow.png)
 
-Descrição da Imagem: Mapa simplificado de todas as 31 unidades funcionais do sistema interconectadas por um canal central, apresentando uma topologia geral e quais unidades trocavam dados entre si (Acumuladores, I/O e Unidades Matemáticas). Essa imagem usa a palavra barramento, que não é o termo mais preciso para o caso do ENIAC (Consulte o 10° tópico no arquivo 03-interconnections).
+> Descrição da Imagem: Mapa simplificado de todas as 31 unidades funcionais do sistema interconectadas por um canal central, apresentando uma topologia geral e quais unidades trocavam dados entre si (Acumuladores, I/O e Unidades Matemáticas). Essa imagem usa a palavra barramento, que não é o termo mais preciso para o caso do ENIAC (Consulte o 10° tópico no arquivo 03-interconnections).
 
 As informações númericas trafegavam na forma de conjuntos de pulsos elétricos na frequência de 100kHz, gerados pela Unidade Cíclica, operando em base decimal. Para transmitir um valor, a unidade emissora convertia o número armazenado em seus contadores de anel em uma sequeência exata de pulsos elétricos. 
 Exemplo: o dígito 7 gerava exatamente 7 pulsos contínuos. 
@@ -60,7 +60,7 @@ matemática de forma imediata.
 
 ![Ilustração de conexões de bandejas de dígitos](./images/Digit-Trays-Connected-by-Pulse-Amplifier.png)
 
-Descrição da Imagem: Diagrama oficial de uma conexão bidirecional ponto a ponto entre dois Acumuladores através das Bandejas de Dígitos. Destaque ao uso de Amplificadores de Pulso, instalados nas bandejas para regenerar os pulsos elétricos, evitando a degradação do sinal em cabos longos.
+> Descrição da Imagem: Diagrama oficial de uma conexão bidirecional ponto a ponto entre dois Acumuladores através das Bandejas de Dígitos. Destaque ao uso de Amplificadores de Pulso, instalados nas bandejas para regenerar os pulsos elétricos, evitando a degradação do sinal em cabos longos.
 
 ## 2.9 Block Diagram
 
