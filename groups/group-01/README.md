@@ -16,7 +16,7 @@ ENIAC
 
 - Gustavo Morais
 
-## [ Issue x Submission x Question ] Plan Table
+## [ Submission x Issue x Question ] Plan Table
 
 | Submission | Issue | Question | Done |
 |------|--------|------|------|
