@@ -57,7 +57,7 @@ Os dados trafegavam em base decimal através de trens de pulso emitidos na prime
 - 4P: Emite 4 pulsos nos tempos de 6/20 a 9/20
 - 1'P: Emite 1 pulso isolado no tempo 10/20
 Qualquer número de 1 a 9 era sintetizado combinando essas linhas através de portas lógicas. Exemplo: o dígito 7 era formado pela soma lógica de 1P + 2P + 4P.
-As saídas 9P e 10P eram pré-fabricados com 9 e 10 pulsos contínuos, sendo utilizados prioritariamente para operações de complemento de dez e aritmética de número negativos
+As saídas 9P e 10P eram pré-fabricados com 9 e 10 pulsos contínuos, sendo utilizados prioritariamente para operações de complemento de dez e aritmética de número negativos.
 
 ### 3.2.2. Program Pulses
 Os comandos e transições de rotina utilizavam pulsos unitários mais discretos:
@@ -85,6 +85,7 @@ Conforme esses diferentes tipos de sinais viajavam por dezenas de metros de cabo
 O Eniac utilizava uma arquitetura genial chamada de Unidade de Ciclos, um mecanismo centralizado e a fonte única da maquina toda. Gerando pulsos em intervalos de 10 microssegundos (10 µs). A taxa de atualização do projeto era de 100kHz (cem quilohertz), contudo, foi posteriormente usada apenas em 60kHz por motivos de estabilidade. 
 Como a Unidade de Ciclos era a fonte única e centralizada do sistema, era impossível que houvesse desincronização por meios mecánicos. Visto que não havia outra fonte de pulsos para funcionar em paralelo. A complexidade no entanto, era garantir que esses pulsos se estendessem pelas dezenas de metros até todos os paíneis. Para lidar com esta dificuldade foram utilizados pares de cabos 6L6 excitados por um cabo 6V6. Esses eram Drivers que funcionavam como amplificadores do sinal da Unidade de Ciclos, esse sinal amplificado era enviado para o Synchronizing trunk, um feixe de 11 cabos (trey de jumpers) que conectava todos os paíneis simultanemante. Evitando um possivel delay nos paíneis mais distantes. 
 Um fator importante de se notar era que os ciclos da Unidade de Ciclos, levavam exatamante 200 µs, e cada operação da máquina consumia um número inteiro de ciclos. Como o sinal de relógio gerado pela Unidade de Ciclos era recebido e amplificado no mesmo instante, a sincronia era garantida por construção.
+
 E a Unidade de Ciclos funcionava em 3 modos. O contínuo, onde o relógio estava sempre ativo e constantemente gerando ciclos. O modo One add time. Onde os ciclos eram executados um por um em adição, muito usado para depuração. E o modo One pulse, onde era emitido apenas um pulso por vez, usado para gerar diagnósticos.
 
 ## 3.4 Trays
@@ -97,7 +98,40 @@ E a Unidade de Ciclos funcionava em 3 modos. O contínuo, onde o relógio estava
 - Configuração do roteamento de cabos
 
 ## 3.7 Cable Materials and Connectors
-- Composição física dos cabos de conexão, plugues e conectores multipinos
+
+A integridade estrutural e elétrica das interconexões do sistema exigia materiais altamente duráveis e específicos para suportar as correntes elevadas, a alta tensão de polarização das válvulas e a necessidade de reconfiguração mecânica sem interromper a operação do ENIAC. Os cabos e conectores eram classificados e construídos de acordo com sua função de roteamento.
+
+### Cable Composition and Insulation
+O núcleo condutor dos cabos responsáveis pelo transporte de sinais consistia em filamentos de cobre de baixa resistência ôhmica (fio puro e espesso o suficiente para corrente elétrica fluir sem sofrer oposição), reduzindo a perda de voltagem ao longo do trajeto e garantindo que os trens de pulso mantivessem corrente suficiente para polarizar as grades das válvulas nas unidades receptoras. Devido ao acoplamento direto de corrente contínua em alta voltagem, a fiação exigia um isolamento dielétrico (material isolante) espesso para conter os vazamentos de tensão elétrica.
+
+Durante o desenvolvimento do projeto original, existia um risco físico e prático de degradação da malha por roedores. Para definir a composição química ideal do isolamento, J. Presper Eckert introduziu diversas amostras de fios encapados no interior de gaiolas com ratos cativos. O material dielétrico menos procurado e ignorado pelas cobaias foi selecionado como o composto isolante padrão de toda a máquina. Envolvendo esta proteção primária, a maioria das linhas também contava com revestimentos reforçados de tecido industrial e grossas jaquetas (capa externa do cabo) de borracha vulcanizada.
+
+### Digit Trunks and Plugs
+Para o roteamento horizontal e vertical do fluxo de processamento numérico, eram montados cabos densos chamados Digit Trunks. Esses cabos agregavam 11 linhas condutoras simultâneas debaixo da mesma jaqueta, servindo de via para 10 digit pulses e um pulso isolado direcional ou de sinalização (por isso o tamanho da palavra é 10 dígitos + 1 sinal. Se o número fosse negativo a linha de sinal ativava o gerador 9P, que enviava 9 pulsos seguidos num ciclo. Se o número fosse positivo, nenhum sinal passava aqui).
+
+As extremidades estruturais destes cabos culminavam em terminais maciços fabricados primordialmente pela Amphenol (uma das maiores fabricantes Estadunidenses de conectores elétricos e componentes de radiofrequência da época da Segunda Guerra Mundial). Os invólucros externos e blocos de retenção térmica dos conectores eram moldados e usinados em Bakelite, um plástico termofixo de alta densidade fisicamente imune ao derretimento, oque era mandatório considerando o intenso ambiente de dissipação térmica do maquinário. Os pinos cilíndricos de contato encaixados na Bakelite eram forjados em latão e banhados em ligas de cobre, desenhados para estabilizar uma conexão de baixa impedância mesmo após serem plugados e desplugados milhares de vezes a face dos painéis.
+
+### Coaxial Program Cables
+Para o chaveamento de rotinas operacionais geridas pelos Program Pulses, era necessária a manutenção matemática das bordas de onda. Transmitir transições quadradas rigorosas de 2 microsegundos a uma taxa de 100 kHz por feixes de condutores paralelos comuns resultaria em dispersão capacitiva, arredondando as bordas do sinal e atrasando o disparo das válvulas receptoras.
+
+(Nota: em repouso a linha era -345V. No início do pulso (que dura 2 microsegundos) ela sobe abruptamente para -290V, essa é a borda de subida, e se a subida for muito lenta a borda fica suave/arredondada (o que é ruim). A mesma coisa vale para a borda de descida. Se as bordas não estão bem definidas a duração do pulso fica confusa e pode ser lida incorretamente como um valor diferente que 2 microsegundos, oque pode causar falhas nos cálculos. Manutenção matemática das bordas se refere à manter essas bordas quadradinhas.)
+
+Para garantir a viabilidade das linhas de programa, esse obstáculo elétrico foi superado utilizando estritamente cabos coaxiais de rádio frequência. Uma densa malha trançada de cobre operava como um cilindro de blindagem em torno do condutor elétrico sólido central, mitigando a capacitância parasita e inibindo por completo a interferência de campo eletromagnético transversal entre as incontáveis rotas agrupadas horizontalmente nas calhas. Os terminais dos cabos coaxiais aplicavam um pino central rígido, encapsulado por um anel metálico de aterramento fixado por rosca, cravando o sinal elétrico puro de controle de forma direta nas portas de entrada dos amplificadores regeneradores. 
+
+(Nota: Ainda que o cabo coaxial preservasse o formato do sinal melhor que fios convencionais, as perdas resistivas ao longo de dezenas de metros continuavam presentes, tornando obrigatório o uso periódico dos Pulse Standardizers nas unidades de destino para restaurar a amplitude e os cantos retangulares da onda)
+
+### Cable Visual Coding
+A infraestrutura dos cabos de manobra obedecia a padrões rígidos de geometria mecânica e identificação visual para garantir a integridade dos pulsos e a rastreabilidade nos painéis:
+
+#### Padronização de Comprimentos e Perfil Físico
+Os Patch Cords eram confeccionados em comprimentos predeterminados e graduados, abrangendo desde jumpers curtos para pontes de sinal locais até extensões longas para interligação entre extremidades opostas da sala. A seleção do menor comprimento viável para cada ligação constituía um requisito elétrico essencial, visto que sobras excessivas de condutor acumulavam capacitância distribuída e indutância, degradando a inclinação das bordas de subida dos pulsos de alta frequência.
+
+#### Polarização Mecânica dos Terminais
+A morfologia dos conectores impedia acoplamentos cruzados por construção de projeto. Os terminais dos Digit Trunks utilizavam corpos circulares volumosos com ranhuras mecânicas de alinhamento e travamento polarizado, garantindo a posição exata de cada um dos 11 pinos contra o soquete. Por sua vez, as terminações dos Program Cables adotavam o formato esguio de plugues coaxiais de dois contatos (linha condutora e carcaça aterrada), tornando fisicamente impossível inserir um cabo de comando em um barramento receptor de dígitos.
+
+#### Codificação por Cores e Rastreabilidade
+O revestimento externo têxtil e as luvas nos pontos de junção dos conectores recebiam pigmentações distintas para identificar o comprimento da via e a classe operacional do condutor. Essa distinção visual permitia às equipes mapear rapidamente a sequência de disparo e o roteamento das malhas ao longo dos 40 painéis, reduzindo o tempo de inspeção e facilitando a localização de conexões trocadas durante as rotinas de verificação do cálculo.
+
 
 ## 3.8 Setup Complexity
 
