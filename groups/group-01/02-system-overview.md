@@ -45,7 +45,7 @@ E por último mas não menos importantes haviam os tubos 5T4, que eram simples d
 
 ## 2.8 Data Flow
 
-![Representação básica do fluxo de dados](./images/basic-data-flow.png)
+![Representação básica do fluxo de dados](./images/conns/basic-data-flow.png)
 
 > Descrição da Imagem: Mapa simplificado de todas as 31 unidades funcionais do sistema interconectadas por um canal central, apresentando uma topologia geral e quais unidades trocavam dados entre si (Acumuladores, I/O e Unidades Matemáticas). Essa imagem usa a palavra barramento, que não é o termo mais preciso para o caso do ENIAC (Consulte o 10° tópico no arquivo 03-interconnections).
 
@@ -58,7 +58,7 @@ A rota exata dos dados era definida manualmente através de cabos conectores. Se
 Todo esse tráfego numérico era separado do sistema de controle. Enquanto os números viajavam pelas bandejas de dígitos, os pulsos de ativação/sincronização que diziam às unidade o momento exato de transmitir ou receber dados trafegagavam por uma rede de cabos separada: as bandejas de programa. Ao chegar na unidade de destino os pulsos de dados recebidos acionavam os tubos de vácuo dos contadores de anel locais, que giravam eletronicamente para registrar o novo valor ou realizar a operação 
 matemática de forma imediata.
 
-![Ilustração de conexões de bandejas de dígitos](./images/Digit-Trays-Connected-by-Pulse-Amplifier.png)
+![Ilustração de conexões de bandejas de dígitos](./images/conns/Digit-Trays-Connected-by-Pulse-Amplifier.png)
 
 > Descrição da Imagem: Diagrama oficial de uma conexão bidirecional ponto a ponto entre dois Acumuladores através das Bandejas de Dígitos. Destaque ao uso de Amplificadores de Pulso, instalados nas bandejas para regenerar os pulsos elétricos, evitando a degradação do sinal em cabos longos.
 

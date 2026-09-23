@@ -37,11 +37,19 @@ Um pulso elétrico no ENIAC é uma variação transitória e repentina de tensã
 
 ### 3.2.1. Pulsos de Dígito
 - Fisicamente, era uma sequência rápida de pulsos repetidos (chamada de trem de pulsos) em um mesmo fio, disparando a intervalos de 10 microsegundos (ou 0,00001 segundos (ou 1 x 10^-5 segundos)) pela Unidade Cíclica, equivalente a uma frequência base de 100 kHz.
-- O número transferido é quantificado pelo número exato de picos de tensão que passam pelo fio durante um ciclo. Se o número for 4, o transmissor faz a tensão subir e descer para +45V quatro vezes seguidas. Ao chegarem à unidade receptora, cada salto de tensão altera o estado de uma válvula dento de um anel, avançando o contador em uma posição por pulso recebido.
+- O número transferido é quantificado pelo número exato de picos de tensão que passam pelo fio durante um ciclo de 200 mircosegundos. Se o número for 4, o transmissor faz a tensão subir e descer para +45V quatro vezes seguidas. Ao chegarem à unidade receptora, cada salto de tensão altera o estado de uma válvula dento de um anel, avançando o contador em uma posição por pulso recebido.
+    (Nota: o ciclo durava 200 microssegundos porque correspondia a 20 pulsos (cada um durando 10 microsegundos) gerados pela Unidade Cíclica. Os primeiros 9 a 10 pulsos transmitiam o número (de 1 a 9), e o restante eram necessário para estabilização de válvulas e emissão de pulsos de término da operação.)
 
 ### 3.2.2. Pulsos de Programa
+- Fisicamente, era um único pulso elétrico isolado (+45V durante 2 microsegundos) enviado por um cabo simples de via única.
+- Esse pulso atuava como um gatilho de ativação. Quando uma unidade matemática finaliza sua tarefa, o circuito gera um pico de tensão único em seu terminal de conexão por onde a energia elétrica sai e viaja pelo cabo até a grade de controle das válvulas da próxima unidade, tirando essas válvulas do estado de repouso e dando início à execução da tarefa seguinte.
 
-### 3.3.2 Sinais de Porta
+### 3.2.3. Sinais de Porta
+- Fisicamente, um sinal de porta era uma tensão contínua mantida em nível alto (+45V estáveis), por uma janela de tempo relativamente muito maior do que nos 2 casos anteriores, durante um ciclo inteiro de adição (200 microsegundos).
+- Esse sinal servia para liberar ou bloquear o tráfego dos pulsos de dígitos. A tensão contínua é aplicada na segunda grade de tubos 6V6 (que funcionam como portas lógicas AND). Enquanto a porta mantiver essa tensão positiva, os pulsos de dígitos que chegarem pela outra grade conseguem passar pela válvula. Quando a porta desliga e a tensão cai para o valor de repouso, a válvula bloqueia a passagem de qualquer outro sinal elétrico
+
+### Restauração dos pulsos
+Conforme esses sinais elétricos viajam dezenas de metros por cabos de cobre e bandejas, a resistência do condutor e a capacitância da linha atenuam a amplitude da tensão e arredondam as bordas da onda. Para que o pulso continue capaz continue capaz de acionar as válvulas seguintes (que usam um bocado de energia) sem falhar a contagem, circuitos padronizados com tubos 6SN7 filtram a onda deformada, reamplificam a amplitude de colta aos +45V nominais e restauram o formato retangular de 2 microsegundos antes de enviar o sinal para a próxima
 
 ## 3.3 Cross-Panel Communication
 - Como, por exemplo, um acumulador em um canto enviava dados para um multiplicador em outro canto
