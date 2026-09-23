@@ -123,14 +123,11 @@ Para garantir a viabilidade das linhas de programa, esse obstáculo elétrico fo
 ### Cable Visual Coding
 A infraestrutura dos cabos de manobra obedecia a padrões rígidos de geometria mecânica e identificação visual para garantir a integridade dos pulsos e a rastreabilidade nos painéis:
 
-#### Padronização de Comprimentos e Perfil Físico
-Os Patch Cords eram confeccionados em comprimentos predeterminados e graduados, abrangendo desde jumpers curtos para pontes de sinal locais até extensões longas para interligação entre extremidades opostas da sala. A seleção do menor comprimento viável para cada ligação constituía um requisito elétrico essencial, visto que sobras excessivas de condutor acumulavam capacitância distribuída e indutância, degradando a inclinação das bordas de subida dos pulsos de alta frequência.
+- Padronização de Comprimentos e Perfil Físico: Os Patch Cords eram confeccionados em comprimentos predeterminados e graduados, abrangendo desde jumpers curtos para pontes de sinal locais até extensões longas para interligação entre extremidades opostas da sala. A seleção do menor comprimento viável para cada ligação constituía um requisito elétrico essencial, visto que sobras excessivas de condutor acumulavam capacitância distribuída e indutância, degradando a inclinação das bordas de subida dos pulsos de alta frequência.
 
-#### Polarização Mecânica dos Terminais
-A morfologia dos conectores impedia acoplamentos cruzados por construção de projeto. Os terminais dos Digit Trunks utilizavam corpos circulares volumosos com ranhuras mecânicas de alinhamento e travamento polarizado, garantindo a posição exata de cada um dos 11 pinos contra o soquete. Por sua vez, as terminações dos Program Cables adotavam o formato esguio de plugues coaxiais de dois contatos (linha condutora e carcaça aterrada), tornando fisicamente impossível inserir um cabo de comando em um barramento receptor de dígitos.
+- Polarização Mecânica dos Terminais: A morfologia dos conectores impedia acoplamentos cruzados por construção de projeto. Os terminais dos Digit Trunks utilizavam corpos circulares volumosos com ranhuras mecânicas de alinhamento e travamento polarizado, garantindo a posição exata de cada um dos 11 pinos contra o soquete. Por sua vez, as terminações dos Program Cables adotavam o formato esguio de plugues coaxiais de dois contatos (linha condutora e carcaça aterrada), tornando fisicamente impossível inserir um cabo de comando em um barramento receptor de dígitos.
 
-#### Codificação por Cores e Rastreabilidade
-O revestimento externo têxtil e as luvas nos pontos de junção dos conectores recebiam pigmentações distintas para identificar o comprimento da via e a classe operacional do condutor. Essa distinção visual permitia às equipes mapear rapidamente a sequência de disparo e o roteamento das malhas ao longo dos 40 painéis, reduzindo o tempo de inspeção e facilitando a localização de conexões trocadas durante as rotinas de verificação do cálculo.
+- Codificação por Cores e Rastreabilidade: O revestimento externo têxtil e as luvas nos pontos de junção dos conectores recebiam pigmentações distintas para identificar o comprimento da via e a classe operacional do condutor. Essa distinção visual permitia às equipes mapear rapidamente a sequência de disparo e o roteamento das malhas ao longo dos 40 painéis, reduzindo o tempo de inspeção e facilitando a localização de conexões trocadas durante as rotinas de verificação do cálculo.
 
 
 ## 3.8 Setup Complexity
