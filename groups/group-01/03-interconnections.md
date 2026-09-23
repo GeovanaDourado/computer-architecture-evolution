@@ -33,23 +33,51 @@ Essas bandejas percorriam toda a extensão das paredes da sala, fixadas na estru
 
 ## 3.2 Signal Transmission
 
-Um pulso elétrico no ENIAC é uma variação transitória e repentina de tensão em um fio de cobre. Em estado de repouso, o fio é mantido em potencial elétrico negativo ou nulo. Quando uma válcula eletrônica no transmissor entre momentaneamente em saturação (condução plena), ele injeta corrente na linha, ela injeta corrente na linha, elevando a tensão abruptamente para cerca de +45 volts. A linha sustenta essa tensão por aproximadamente 2 microsegundo (ou 0,000002 segundos) até que a válvula corte a corrente, fazendo a tensão cair instantaneamente de volta ao repouso. Esse ciclo de subida, sustentação e queda forma uma onda quadrada conhecida como pulso. A lógica da máquina utilizava três categorias de sinais:
+![Alguns painéis, incluindo a Unidade Cíclica](./images/photos/cycling-unit-and-others.jpg)
+
+> Descrição da Imagem: Painéis originais do ENIAC em exibição na Universidade da Pensilvânia. O segundo painel vertical a partir da esquerda é a Unidade Cíclica (identificável pela tela circular do osciloscópio central, usada no monitoramento do clock de 100 kHz), ladeada por uma Tabela de Função portátil à esquerda, um Acumulador e o Programador Mestre à direita, todos interligados por cabos nas calhas inferiores.
+
+Um pulsso no ENIAC é uma variação transitória e rápida de potencial elétrico em uma linha condutora. Em repouso, as linhas operavam polarizadas com alta tensão negativa (geralmente -345V de corrente contínua para acoplamento direto com as grades das válvulas). Quando um tubo transmissor entrava em saturação, ele injetava corrente na linha, elevando abruptamente o potencial para -290C por cerca de 2 microsegundos (ou 0,000002 segundos) antes de retornas o pulso elementar de trabalho da máquina.
+
+![Diagrama listando tipos de sinais](./images/conns/cycling-unit-pulses-gates.png)
+
+> Descrição da Imagem: Diagrama temporal oficial da Unidade Cíclica, ilustrando as formas de onda, níveis de tensão e janelas de atuação durante um ciclo de adição, que dura 200 microsegundos. Mais detalhes à baixo
+
+Toda a operação do sistema era regida por três categorias de sinais elétricos sinconizados pela Unidade Cíclica ao encapsuladas em um ciclo de 200 microsegundos (dividido em 20 tempos, cada tempo possuíndo 10 microsegundos):
 
 ### 3.2.1. Pulsos de Dígito
-- Fisicamente, era uma sequência rápida de pulsos repetidos (chamada de trem de pulsos) em um mesmo fio, disparando a intervalos de 10 microsegundos (ou 0,00001 segundos (ou 1 x 10^-5 segundos)) pela Unidade Cíclica, equivalente a uma frequência base de 100 kHz.
-- O número transferido é quantificado pelo número exato de picos de tensão que passam pelo fio durante um ciclo de 200 mircosegundos. Se o número for 4, o transmissor faz a tensão subir e descer para +45V quatro vezes seguidas. Ao chegarem à unidade receptora, cada salto de tensão altera o estado de uma válvula dento de um anel, avançando o contador em uma posição por pulso recebido.
-    (Nota: o ciclo durava 200 microssegundos porque correspondia a 20 pulsos (cada um durando 10 microsegundos) gerados pela Unidade Cíclica. Os primeiros 9 a 10 pulsos transmitiam o número (de 1 a 9), e o restante eram necessário para estabilização de válvulas e emissão de pulsos de término da operação.)
+Os dados trafegavam em base decimal através de trens de pulso emitidos na primeira metade do ciclo (tempos 1/20 a 10/20). A Unidade Cíclica não possuía geradores dedicados para cada um dos números de 1 a 9, em vez disso, ela gerava blocos fundamentais de pulsos com durações e espaçamentos temporais específicos:
+- 1P: Emite 1 pulso no tempo 1/20
+- 2P: Emite 2 pulsos sequenciais nos tempos 2/20 e 3/20
+- 2'P: Emite 2 pulsos sequenciais nos tempos 4/20 e 5/20 (separados do 2P para evitar sobreposição)
+- 4P: Emite 4 pulsos nos tempos de 6/20 a 9/20
+- 1'P: Emite 1 pulso isolado no tempo 10/20
+Qualquer número de 1 a 9 era sintetizado combinando essas linhas atravpe de posrtas lógicas. Exemplo: o dígito 7 era formado pela soma lógica de 1P + 2P + 4P.
+As saídas 9P e 10P pré-fabricados com 9 e 10 pulsos contínuos, utilizados prioritariamente para operações de complemento de dez e aritmética de número negativos
 
-### 3.2.2. Pulsos de Programa
-- Fisicamente, era um único pulso elétrico isolado (+45V durante 2 microsegundos) enviado por um cabo simples de via única.
-- Esse pulso atuava como um gatilho de ativação. Quando uma unidade matemática finaliza sua tarefa, o circuito gera um pico de tensão único em seu terminal de conexão por onde a energia elétrica sai e viaja pelo cabo até a grade de controle das válvulas da próxima unidade, tirando essas válvulas do estado de repouso e dando início à execução da tarefa seguinte.
+### 3.2.2. Sinais de Controle
+Os comandos e transições de rotina utilizavam pulsos unitários mais discretos:
+- Central Programming Pulse: um pulso mestre gerado pontualmente no tempo 17/20 de cada ciclo.
+- Program Pulses: Quando uma unidade encerrava seu cálculo, seu dicionário liberava a passagem do CPP daquele ciclo para a saída. Esse pulso unitário viajava pelas bandejas de programa até a entrada de outra unidade, depolarizando as grades das válvulas de corte e acionando o início do próximo cálculo em perfeito sincronismo temporal com a Unidade Crítica.
 
 ### 3.2.3. Sinais de Porta
-- Fisicamente, um sinal de porta era uma tensão contínua mantida em nível alto (+45V estáveis), por uma janela de tempo relativamente muito maior do que nos 2 casos anteriores, durante um ciclo inteiro de adição (200 microsegundos).
-- Esse sinal servia para liberar ou bloquear o tráfego dos pulsos de dígitos. A tensão contínua é aplicada na segunda grade de tubos 6V6 (que funcionam como portas lógicas AND). Enquanto a porta mantiver essa tensão positiva, os pulsos de dígitos que chegarem pela outra grade conseguem passar pela válvula. Quando a porta desliga e a tensão cai para o valor de repouso, a válvula bloqueia a passagem de qualquer outro sinal elétrico
+o contrário dos pulsos curtos de 2, uma *Gate* era uma elevação contínua de tensão mantida estável para habilitar ou desabilitar válvulas pentodo (como as 6V6, operando como portas lógicas AND):
+- Carry-Clear Gate: Janela temporal contínua que permanecia ativa entre os tempos 11/20 e 18/20 (70 microsegundos). Esse sinal desobstruía os circuitos de transporte de dezenas, permitindo que os contadores repassassem o "vai-um" gerado pela adição aos estágios seguintes sem colidir com os dados de dígitos (que haviam terminado no tempo 10).
+- Reset Pulses: Pulsos de limpeza referenciados em 0V (com pico em +50V) disparados no tempo 13/20 e no tempo 19/20. O pulso 13 reiniciava os gatilhos de transporte, e o pulso 19 zerava os estados transitórios dos acumuladores, deixando todas as linhas estabilizadas para o tempo 0 do ciclo subsequente.
 
-### Restauração dos pulsos
-Conforme esses sinais elétricos viajam dezenas de metros por cabos de cobre e bandejas, a resistência do condutor e a capacitância da linha atenuam a amplitude da tensão e arredondam as bordas da onda. Para que o pulso continue capaz continue capaz de acionar as válvulas seguintes (que usam um bocado de energia) sem falhar a contagem, circuitos padronizados com tubos 6SN7 filtram a onda deformada, reamplificam a amplitude de colta aos +45V nominais e restauram o formato retangular de 2 microsegundos antes de enviar o sinal para a próxima
+### Padronizador de Pulso
+Conforme esses sinais viajavam por dezenas de metros de cabos e bandejas, as perdas capacitivas e resistivas deformavam as ondas quadradas e derrubavam os -290V nominais. Para que as válvulas operassem de modo confiável, circuitos padronizadores utilizavam tubos duplos 6SN7 para detectar o limiar da onda degradada e recriar bordas retangulares afiadas, enquanto tubos de potência 6V6 e 6L6 restauravam a amplitude de tensão antes de encaminhar o sinal para a unidade de destino.
+
+![Esquema elétrico do circuito padronizador de pulsos](./images/conns/Pulse-Standardizer-Circuits.png)
+
+> Descrição da Imagem: Esquema elétrico do circuito padronizador de pulso. O estágio inicial utiliza a válvula de duplo tríodo 6SN7 configurada como um gatilho monoestável para regenerar as bordas retangulares da onda deformada, enquanto os estágios seguintes com as válvulas de potência 6V6 e 6L6 restauram a amplitude de tensão e fornecem corrente suficiente para o sinal percorrer as longas linhas da máquina.
+
+### Extra
+
+![Diagrama preliminar de temporização do ENIAC](./images/conns/Synchronizing-Pulse-Gate.png)
+
+> Descrição da Imagem: Diagrama preliminar de temporização desenhado em dezembro de 1943, demonstrando a concepção inicial de um ciclo de adição de 16 tempos de pulso. O documento ilustra o planejamento embrionário da relação entre Cycling Pulses, Carry-Clear Gate e pulsos de programa, antes da expansão definitiva da máquina para o ciclo padrão de 20 tempos de pulso.
+
 
 ## 3.3 Cross-Panel Communication
 - Como, por exemplo, um acumulador em um canto enviava dados para um multiplicador em outro canto
@@ -68,7 +96,7 @@ Conforme esses sinais elétricos viajam dezenas de metros por cabos de cobre e b
 
 ## 3.8 Synchronization
 
-O Eniac utilizava uma arquitetura genial chamada de Unidade de Ciclos, um mecanismo centralizado e a fonte única da maquina toda. Gerando pulsos em intervalos de 10 microssegundos (10 µs). A taxa de atualização do projeto era de 100kHz (cem quilohertz), contudo, foi pesteriormente usada apenas em 60kHz por motivos de estabilidade. 
+O Eniac utilizava uma arquitetura genial chamada de Unidade de Ciclos, um mecanismo centralizado e a fonte única da maquina toda. Gerando pulsos em intervalos de 10 microssegundos (10 µs). A taxa de atualização do projeto era de 100kHz (cem quilohertz), contudo, foi posteriormente usada apenas em 60kHz por motivos de estabilidade. 
 Como a Unidade de Ciclos era a fonte única e centralizada do sistema, era impossível que houvesse desincronização por meios mecánicos. Visto que não havia outra fonte de pulsos para funcionar em paralelo. A complexidade no entanto, era garantir que esses pulsos se estendessem pelas dezenas de metros até todos os paíneis. Para lidar com esta dificuldade foram utilizados pares de cabos 6L6 excitados por um cabo 6V6. Esses eram Drivers que funcionavam como amplificadores do sinal da Unidade de Ciclos, esse sinal amplificado era enviado para o Synchronizing trunk, um feixe de 11 cabos (trey de jumpers) que conectava todos os paíneis simultanemante. Evitando um possivel delay nos paíneis mais distantes. 
 Um fator importante de se notar era que os ciclos da Unidade de Ciclos, levavam exatamante 200 µs, e cada operação da máquina consumia um número inteiro de ciclos. Como o sinal de relógio gerado pela Unidade de Ciclos era recebido e amplificado no mesmo instante, a sincronia era garantida por construção.
 E a Unidade de Ciclos funcionava em 3 modos. O contínuo, onde o relógio estava sempre ativo e constantemente gerando cilcos. O modo One add time. Onde os ciclos eram executados um por um em adição, muito usado para depuração. E o modo One pulse, onde o era emitido apenas um pulso por vez, usado para gerar diagnósticos.
@@ -84,3 +112,14 @@ O Eniac não necessitava de um Barramento, e isso ocorria justamente por sua arq
 ## 3.11 Network Diagram
 A representação mais próxima do visual dos dados e controle de rotas pode ser encontrado no seguinte documento.
 
+# IMAGENS DO BRENNO:
+
+![](./images/tables/tabulation-of-cables.png)
+![](./images/tables/setup-of-exterior-ballistics-equations.png)
+![](./images/conns/constant-tansmiter-interconn-diagram.png)
+![](./images/conns/accumulator-interconn-diagram.png)
+![](./images/conns/function-table-interconn-diagram.png)
+
+
+Como se usa imagens localmente?
+É bem simples, você coloca a imagem em qualquer lugar na mesma pasta que esse arquivo ou em pastas inferiores (nesses caso, pastas dentro da pasta images). Após isso é só colocar o caminho para imagem a partir do POV desse arquivo aqui (que é representado por um ./). A pertir do arquivo em que estamos, a imagem que a gente quer está, por exemplo, dentro da pata imagens, então o link para ela é ./images... Dentro de da pasta images tem outras pastas, onde estão os arquivos das imagens. Para pegar uma imagem especifíca você precisa ir até a pasta onde ela está e perguntar pelo nome do arquivo da imagem, como você pode ver nos exemplos abaixo (que são as imagens que vc quer usar)
