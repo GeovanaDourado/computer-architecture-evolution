@@ -9,6 +9,9 @@ Avaliação comparativa do desempenho das diferentes opeçãoes que o ENIAC fazi
 ## 9.3 Setup x Execution
 - Levar dias para conectar os cabos de um programa que era executado em segundos
 
+## 9.3 Energy Consumption
+- Quanta energia o ENIAC usava para operar normalmente
+
 ## 9.4 Vacuum Tube Failure Rate
 - Com que frequência as válvulas queimavam e quanto tempo era necessário para encontrar a defeituosa
 

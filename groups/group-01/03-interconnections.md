@@ -226,6 +226,14 @@ A representação mais próxima do visual dos dados e controle de rotas pode ser
 ![](./images/conns/accumulator-interconn-diagram.png)
 ![](./images/conns/function-table-interconn-diagram.png)
 
-
 Como se usa imagens localmente?
-É bem simples, você coloca a imagem em qualquer lugar na mesma pasta que esse arquivo ou em pastas inferiores (nesses caso, pastas dentro da pasta images). Após isso é só colocar o caminho para imagem a partir do POV desse arquivo aqui (que é representado por um ./). A pertir do arquivo em que estamos, a imagem que a gente quer está, por exemplo, dentro da pata imagens, então o link para ela é ./images... Dentro de da pasta images tem outras pastas, onde estão os arquivos das imagens. Para pegar uma imagem especifíca você precisa ir até a pasta onde ela está e perguntar pelo nome do arquivo da imagem, como você pode ver nos exemplos acima (que são as imagens que vc quer usar)
+É bem simples, você coloca a imagem em na mesma pasta que esse arquivo (03-interconnections) ou em pastas inferiores (nesses caso, nas pastas dentro da pasta "images"). Após isso é só colocar o caminho para imagem a partir do POV desse arquivo aqui (que é representado por um "./", essa é a raiz do caminho aonde estamos agora). A partir do arquivo em que estamos, a imagem que a gente quer está, por exemplo, dentro da pata "images" (que está na mesma pasta que esse arquivo aqui), então o link para ela é "./images". Dentro de da pasta images tem outras subpastas, onde estão as imagens. Para pegar uma imagem especifíca você precisa ir até a pasta onde ela está e perguntar pelo nome do arquivo da imagem, como você pode ver nos exemplos acima. Se eu quero endereçar a imagem "big-cable.jpg", eu aponto para ela com "./images/photos/big-cable.jpg"
+
+Pode apagar toda essa seção após entender como funciona
+
+
+## Footnotes
+
+![Cool](./images/photos/could-be-an-album-cover.jpg)
+
+> Essa imagem poderia ser a capa de um álbum
