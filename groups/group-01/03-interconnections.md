@@ -216,20 +216,20 @@ As maiores dificuldades relatadas pela equipe estavam relacionadas em principal 
 O Eniac não necessitava de um Barramento, e isso ocorria justamente por sua arquitetura. Já que ele não tinha memória de instrução para que pudesse ser endereçada. Em suma, O Eniac não tinha memória, pois o "Programa" era estruturado pela junção de cabos e soquetes, logo o endereçamento era direto e fisíca no próprio hardware do sistema. As operações feitas eram padronizadas pela fiação e pelos interruptores, e até mesmo as tabelas de função utilizadas eram acessadas por fiação fixa. Em termos técnicos, o Eniac funcionava mais como um grafo de fluxo do que como uma CPU diretamente. Sem conexões e programas extras a serem utilizados. Sem necessidade de barramento.
 
 ## 3.10 Network Diagram
-A representação mais próxima do visual dos dados e controle de rotas pode ser encontrado no seguinte documento.
+A representação mais próxima do visual dos dados e controle de rotas pode ser encontrado nos seguintes documentos.
 
-# IMAGENS DO BRENNO:
-
-![](./images/tables/tabulation-of-cables.png)
-![](./images/tables/setup-of-exterior-ballistics-equations.png)
 ![](./images/conns/constant-tansmiter-interconn-diagram.png)
+> Demonstra uma "Confirguração genérica" de como o transmissor de constante poderia ser utilizado. Esse em específico, lia os cartões perfurados como dados de entrada e os injetava no restante do sistema.
+
 ![](./images/conns/accumulator-interconn-diagram.png)
+> Este diagrama demonstra como os acumuladores poderiam ser conectados entre si e outras partes fundamentais do Eniac. demonstrando esquemas de conexão e quais cabos poderiam ser utilizados e quais serviam para envio ou recebimento de dados. (Todos os diagramas com exceção do último seguem esta mesma lógica de documentação)
+
 ![](./images/conns/function-table-interconn-diagram.png)
+> A imagem evidência como a Tabela de Função do Eniac se conectava ao restante da máquina. Quais tipos de cabos e onde eram usados e qual sua serventia.
 
-Como se usa imagens localmente?
-É bem simples, você coloca a imagem em na mesma pasta que esse arquivo (03-interconnections) ou em pastas inferiores (nesses caso, nas pastas dentro da pasta "images"). Após isso é só colocar o caminho para imagem a partir do POV desse arquivo aqui (que é representado por um "./", essa é a raiz do caminho aonde estamos agora). A partir do arquivo em que estamos, a imagem que a gente quer está, por exemplo, dentro da pata "images" (que está na mesma pasta que esse arquivo aqui), então o link para ela é "./images". Dentro de da pasta images tem outras subpastas, onde estão as imagens. Para pegar uma imagem especifíca você precisa ir até a pasta onde ela está e perguntar pelo nome do arquivo da imagem, como você pode ver nos exemplos acima. Se eu quero endereçar a imagem "big-cable.jpg", eu aponto para ela com "./images/photos/big-cable.jpg"
+![](./images/tables/setup-of-exterior-ballistics-equations.png)
+> Essa *¹ imagem representa uma estrutura lógica específica do Eniac. Utilizada para calcular a rota de misseis balistícos unsando o Método de Heun. Era uma especia de mapa de programação de como os cabos e estruturas (como o acumulador) já citadas anteriormente deveriam ser conectados para que o calculo fosse feito corretamente.
 
-Pode apagar toda essa seção após entender como funciona
 
 
 ## Footnotes
@@ -237,3 +237,5 @@ Pode apagar toda essa seção após entender como funciona
 ![Cool](./images/photos/could-be-an-album-cover.jpg)
 
 > Essa imagem poderia ser a capa de um álbum
+
+> O conteúdo da *¹ imagem da "Tabela de equações do setup de exteriror balistíco." foi redigida em 31 de dezembro de 1943. Isso foi alguns meses antes do projeto final do Eniac estar montado e apto a testes. O que significa que mesmo antes de tudo estar pronto e ser montado, o grupo de cientistas e pesquisadores já estavam colando em prática a lógica e "programção" de possiveis algoritmos que o Eniac viesse a usar. [Nota pessoal: Os pesquisadores estavam literalmente programando no lápise papel. Loucura]
