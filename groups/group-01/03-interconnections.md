@@ -219,16 +219,20 @@ O Eniac não necessitava de um Barramento, e isso ocorria justamente por sua arq
 A representação mais próxima do visual dos dados e controle de rotas pode ser encontrado nos seguintes documentos.
 
 ![](./images/conns/constant-tansmiter-interconn-diagram.png)
+
 > Demonstra uma "Confirguração genérica" de como o transmissor de constante poderia ser utilizado. Esse em específico, lia os cartões perfurados como dados de entrada e os injetava no restante do sistema.
 
 ![](./images/conns/accumulator-interconn-diagram.png)
+
 > Este diagrama demonstra como os acumuladores poderiam ser conectados entre si e outras partes fundamentais do Eniac. demonstrando esquemas de conexão e quais cabos poderiam ser utilizados e quais serviam para envio ou recebimento de dados. (Todos os diagramas com exceção do último seguem esta mesma lógica de documentação)
 
 ![](./images/conns/function-table-interconn-diagram.png)
+
 > A imagem evidência como a Tabela de Função do Eniac se conectava ao restante da máquina. Quais tipos de cabos e onde eram usados e qual sua serventia.
 
 ![](./images/tables/setup-of-exterior-ballistics-equations.png)
-> Essa *¹ imagem representa uma estrutura lógica específica do Eniac. Utilizada para calcular a rota de misseis balistícos unsando o Método de Heun. Era uma especia de mapa de programação de como os cabos e estruturas (como o acumulador) já citadas anteriormente deveriam ser conectados para que o calculo fosse feito corretamente.
+
+> Essa imagem representa uma estrutura lógica específica do Eniac. Utilizada para calcular a rota de misseis balistícos usando o Método de Heun. Era uma espécie de mapa de programação de como os cabos e estruturas (como o acumulador) já citadas anteriormente deveriam ser conectados para que o calculo fosse feito corretamente.
 
 
 
