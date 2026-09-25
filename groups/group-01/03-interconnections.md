@@ -215,24 +215,32 @@ As maiores dificuldades relatadas pela equipe estavam relacionadas em principal 
 
 O Eniac não necessitava de um Barramento, e isso ocorria justamente por sua arquitetura. Já que ele não tinha memória de instrução para que pudesse ser endereçada. Em suma, O Eniac não tinha memória, pois o "Programa" era estruturado pela junção de cabos e soquetes, logo o endereçamento era direto e fisíca no próprio hardware do sistema. As operações feitas eram padronizadas pela fiação e pelos interruptores, e até mesmo as tabelas de função utilizadas eram acessadas por fiação fixa. Em termos técnicos, o Eniac funcionava mais como um grafo de fluxo do que como uma CPU diretamente. Sem conexões e programas extras a serem utilizados. Sem necessidade de barramento.
 
-## 3.10 Network Diagram
-A representação mais próxima do visual dos dados e controle de rotas pode ser encontrado nos seguintes documentos.
+## 3.10 Other Interconnections Diagrams (Because They are Cool!)
 
-![](./images/conns/constant-tansmiter-interconn-diagram.png)
+![Diagrama de bloco de um acumulador](./images/conns/accumulator-block-diagram.png)
 
-> Demonstra uma "Confirguração genérica" de como o transmissor de constante poderia ser utilizado. Esse em específico, lia os cartões perfurados como dados de entrada e os injetava no restante do sistema.
+> Descrição da Imagem: O esquema ilustra a arquitetura lógica da unidade responsável por armazenar e realizar adições/subtrações. Em destaque, alinhados lado a lado, estão os dez blocos verticais rotulados de "1st Decade" a "10th Decade", que representam os contadores de anel em cascata para um número decimal de 10 dígitos, precedidos à esquerda pelo circuito indicador de sinal (PM - Plus/Minus). O diagrama também detalha o complexo roteamento interno: a interface com as vias de dados (Digit Trunks) na parte superior e a rede de chaves seletoras circulares e circuitos de controle (Program Lines) nas seções inferior e lateral esquerda, que coordenavam a entrada, saída e limpeza dos valores.
 
-![](./images/conns/accumulator-interconn-diagram.png)
+![Diagrama de bloco da Unidade de Sinconização](./images/conns/sync-unit-diagram.png)
 
-> Este diagrama demonstra como os acumuladores poderiam ser conectados entre si e outras partes fundamentais do Eniac. demonstrando esquemas de conexão e quais cabos poderiam ser utilizados e quais serviam para envio ou recebimento de dados. (Todos os diagramas com exceção do último seguem esta mesma lógica de documentação)
+> Descrição da Imagem: Diagrama de blocos oficial da Unidade de Sincronização de Equipamento de Teste do ENIAC, 1946. O esquema detalha a lógica do circuito utilizado para gerar e isolar pulsos de tempo precisos para fins de diagnóstico e calibração da máquina. À esquerda, o sinal de entrada (Oscillator Input) é condicionado e alimenta um contador sequencial no topo (estágios de 0 a 9). O destaque para os três conjuntos de chaves seletoras rotativas rotuladas como SCORE (ou SCOPE, não dá para ver muito bem), VARIABLE e TRAIN, que permitiam aos engenheiros selecionar pulsos em tempos específicos. Esses sinais passavam por uma lógica de separação de ciclos pares e ímpares (Even/Odd) e por um Flip-Flop (F.F.) antes de chegarem aos terminais de saída na base, servindo para sincronizar osciloscópios e injetar trens de pulso de teste em outras unidades.
 
-![](./images/conns/function-table-interconn-diagram.png)
+![Diagrama das interconexões do Transmissor Constante](./images/conns/constant-tansmiter-interconn-diagram.png)
 
-> A imagem evidência como a Tabela de Função do Eniac se conectava ao restante da máquina. Quais tipos de cabos e onde eram usados e qual sua serventia.
+> Descrição da Imagem: Diagrama de interconexão oficial do Constant Transmitter (Transmissor de Constantes) do ENIAC. O esquema mapeia a disposição física e o cabeamento estrutural entre os diversos chassis que compõem os dois painéis principais desta unidade, que era responsável por introduzir dados (lidos de cartões perfurados) na máquina. A ilustração detalha a organização vertical dos módulos, incluindo os Top Chassis com seus soquetes de interligação no topo, múltiplos Gate Chassis e Switching Panels na região central, e Transformer Panels na base. Na coluna da direita, destacam-se os Socket Panels (A, B e C) abrigando conjuntos de Transceivers, componentes relacionados a conversão e transmissão dos dados numéricos para o resto do computador.
 
-![](./images/tables/setup-of-exterior-ballistics-equations.png)
+![Diagrama das interconexões de um Acumulador](./images/conns/accumulator-interconn-diagram.png)
 
-> Essa imagem representa uma estrutura lógica específica do Eniac. Utilizada para calcular a rota de misseis balistícos usando o Método de Heun. Era uma espécie de mapa de programação de como os cabos e estruturas (como o acumulador) já citadas anteriormente deveriam ser conectados para que o calculo fosse feito corretamente.
+> Descrição da Imagem: Diagrama de interconexão oficial de um Acumulador do ENIAC. O esquema mapeia a disposição física e estrutural dos módulos no painel da unidade. Na parte superior, destacam-se os dez chassis verticais das décadas contadoras (Decades) e o módulo de controle de sinal e limpeza (P.M. & Clear), com o cabeamento de saída direcionado para a unidade de impressão (To Printer). A seção central detalha os chassis de portas lógicas (Gate Chassis) e o painel de chaves de programação (Program Switching Panel). Na base, o diagrama ilustra o painel de soquetes de programa abrigando componentes vitais de comunicação, como transceptores (Transceivers), receptores e repetidores, além de indicar a rota de conexão para a bandeja de pulsos de sincronização (To Synchronizing Pulse-Gate Tray).
+
+![Diagrama das interconexões de um Tabela de Funções](./images/conns/function-table-interconn-diagram.png)
+
+> Descrição da Imagem: Diagrama de interconexão oficial da Function Table (Tabela de Funções) do ENIAC. O esquema detalha a disposição física e a organização estrutural dos dois painéis verticais (Panel 2 à esquerda e Panel 1 à direita) que compõem a unidade responsável por armazenar valores tabulares fixos. No Painel 2, observam-se múltiplos módulos de portas lógicas (Gate Chassis A, B, C e D) e chaves (Switching Panel). No Painel 1, destacam-se os chassis seletores de função superior e inferior (Upper/Lower Function Selector Chassis), essenciais para o endereçamento e leitura dos dados, além do painel de soquetes de programação (Prog. Socket Panel) equipado com matrizes de transceptores (Transceivers) logo acima do transformador base. O diagrama também indica as conexões de alimentação (A.C./D.C.) e as linhas de controle direcionadas à bandeja de pulsos de sincronização (To Synchronizing Pulse-Gate Tray)
+
+![Tabela de equações do setup de exteriror balistíco](./images/tables/setup-of-exterior-ballistics-equations.png)
+
+> Essa imagem representa uma estrutura lógica específica do Eniac. Utilizada para calcular a rota de misseis balistícos usando o Método de Heun. Era uma espécie de mapa de programação de como os cabos e estruturas (como o acumulador) já citadas anteriormente deveriam ser configurados para que o calculo fosse feito da forma desejada.
+> O conteúdo da imagem da "Tabela de equações do setup de exteriror balistíco." foi redigida em 31 de dezembro de 1943. Isso foi alguns meses antes do projeto final do Eniac estar montado e apto a testes. O que significa que mesmo antes de tudo estar pronto e ser montado, o grupo de cientistas e pesquisadores já estavam colocando em prática a lógica e "programção" de possiveis algoritmos que o Eniac viesse a usar. [Nota pessoal: Os pesquisadores estavam literalmente programando no lápis e papel. Loucura][Outra Nota: E depois eles estavam programando com cabos, oque também é muito impresionante]
 
 
 
@@ -242,4 +250,3 @@ A representação mais próxima do visual dos dados e controle de rotas pode ser
 
 > Essa imagem poderia ser a capa de um álbum
 
-> O conteúdo da *¹ imagem da "Tabela de equações do setup de exteriror balistíco." foi redigida em 31 de dezembro de 1943. Isso foi alguns meses antes do projeto final do Eniac estar montado e apto a testes. O que significa que mesmo antes de tudo estar pronto e ser montado, o grupo de cientistas e pesquisadores já estavam colando em prática a lógica e "programção" de possiveis algoritmos que o Eniac viesse a usar. [Nota pessoal: Os pesquisadores estavam literalmente programando no lápise papel. Loucura]
