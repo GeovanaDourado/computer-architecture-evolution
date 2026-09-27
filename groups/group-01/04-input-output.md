@@ -1,5 +1,7 @@
 # 4. Input and Output
 
+![Tabela de cartões do ENIAC](./images/tables/cards-table.png)
+
 ## 4.1 I/O Contextualization
 - Não havia interfaces modernadas como monitores, teclados e muito menos mouses
 
