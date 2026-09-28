@@ -30,8 +30,44 @@ Além dos furos e da impressão, todo cartão possuía um corte diagonal em um d
 
 > Descrição da Imagem: Visão frontal um único cartão perfurado padrão IBM (com uma régua na base confirmando evidenciando sua largura de 18,7 cm). É visível também a indexação do cartão: logo abaixo da linha dos zeros (e repetida na borda inferior), há uma fileira de números pequenininhos indo de 1 a 80, indicando a posição de cada uma das 80 colunas. Os furos presentes acima da linha do zero pertencem às chamadas "linhas de zona" (historicamente designadas como linhas 11 e 12, ou X e Y). Enquanto um único furo nas linhas de 0 a 9 representava um dígito, era possível representar letras e símbolos especiais. Para isso, o sistema combinava mais de um furo por coluna (incluindo as furos nas linhas de zona). As diferentes combinações possíveis por coluna é o que permitia à máquina codificar e imprimir caracteres alfabéticos e matemáticos complexos. O texto "( I < U ) TRACERC[I+1] := RIGHT 'OF' TRACERC[I]", legível no topo do cartão, é a tradução dos furos (sim, cada coluna de furos se traduz a um dos caracteres dessa string. Consulte o tópico "4.5 Card Reader" aqui nesse mesmo arquivo para mais detalhes).
 
-### 4.2.2 Keypunch
-A confecção desses cartões era realizada por meio de máquinas específicas chamadas Keypunches (perfuradoras de cartões). Operadas através de um teclado semelhante ao de uma máquina de escrever digitavam os números desejados e a perfuradora acionava lâminas internas que cortavam os retângulos nas colunas exatas do cartão, garantindo um alinhamento milimétrico. Simultaneamente ao corte, a Keypunch imprimia com tinta os números correspondentes no topo de cada coluna perfurada, muito útil para facilitar aos operadores a leitura do conteúdo do cartão diretamente, sem a necessidade de decodificar a posição dos furos de cabeça.
+### 4.2.2 Keypunches
+A confecção desses cartões era realizada por meio de máquinas eletromecânicas chamadas Keypunches (perfuradoras de cartões).Durante o período de operação do ENIAC (1945–1955), a equipe (provavelmente) utilizou os modelos padronizados da IBM da época, com destaque para as perfuradoras alfabéticas de impressão (a exemplo da IBM Type 032 e, posteriormente, da IBM 026).
+
+> Esse subtópico não entra em tanto detalhe sobre o funcionamento das keypunches porque: 1. Não encontrei boa documentação sobre qual modelo exatamente era usado para perfurar os cartões que o ENIAC usava (estou chutando que era o standard da época), e 2. As keypunches não faziam parte do ENIAC, era mais um periférico necessário (como se fosse o teclado do ENIAC) para dar input, mas qual máquina exatamente fez os cartões não importava tanto, contatno que os cartões estivessem legíveis para o Card Reader.
+
+![Uma operadora trabalhando numa IBM type 032](./images/cards/keypunch-ibm-32.jpg)
+
+> Descrição da Imagem: Fotografia de uma operadora trabalhando em uma perfuradora de cartões IBM Type 032. Logo acima do teclado, quase não legível, vemos o texto "International" (de International Business Machines, a IBM).
+
+Uma Keypunch assemelhava-se a uma pequena escrivaninha metálica pesada, equipada com um teclado integrado. O maquinário interno combinaza motores elétricos, sistemas de alimentação mecânica por roletes, relés eletromecânicos e matrizes de corte de aço. A máquina possuía 5 mecanismos principais:
+
+1. Alimentador: Uma pilha de cartões em branco era inserida em um compartimento inclinado no canto superior direito da máquina.
+
+2. Estação de Perfuração: Ao iniciar o processo, a máquina puxava um único cartão do Alimentador e o posicionava na estação de corte. Conforme a operadora digitava, o cartão avançava mecanicamente, coluna por coluna. Cada tecla pressionada fechava contatos elétricos que acionavam solenoides, disparando lâminas de aço afiadas para baixo e recortando os retângulos de forma precisa no papel cartonado.
+
+3. Mecanismo de Impressão: Simultaneamente à perfuração da lâmina, os modelos de impressão possuíam matrizes de tipos (semelhantes às hastes de uma máquina de escrever) que carimbavam com tinta o caractere correspondente no topo da coluna recém perfurada. Isso permitia a leitura rápida do cartão sem a necessidade de decodificar visualmente a posição dos furos.
+
+4. Estação de Leitura: Após passar pela perfuração, o cartão avançava para uma segunda estação. Essa etapa possuía uma função de duplicação. Se um lote de cartões precisasse compartilhar os mesmos dados nas primeiras 20 colunas (como uma data ou o número de identificação de um teste balístico), a máquina lia os furos do cartão anterior (que já estava na estação de leitura) e acionava automaticamente as lâminas para perfurar o cartão atual (na estação de perfuração), poupando a operadora de redigitar informações repetitivas. (Uma das primeiras formas do ctrl + c, ctrl + v)
+
+5. Empilhador: Ao finalizar as 80 colunas, o cartão era ejetado e empilhado ordenadamente no canto superior esquerdo da máquina, pronto para ser agrupado na pilha final.
+
+![Imagem de uma Keypunch IBM 026](./images/cards/keypunch-ibm-26.jpg)
+
+> Descrição da Imagem: Ilustração de uma perfuradora IBM 026. A imagem mapeia as estações de trabalho descritas acima, evidenciando o caminho que o cartão percorre da direita para a esquerda. O Card hopper (Alimentador), no canto superior direito, é por onde os cartões em branco entravam, descendo para a Punching station (Estação de Perfuração) e o Printing mechanism (Mecanismo de Impressão). Mais à esquerda, localiza-se a Reading station (Estação de Leitura), usada para a duplicação mecânica de dados, e finalmente no Card stacker (Empilhador) no canto superior esquerdo.
+
+Como a maioria dos dados inseridos para os cálculos do ENIAC eram dados numéricos, o teclado possuía um agrupamento denso de teclas de números concentrado sob a mão direita da operadora. Esse design otimizava a velocidade de digitação de longas sequências de operandos com apenas uma das mãos, enquanto a outra podia manusear os documentos de origem.
+
+A precisão era um fator crítico, pois não era possível far ctrl + z num furo já feito no papel. Se a operadora percebesse que havia digitado um número errado na coluna 45, o cartão inteiro estava arruinado. A única forma de correção era ejetar o cartão com o erro, descartá-lo, alimentar um novo cartão em branco e usar a função de duplicação da Reading Station para copiar mecanicamente as primeiras 44 colunas corretas do cartão estragado, assumindo então o controle manual para digitar o restante dos dados corretamente (tecnicamente um ctrl + z, mas um cartão inteiro precisava ser descartado no processo).
+
+![Um desenho de um teclado de uma Keypunch IBM 026](./images/cards/keypunch-ibm-026-keyboard.jpg)
+
+> Descrição da Imagem: Esquema do teclado combinado (Combination Keyboard) de uma perfuradora IBM 026. O diagrama destaca a zona hachurada à direita, que mostra como o teclado numérico (dígitos de 0 a 9) era densamente agrupado e sobreposto às teclas de letras (U, I, O, J, K, L, M). Isso permitia que a operadora digitasse longas sequências de operandos em alta velocidade usando apenas a mão direita (tomando cuidado com shift). Há também outras teclas de controle, como "DUP" (para acionar a função de duplicar as colunas de um cartão para o outro) e as teclas "NUM" e "ALPH" nas extremidades inferiores (funcionando como a tecla shift para alternar a configuração das lâminas entre a perfuração de números ou de letras).
+
+> Nota: Era possível digitar com apenas uma mão sim, mas era preciso tomar bastante cuidado com o shift, para não escrever uma letra invés de um número sem querer.
+
+Cada furo retangular gerava um pedacinho de papel, conhecido como chad. Devido ao grande volume de cartões processados diariamente para alimentar os cálculos balísticos, as máquinas possuíam uma caixa de coleta embutida sob a mesa, a chad box. O esvaziamento periódico dessas caixas era uma rotina obrigatória da sala de operações.
+
+> Nota: O nome "chad box" é hilário observando retrospectivamente KKKKKKK
 
 ### 4.2.3 IBM Card Reader
 O dispositivo responsável por extrair as informações físicas do papel era um leitor de cartões da IBM adaptado para o sistema. O funcionamento desse maquinário era eletromecânico e baseava-se em princípios de condutividade elétrica.
@@ -50,7 +86,8 @@ O leitor de cartões operava a uma velocidade constante de aproximadamente 125 c
 - Como estados eletrônicos internos eram convertidos novamente para cartões perfurados
 
 ## 4.5 Printer Unit
-- Como cartões perfurados eram traduzidos para números, simbolos e caracteres legíveis
+- Como cartões perfurados eram traduzidos para números, simbolos e caracteres legíveis 
+(coloque uma tabelinha de tradução de colunas de cartões aqui)
 
 ## 4.6 Human Interaction
 - O trabalho manual envolvido no carregamento das pilhas de cartões e na operação dos leitores
