@@ -18,11 +18,7 @@
 ## 4.6 Human Interaction
 - O trabalho manual envolvido no carregamento das pilhas de cartões e na operação dos leitores
 
-## 4.7 Input-to-Output Diagram
-- Diagrama do caminho que os dados seguiam, desde o input até o output
-(Add image)
-
-## 4.8 Modern Comparison
+## 4.7 Modern Comparison
 - Como a interface do ENIAC se diferencia da de um computador moderno
 
 | ENIAC I/O | Modern I/O |
