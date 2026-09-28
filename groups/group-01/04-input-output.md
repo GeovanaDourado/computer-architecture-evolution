@@ -70,6 +70,11 @@ Cada furo retangular gerava um pedacinho de papel, conhecido como chad. Devido a
 > Nota: O nome "chad box" é hilário observando retrospectivamente KKKKKKK
 
 ### 4.2.3 IBM Card Reader
+
+![Uma operadora inserindo cartões perfurados no Card Reader](./images/photos/inserting-cards-in-card-reader.jpg)
+
+> Descrição da Imagem: Fotografia de uma operadora do ENIAC alimentando uma pilha de cartões perfurados no Leitor de Cartões da IBM. É possível ver a parede direita do ENIAC, bem perto de onde se encontra a Unidade de Transmissão constante, que recebe a leitura dos cartões feita pelo Card Reader.
+
 O dispositivo responsável por extrair as informações do papel era um leitor de cartões da IBM adaptado para o sistema. Os cartões preenchidos com os dados inicias eram empilhados no alimentador do leitor. Um sistema de roletas puxava um cartão por vez, fazendo-o deslizar em velocidade constante sobre um cilindro metálico eletrificado, lendo aproximadamente 125 cartões por minuto. Logo acima desse cilindro, repousava uma fileira de escovas metálicas flexíveis, alinhadas com as colunas do cartão.
 
 Diferente da Keypunch, que processava o cartão avançando coluna por coluna, o Leitor de Cartões fazia o contrário. O cartão entrava na máquina com sua borda mais longa virada para frente, começando pelas linhas de zona e lendo linha por linha até a linha de noves. Isso significa que o entendimento dos dados em um cartão só era possível após ele ser lido por completo, pois par ter certeza de qual caractere uma coluna representava, era necessário ler todas as linhas anteriormente.
@@ -78,6 +83,30 @@ Diferente da Keypunch, que processava o cartão avançando coluna por coluna, o 
 O leitor possuía uma fileira com 80 escovas metálicas flexíveis posicionadas lado a lado, uma para cada coluna. O cartão deslizava em velocidade constante sobre um cilindro metálico eletrificado, e como o papel cartonado é um excelente isolante elétrico, as escobas não conduziam corrente enquanto deslizavam sobre a superfície do cartão. Quando um furo passava sob uma dessas escovas, por não haver nada entre a escova e o cilindro metálico, havia um contato momentâneo entre os dois componentes. Esse contato fechava um circuito elétrico, gerando um sinal que correspondia à posição exata do furo, transmitindo o valor numérico que havia sido perfurado.
 
 > Nota: Uma dúvida que me surgiu foi "o que acontecia no espaço vazio entre um cartão e o próximo? Se não houvesse papel isolando o cilindro, as 80 escovas tocariam o metal simultaneamente, enviando uma leitura falsa de que o cartão estava inteiramente furado". A resposta é que para não acontecer, o leitor possuía um came mecânico (um interruptor rotativo sincronizado com as engrenagens da máquina). Esse interruptor cortava a energia do cilindro metálico no exato momento em que a borda final de um cartão passava pelas escovas, e só reenergizava o cilindro quando a borda do cartão seguinte já estivesse posicionada sob as escovas para a leitura. Isso garantia que a máquina só ficava de olhos abertos aos sinais elétricos durante a janela de tempo em que o cartão estava sendo processado.
+
+![Uma ilustração de um leitor de cartões com texto indicando os diferentes componentes](./images/cards/card-reader.jpg)
+
+> Descrição da Imagem: Diagrama técnico de uma Máquina de Contabilidade IBM (tipos 402-403), o exato tipo de maquinário base que foi pesado e customizado para atuar como o Leitor de Cartões do ENIAC. Como a IBM não construiu um leitor do zero para o projeto, a equipe adaptou essa máquina comercial. No diagrama podemos ver os seguintes componentes:
+
+- Card Feed (Alimentador) e Card Stacker (Empilhador): Respectivamente, o local onde a pilha de cartões não lidos era inserida (alimentando o maquinário) e o compartimento inferior onde os cartões eram depositados de forma ordenada após passarem pelo cilindro de leitura.
+
+- Reading Table (Mesa de Leitura): Uma superfície plana estendida na frente da máquina, desenhada ergonomicamente para que a operadora pudesse apoiar, inspecionar e organizar grandes maços de cartões antes de inseri-los no alimentador.
+
+- Control Panel (Painel de Controle): Localizado na lateral esquerda, era um plugboard (painel de conexões por cabos). Na máquina original, ele roteava os sinais das escovas de leitura para os contadores mecânicos internos. No ENIAC, esse painel foi customizado para rotear os sinais elétricos para fora da máquina.
+
+- Summary Punch Cable Receptacle (Receptáculo do Cabo): Na base direita, era a porta de conexão de dados pesada. Originalmente usada para conectar a máquina a um perfurador externo, no ecossistema do ENIAC, era através dessa interface que os grossos cabos umbilicais levavam os pulsos elétricos do leitor diretamente para a Constant Transmitter Unit.
+
+- Print Unit (Unidade de Impressão) e Tape Carriage (Carro de Fita): Localizados no topo, eram os mecanismos originais da máquina usados para imprimir relatórios em papel contínuo. Embora presentes na carcaça base, essas funções de impressão não eram o objetivo do ENIAC ao usar a máquina como um mero leitor de entrada.
+
+- Start, Stop and Final Total Keys (Teclas de Início, Parada e Total Final): O painel de botões principal operado pelo usuário para iniciar a alimentação dos cartões ou interromper o processo mecanicamente.
+
+- Signal Lights (Luzes de Sinalização) e Fuses (Fusíveis): Lâmpadas indicadoras de status (como máquina pronta ou erro de leitura) e os painéis de acesso aos fusíveis para proteção contra curtos-circuitos elétricos.
+
+- Main Line Switch (Interruptor Principal): A chave geral de energia que ligava os motores e energizava o cilindro metálico de leitura.
+
+- Setup Change Switches (Chaves de Mudança de Configuração): Interruptores laterais que permitiam alterar o comportamento mecânico da máquina sem precisar refazer a fiação do Control Panel.
+
+- Non Print Runout, Gang Punch, Last Card Auto Total, and Feed Interlock Switches: Um conjunto de chaves de controle de fluxo de papel. O Runout, por exemplo, era usado para ejetar cartões presos no maquinário em caso de atolamento, enquanto o Feed Interlock era um mecanismo de segurança que parava os motores se o alimentador ficasse vazio ou se a tampa estivesse aberta.
 
 #### 4.2.3.2 Synchronization
 O leitor de cartões era uma máquina puramente mecânica e operava em seu próprio ritmo de engrenagens, sendo infinitamente mais lento e completamente dessincronizado do relógio eletrônico de 100 kHz da Unidade Ciclo do ENIAC. Para garantir que uma leitura no tempo X estivesse correta para o computador, o leitor não enviava os dados diretamente para os acumuladores. Em vez disso, os sinais elétricos gerados pelas escovas eram enviados para a Constant Transmitter Unit (detalhes no tópico 4.3). Essa unidade funcionava como uma sala de espera (um buffer eletromecânico feito de relés), que segurava os números lidos pelo cartão até que o ENIAC estivesse pronto para processa-los.
