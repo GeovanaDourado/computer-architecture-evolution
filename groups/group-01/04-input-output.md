@@ -7,6 +7,8 @@
 ## 4.1 I/O Contextualization
 - Não havia interfaces modernadas como monitores, teclados e muito menos mouses
 
+![Área do ENIAC onde se concentrava o sistema de I/O](./images/layout/input-output-area.png)
+
 ## 4.2 Data Input
 O processo de inserção de informações no ENIAC era estritamente focado em fornecer os dados numéricos iniciais e as cariáveis necessárias para os cálculos. Como a lógica de programação era configurada diretamente no hardware, através do rearanjo dos cabos e interruptores nas bandejas e painéis da máquina (arquivo 03 e 10 para mais detalhes sobre isso), o sistema de entrada não carregava instruções de software, mas sim operandos brutos que seriam processados pelos acumuladores.
 
@@ -33,7 +35,7 @@ Além dos furos e da impressão, todo cartão possuía um corte diagonal em um d
 ### 4.2.2 Keypunches
 A confecção desses cartões era realizada por meio de máquinas eletromecânicas chamadas Keypunches (perfuradoras de cartões).Durante o período de operação do ENIAC (1945–1955), a equipe (provavelmente) utilizou os modelos padronizados da IBM da época, com destaque para as perfuradoras alfabéticas de impressão (a exemplo da IBM Type 032 e, posteriormente, da IBM 026).
 
-> Esse subtópico não entra em tanto detalhe sobre o funcionamento das keypunches porque: 1. Não encontrei boa documentação sobre qual modelo exatamente era usado para perfurar os cartões que o ENIAC usava (estou chutando que era o standard da época), e 2. As keypunches não faziam parte do ENIAC, era mais um periférico necessário (como se fosse o teclado do ENIAC) para dar input, mas qual máquina exatamente fez os cartões não importava tanto, contatno que os cartões estivessem legíveis para o Card Reader.
+> Nota: Esse subtópico não entra em tanto detalhe sobre o funcionamento das keypunches porque: 1. Não encontrei boa documentação sobre qual modelo exatamente era usado para perfurar os cartões que o ENIAC usava (estou chutando que era o standard da época), e 2. As keypunches não faziam parte do ENIAC, era mais um periférico necessário (como se fosse o teclado do ENIAC) para dar input, mas qual máquina exatamente fez os cartões não importava tanto, contatno que os cartões estivessem legíveis para o Card Reader.
 
 ![Uma operadora trabalhando numa IBM type 032](./images/cards/keypunch-ibm-32.jpg)
 
@@ -119,7 +121,44 @@ Após passar pelo cilindro de leitura, roletes ejetavam o cartão para um compar
 > Nota: A ordem de entrada dos cartões era definida 100% pela equipe operadora. Se um cartão fosse inserido de cabeça para baixo, a escova da coluna 1 leria os dados da coluna 80, e a linha dos 9s seria lida como a a primeira linha de zona. O leitor fecharia os circuitos normalmente e enviaria um dados incorretos completo para o ENIAC (basicamente corrompia o pacote de dados). Como a máquina não tinha nenhum mecanismo para identificar a orientação do texto impresso, a única linha de defesa contra esse tipo de problema era o corte diagonal no canto do cartão (mencionado no tópico 4.2.1), que dependia completamente da inspeção da operadora antes de colocar os cartões no alimentador.
 
 ## 4.3 Constant Transmitter Unit
-- A interface entre o leitor de cartões e a arquitetura interna do ENIAC
+
+O Constant Transmitter (Transmissor de Constantes) era uma unidade híbrida composta por três painéis modulares localizada na parede direita perto ao canto inferior da sala do ENIAC. Sua arquitetura combinava a lentidão mecânica dos relés com a velocidade eletrônica das válvulas de vácuo. A unidade atuava como uma memória estática temporária para os sinais elétricos vindos do Leitor de Cartões da IBM e fornecia uma interface de hardware para a inserção de constantes matemáticas.
+
+Para entender como a unidade convertia um furo no papel dados elétricos empacotados em ciclos de 100 kHz, é necessário analisar seu circuito em três estágios:
+
+### 4.3.1 Relay Buffer
+A comunicação entre o Leitor de Cartões e o Painel 3 do Constant Transmitter ocorria através de um cabo umbilical contendo dezenas de condutores paralelos (detalhes sobre cabos umbilicais no tópico 3.7.4). Quando o cilindro eletrificado do leitor entrava em contato com uma escova através de um furo no cartão, um pulso elétrico de (relativa) longa duração era enviado por uma dessas vias.
+
+> Nota: Buffer é uma área de espera onde dados permanecem armazenados temporariamente.
+
+Dentro do Painel 3, esse sinal elétrico parava em um grande banco de relés eletromecânicos. O pulso energizava a bobina de um relé específico, criando um campo magnético que puxava uma armadura de metal, fechando um contato físico. Esse relé era projetado para travar mecanicamente, mantendo o circuito fechado mesmo após o cartão ter sido ejetado do leitor.
+
+Nesse momento, a informação do cartão (80 dígitos e até 16 sinais algébricos) deixava de ser um movimento mecânico e passava a existir como uma matriz de tensões contínuas dentro do ENIAC. Se o relé estivesse fechado, ele aplicava uma tensão de polarização positiva (ou, nesse caso, menos negativa do que o estado de repouso) nas grades de controle de um conjunto específico de válvulas pentodo mais adiante no circuito. Se estivesse aberto, a grade permanecia em estado de corte (tensão em repouso).
+
+### 4.3.2 Pulse Generation
+Para criar pulsos, o Constant Transmitter dependia inteiramente da conexão com Unidade Cíclica. A unidade recebia continuamente os trens de pulso fundamentais: 1P, 2P, 2'P, 4P, 1'P, 9P e 10P. (Recomendo ler os 4 primeiros subtópicos do tópico 3.2 antes de ler esse subtópico aqui)
+
+A conversão do estado estático do relé para pulsos dinâmicos ocorria através de portas lógicas AND analógicas, baseadas no princípio de coincidência das válvulas pentodo (conforme detalhado no tópico 3.2.3). O circuito funcionava da seguinte maneira:
+
+A unidade permanecia passiva até que um pulso de programa/controle chegasse por um cabo coaxial em uma de suas 30 portas de programa. Esse pulso acionava um circuito Flip-Flop interno, elevando a tensão de uma das grades do pentodo transmissor (abrindo a Gate para aquele ciclo de adição). Com a Gate aberta, as válvulas liam as tensões DC vindas dos relés. O circuito interno roteava as linhas da Unidade Cíclica com base no relé ativado. Se o relé correspondente ao dígito 7 estivesse ativado, a fiação interna do chassi conectava as grades da válvula transmissora às linhas 1P, 2P e 4P da Unidade Cíclica.
+
+Durante a primeira metade do ciclo de 200 microssegundos (tempos 1/20 a 10/20), os pulsos de 100 kHz vindos da Unidade Cíclica batiam na válvula. Como a grade já estava polarizada positivamente pelo relé e a Gate estava aberta pelo Flip-Flop, a válvula entrava em saturação e permitia a passagem exata de 1 pulso no tempo 1, 2 pulsos nos tempos 2 e 3, e 4 pulsos nos tempos 6 a 9. O dígito 7 havia sido sintetizado (sem sobreposição de tempos dentro do ciclo).
+
+No tempo 19/20 do ciclo, a Unidade Cíclica disparava o Reset Pulse de +50V. Esse pulso atingia o Flip-Flop de programa do Constant Transmitter, revertendo-o ao estado de repouso, fechando a Gate e encerrando a transmissão antes do tempo 0 do próximo ciclo. Simultaneamente, a unidade emitia um Program Pulse por um cabo coaxial de saída, avisando à próxima unidade que a leitura havia sido concluída.
+
+### 4.3.3 Output Routing
+Os pulsos sintetizados precisavam viajar do Constant Transmitter até os Acumuladores ou Multiplicadores. Antes de saírem do painel, os sinais passavam por Pulse Standardizers (tubos 6SN7) para garantir que as bordas de onda estivessem perfeitamente retangulares, seguidos por Pulse Amplifiers (tubos 6V6 e 6L6) que injetavam a corrente necessária para a viagem.
+
+![Esquema elétrico do circuito padronizador de pulsos](./images/conns/Pulse-Standardizer-Circuits.png)
+
+> Descrição da Imagem: Esquema elétrico do circuito padronizador de pulso. O estágio inicial utiliza a válvula de duplo tríodo 6SN7 configurada como um gatilho monoestável para regenerar as bordas retangulares da onda deformada, enquanto os estágios seguintes com as válvulas de potência 6V6 e 6L6 restauram a amplitude de tensão e fornecem corrente suficiente para o sinal percorrer as longas linhas da máquina.
+
+Os dados saíam da unidade através dos conectores de Bakelite da Amphenol, viajando pelos Digit Trunks (cabos de 11 vias) alocados nas Digit Trays (Bandejas de Dígitos) frontais. A unidade possuía 5 soquetes de saída de dados, o que permitia transmitir até 5 operandos completos de 10 dígitos (mais o sinal) simultaneamente em um único ciclo de 200 microssegundos, desde que os cabos estivessem fisicamente roteados para os acumuladores corretos.
+
+### 4.3.4. Rotary Switches
+Para evitar o desperdício de tempo mecânico lendo cartões com variáveis que nunca mudavam (como o valor de Pi ou coeficientes de arrasto aerodinâmico), os Painéis 1 e 2 do Constant Transmitter operavam de forma independente do Leitor de Cartões. Esses painéis eram equipados com matrizes de chaves rotativas manuais. Cada chave possuía contatos físicos numerados de 0 a 9. Ao girar o botão para o número 3, o operador fechava mecanicamente um circuito idêntico ao que o relé fecharia no Painel 3.
+
+Essas chaves substituíam o buffer de relés na matriz de síntese. Quando um Program Pulse ativava a rotina de uma constante manual, as válvulas pentodo liam a tensão DC diretamente das chaves rotativas, aplicando a mesma lógica de coincidência com os sinais da Unidade Cíclica para gerar os Digit Pulses. O hardware permitia configurar até 20 dígitos numéricos e 4 sinais diretamente nas chaves, disponibilizando operandos fixos que podiam ser lidos em velocidades eletrônicas inúmeras vezes durante a execução do programa, sem qualquer gargalo mecânico.
 
 ## 4.4 Data Output
 - Como estados eletrônicos internos eram convertidos novamente para cartões perfurados

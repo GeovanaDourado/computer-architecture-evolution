@@ -83,14 +83,14 @@ Seu propósito era restaurar mecanicamente a memória curta dos circuitos. O pul
 
 > Nota: Capacitância é a propriedade que dois condutores separados por um isolante têm de armazenar carga elétrica sob uma diferença de potencial, retendo energia em um campo elétrico. Por exigir tempo para carregar e descarregar essas cargas, ela se opõe a variações bruscas de voltagem, agindo como um amortecedor elétrico que suaviza e atrasa transições rápidas de sinal. Esse efeito, em cabos e circuitos de alta velocidade, faz com que pulsos de bordas retangulares percam a nitidez e fiquem arredondados.
 
-### Pulse Standardizers
+### 3.2.5 Pulse Standardizers
 Conforme esses diferentes tipos de sinais viajavam por dezenas de metros de cabos e bandejas, as perdas capacitivas e resistivas deformavam as ondas quadradas e derrubavam os -290V nominais. Para que as válvulas operassem de modo confiável, circuitos padronizadores utilizavam tubos duplos 6SN7 para detectar o limiar da onda degradada e recriar bordas retangulares afiadas, enquanto tubos de potência 6V6 e 6L6 restauravam a amplitude de tensão antes de encaminhar o sinal para a unidade receptora.
 
 ![Esquema elétrico do circuito padronizador de pulsos](./images/conns/Pulse-Standardizer-Circuits.png)
 
 > Descrição da Imagem: Esquema elétrico do circuito padronizador de pulso. O estágio inicial utiliza a válvula de duplo tríodo 6SN7 configurada como um gatilho monoestável para regenerar as bordas retangulares da onda deformada, enquanto os estágios seguintes com as válvulas de potência 6V6 e 6L6 restauram a amplitude de tensão e fornecem corrente suficiente para o sinal percorrer as longas linhas da máquina.
 
-### Pulse Amplifiers
+### 3.2.6 Pulse Amplifiers
 
 Enquanto os circuitos padronizadores corrigiam a geometria temporal da onda, o ENIAC enfrentava um segundo obstáculo elétrico: a divisão de corrente e o refluxo de sinal. Quando uma unidade transmissora precisava rotear seus dados para múltiplos painéis receptores simultaneamente, a corrente elétrica do pulso se dividia entre as várias rotas, enfraquecendo a voltagem a níveis críticos. Além disso, interligar muitas unidades na mesma malha criava o risco de pulsos viajarem na contramão pelos cabos, causando colisões lógicas.
 
@@ -102,7 +102,7 @@ Para solucionar essa limitação de enfraquecimento da potência da corrente el�
 
 Esses amplificadores atuavam como repetidores de sinal. As válvulas configuradas como Buffers recebiam o pulso degradado e isolavam a entrada da saída, funcionando como válvulas de retenção mecânica que só permitem a passagem em um sentido. Em seguida, o estágio de Transmitters injetava uma nova carga de corrente na linha, permitindo que o sinal numérico fosse distribuído para múltiplas unidades de destino sem perder sua integridade elétrica ou comprometer a polarização das grades receptoras.
 
-### Extra
+### 3.2.7 Extra
 
 ![Diagrama preliminar de temporização do ENIAC](./images/conns/Synchronizing-Pulse-Gate.png)
 
@@ -129,7 +129,7 @@ E a Unidade de Ciclos funcionava em 3 modos. O contínuo, onde o relógio estava
 
 A integridade estrutural e elétrica das interconexões do sistema exigia materiais altamente duráveis e específicos para suportar as correntes elevadas, a alta tensão de polarização das válvulas e a necessidade de suportar o desgaste decorrente das frequentes reconfigurações mecânicas a cada novo cálculo. Os cabos e conectores eram classificados e construídos de acordo com sua função de roteamento.
 
-### Cable Composition and Insulation
+### 3.7.1 Cable Composition and Insulation
 O núcleo condutor dos cabos responsáveis pelo transporte de sinais consistia em filamentos de cobre de baixa resistência ôhmica (fio puro e espesso o suficiente para corrente elétrica fluir sem sofrer oposição), reduzindo a perda de voltagem ao longo do trajeto e garantindo que os trens de pulso mantivessem corrente suficiente para polarizar as grades das válvulas nas unidades receptoras. Devido ao acoplamento direto de corrente contínua em alta voltagem, a fiação exigia um isolamento dielétrico (material isolante) espesso para conter os vazamentos de tensão elétrica.
 
 Durante o desenvolvimento do projeto original, existia um risco físico e prático de degradação da malha por roedores. Para definir a composição química ideal do isolamento, J. Presper Eckert introduziu diversas amostras de fios encapados no interior de gaiolas com ratos cativos. O material dielétrico menos procurado e ignorado pelas cobaias foi selecionado como o composto isolante padrão de toda a máquina. Envolvendo esta proteção primária, a maioria das linhas também contava com revestimentos reforçados de tecido industrial e grossas jaquetas (capa externa do cabo) de borracha vulcanizada.
@@ -142,7 +142,7 @@ Durante o desenvolvimento do projeto original, existia um risco físico e práti
 
 > Descrição da Imagem: Vista frontal do sistema de cabeamento interno estruturado por amarração clássica de cordel encerado. Cada condutor de cobre, encapado individualmente com isolamento dielétrico e capa trançada de tecido envernizado, é rigidamente alinhado em chicotes horizontais para eliminar folgas indutivas e movimentos residuais. As derivações em ângulo reto distribuem os circuitos diretamente para réguas de terminais soldadas em blocos de Bakelite marrom, demonstrando o método manual rigoroso empregado para isolar as linhas de polarização de alta voltagem dos bancos de resistores de potência instalados na base.
 
-### Digit Trunks and Plugs
+### 3.7.2 Digit Trunks and Plugs
 Para o roteamento horizontal e vertical do fluxo de processamento numérico, eram montados cabos densos chamados Digit Trunks. Esses cabos agregavam 11 linhas condutoras simultâneas debaixo da mesma jaqueta, servindo de via para 10 digit pulses e um pulso isolado direcional ou de sinalização (por isso o tamanho da palavra é 10 dígitos + 1 sinal. Se o número fosse negativo a linha de sinal ativava o gerador 9P, que enviava 9 pulsos seguidos num ciclo. Se o número fosse positivo, nenhum sinal passava aqui).
 
 As extremidades estruturais destes cabos culminavam em terminais maciços fabricados primordialmente pela Amphenol (uma das maiores fabricantes Estadunidenses de conectores elétricos e componentes de radiofrequência da época da Segunda Guerra Mundial). Os invólucros externos e blocos de retenção térmica dos conectores eram moldados e usinados em Bakelite, um plástico termofixo de alta densidade fisicamente imune ao derretimento, oque era mandatório considerando o intenso ambiente de dissipação térmica do maquinário. Os pinos cilíndricos de contato encaixados na Bakelite eram forjados em latão e banhados em ligas de cobre, desenhados para estabilizar uma conexão de baixa impedância mesmo após serem plugados e desplugados milhares de vezes a face dos painéis.
@@ -152,7 +152,7 @@ As extremidades estruturais destes cabos culminavam em terminais maciços fabric
 
 > Descrição das Imagens: Vistas em detalhe de um conector circular multipinos de 11 vias em Bakelite, característico dos terminais industriais produzidos pela Amphenol para os cabos de dados numéricos (Digit Trunks). Na imagem superior (vista lateral), destacam-se à esquerda os terminais perfurados de solda manual por onde entravam os condutores do feixe, e à direita os pinos cilíndricos de latão agrupados ao redor de um robusto pino-guia central ranhurado. Na imagem inferior, é visível o bloco termofixo preto com a numeração gravada em baixo-relevo de 1 a 11 na borda, alinhando fisicamente as 10 posições decimais da palavra do ENIAC e a linha isolada de sinal algébrico, evidenciando o relevo mecânico polarizado que impedia a inversão acidental de polaridade ou o encaixe desalinhado do cabo na face dos painéis.
 
-### Coaxial Program Cables
+### 3.7.3 Coaxial Program Cables
 Para o chaveamento de rotinas operacionais geridas pelos Program Pulses, era necessária a manutenção matemática das bordas de onda. Transmitir transições quadradas rigorosas de 2 microsegundos a uma taxa de 100 kHz por feixes de condutores paralelos comuns resultaria em dispersão capacitiva, arredondando as bordas do sinal e atrasando o disparo das válvulas receptoras.
 
 > Nota: em repouso a linha era -345V. No início do pulso (que dura 2 microsegundos) ela sobe abruptamente para -290V, essa é a borda de subida, e se a subida for muito lenta a borda fica suave/arredondada (o que é ruim). A mesma coisa vale para a borda de descida. Se as bordas não estão bem definidas a duração do pulso fica confusa e pode ser lida incorretamente como um valor diferente que 2 microsegundos, oque pode causar falhas nos cálculos. Manutenção matemática das bordas se refere a manter essas bordas quadradinhas.
@@ -169,7 +169,7 @@ Para possibilitar o funcionamento das linhas de programa, esse obstáculo elétr
 
 > Nota: Ainda que o cabo coaxial preservasse o formato do sinal melhor que fios convencionais, as perdas resistivas ao longo de dezenas de metros continuavam presentes, tornando obrigatório o uso periódico dos Pulse Standardizers nas unidades de destino para restaurar a amplitude e os cantos retangulares da onda. (Mais detalhes sobre isso no tópico 3.2, subtópico Pulse Standardizers)
 
-### Portable Units and Umbilical Cabling
+### 3.7.4 Umbilical Cabling
 Além dos cabos de manobra locais e dos barramentos horizontais nas calhas, a operação do ENIAC dependia de interconexões pesadas para integrar periféricos móveis, com destaque para a Tabela de Funções Portátil. Por se tratar de um painel montado sobre rodízios e sem válvulas ativas internas, a leitura de suas matrizes de interruptores manuais exigia uma linha umbilical de transmissão estática direta com os painéis principais da máquina.
 
 Ao contrário das linhas dinâmicas de 11 vias dos Digit Trunks, o cabo de conexão da Tabela de Funções agregava dezenas de condutores paralelos sob uma espessa blindagem mecânica. Como o periférico operava no centro da sala e precisava ser manobrado livremente, o cabo era exposto a atrito e pisoteamento constante. A proteção contra desgaste era garantida por uma jaqueta externa tubular tecida em malha de cobre estanhado ou aço, que atuava simultaneamente como barreira contra abrasão mecânica e malha de aterramento contínuo.
@@ -182,7 +182,7 @@ A elevada quantidade de linhas condutoras exigiu o desenvolvimento de terminais 
 
 > Descrição das Imagens: Sequência de imagens evidenciando a escala física, anatomia e operação do cabo umbilical blindado da Tabela de Funções Portátil. Na primeira imagem, o conector multipinos retangular sustentado manualmente revela a matriz de dezenas de pinos de contato em latão embutidos em um bloco termofixo denso, demonstrando o peso e a robustez necessários para trafegar barramentos massivos de dados em paralelo. Na segunda imagem, o terminal acoplado à lateral da unidade evidencia o invólucro de proteção metálica fundida dotado de uma alça rígida de manobra (que era exigida para exercer a força mecânica necessária durante o engate e desengate de dezenas de contatos sob pressão), bem como a densa malha trançada de aterramento e proteção mecânica que reveste o condutor. Na terceira imagem, a visão panorâmica exibe a Tabela de Funções móvel interligada aos painéis estacionários principais por esse cabo enorme, ilustrando a infraestrutura exigida para integrar periféricos móveis à malha elétrica central do ENIAC.
 
-### Cable Dimensions, Geometry and Color Coding
+### 3.7.5 Cable Dimensions, Geometry and Color Coding
 Para facilitar a montagem lógica dos circuitos e evitar erros humanos, os cabos do ENIAC eram rigorosamente padronizados em sua geometria, comprimento físico e identificação visual:
 
 - Padronização de Comprimentos e Capacitância: A equipe dispunha de um inventário de cabos pré-fabricados em comprimentos diferentes: jumpers curtos (utilizados para conexões entre bornes vizinhos no mesmo painel), cabos médios (para interligar calhas contíguas) e cabos de extensão longa (que percorriam as bandejas metálicas pelas paredes da sala). Utilizar o cabo de menor comprimento possível para cada conexão era muito importante, pois cabos excessivamente compridos deixavam folgas enroladas, o que aumentava a indutância e a capacitância parasita do circuito, deformando a borda dos pulsos. O manual de operações da máquina impunha diretrizes rígidas de preservação física: era expressamente proibido realizar dobras angulares fechadas nas linhas coaxiais para não esmagar o isolamento dielétrico interno, bem como deixar cabos suspensos em direção ao chão da sala de controle.
