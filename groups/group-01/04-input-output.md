@@ -192,6 +192,19 @@ Essas chaves substituíam o buffer de relés na matriz de síntese. Quando um Pr
 ## 4.4 Data Output
 - Como estados eletrônicos internos eram convertidos novamente para cartões perfurados
 
+A forma utilizada pelo ENIAC para manter e converter dados era um tanto quanto única, pois, haviam algumas etapas cadênciadas que o sistema seguia para que os resultados fossem repassados corretamente. O ponto inicial era entender onde se encontravam os valores "armazenados". Os acumuladores guardavam números em contadores de anel de flip-flops, um por casa decimal somados a um contador PM para o sinal. Cada estágio de um contador é um flip-flop, e cada acumulador tinha "saídas estáticas" ligadas direto aos estágios dos contadores. Dessa forma, o dado direto do digíto não precisava ser "lido" por pulsos, pois o estado elétrico dos flip-flops já estava disponível continuamente na corrente de sinais do sistema. 
+Após isso, as saídas precisavam ser levadas à impressora alocada ao ENIAC. As saídas estáticas de 80 contadores de dígito e 16 contadores PM eram ligadas à unidade printer, que era a responsável por transformar de forma direta os dados em perfurações nos cartões. 
+
+>Por foto demonstrando (place holder)
+>Ao que tudo indica esses números correspondem à capacidade de um cartão de 80 colunas.
+
+Por mais que os valores estivessem já corretamente calculados e fossem formados nos acumuladores ligados à impressora, ou enviados a eles, antes do momento da impressão, e os dados fossem quase onipresentes no sistemas por serem armazenados em uma corrente elétrica que se mantinha constate no ENIAC. A unidade printer só "recebia" o conhecimento dos pulsos os punha em cartão quando recebia uma instrução de programa exata dada por um operador. 
+
+Já quanto a saída direta e transformação fisíca dos dados em perfurações, estas aparentemente eram circuitos numéricos da printer, sendo formados pelos tubos que são ajustados pelas saídas estáticas dos contadores cujo conteúdo será perfurado. Ou seja, o estado dos contadores era copiado para tubos próprios da printer. Esses tubos então comandavam o punch da IBM. (Uma perfuradora comercial utilizada desde os anos 1928. No entanto não há resgistros exatos do modelo utilizado). O punch como parte eletromecânica funcioava a partir do comando passado pela printer , que era a principal controladora da IBM. Perfurar levava cerca de 0,6 s, contra 0,5 s para ler um cartão, mas o dispositivo emitia um pulso de programa ao terminar, integrando-se ao sistema síncrono, assim não havia risco de desregular o clock do sistema, bem como consistia de um dado de finalização concreto.
+
+Por fim, os cartões já perfurados, (que por formato padrão da ibm eram constituidos de 12 linhas por 80 colunas, contudo esses podiam ter sido modificados para o Eniac) eram utilizados primáriamente de duas formas. Como resultado final, onde as tabelas eram impressas automaticamente a partir dos cartões por um tabulador IBM não específicado. Ou como armazenamento intermediário, sendo que, caso faltasse espaço nos acumuladores, os números podiam ser perfurados pela printer e reintroduzidos depois pelo reader e pelo constant transmitter. 
+
+
 ## 4.5 Printer Unit
 - Como cartões perfurados eram traduzidos para números, simbolos e caracteres legíveis 
 (coloque uma tabelinha de tradução de colunas de cartões aqui)
