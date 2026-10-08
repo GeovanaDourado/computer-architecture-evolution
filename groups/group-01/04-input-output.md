@@ -1,6 +1,6 @@
 # 4. Input and Output
 
-![Uma operadora ao lado de uma pilha enorme de cartões perfurados](./images/input/62500-punched-cards.jpg)
+![Uma operadora ao lado de uma pilha enorme de cartões perfurados](./images/inpout/62500-punched-cards.jpg)
 
 > Descrição da Imagem: Fotografia exibindo uma operadora posicionada ao lado de uma imensa pilha de cartões perfurados. A estrutura, que atinge quase a altura dos ombros da operadora, é composta por aproximadamente 62.500 cartões de papel cartonado. A imagem ilustra muito bem o volume físico equivalente a 5 milhões de caracteres (cerca de 5 megabytes) de dados, o que correspondia à capacidade total de armazenamento dos primeiros discos magnéticos comerciais da época, como o IBM 305 RAMAC. Atrás da pilha é visível o que parece ser uma Keypunch (máquina de perfurar cartões). A imagem ajuda a visualizar a escala material do volume de dados, indiretamente expondo o extremo esforço logístico e espacial exigido para o manuseio das informações. Todo esse volume precisava ser fisicamente perfurado, rigorosamente ordenado para evitar falhas de sequência, transportado e alimentado em lotes nos leitores eletromecânicos para garantir a continuidade dos cálculos. Isso causava um gargalo que iremos tratar mais pra frente.
 
@@ -16,7 +16,7 @@ O processo de inserção de informações no ENIAC era estritamente focado em fo
 
 ### 4.2.1 Punched Cards
 
-![Pilha de papéis perfurados](./images/input/pilha_de_cartoes_perfurados.webp)
+![Pilha de papéis perfurados](./images/inpout/pilha_de_cartoes_perfurados.webp)
 
 > Descrição da Imagem: Uma foto de um maço espesso de cartões perfurados unidos por um elástico. Um detalhe visível nesta imagem é a linha diagonal vermelha cruzando o topo da pilha. Essa era uma técnica de segurança visual adotada pelos operadores: ao desenhar uma linha contínua na lateral de um lote ordenado, qualquer cartão que fosse acidentalmente retirado, embaralhado ou inserido fora de ordem faria com que um risco vermelho aparecesse num lado em branco, alertando aos operadores que um dos cartões estavam fora de ordem.
 
@@ -28,7 +28,7 @@ Os cartões possuíam dimensões padronizadas de aproximadamente 18,7325cm x 8,2
 
 Além dos furos e da impressão, todo cartão possuía um corte diagonal em um de seus cantos superiores. Essa característica atuava como uma medida de segurança física à prova de falhas durante o manuseio das grandes pilhas de dados. Se um único cartão estivesse virado de cabeça para baixo ou espelhado no meio do maço, a sua quina reta saltaria visualmente na borda onde todas as outras quinas estavam cortadas em diagonal. Isso permitia que a equipe identificasse e corrigisse rapidamente qualquer desalinhamento antes de inserir a pilha no leitor, evitando que operandos corrompidos fossem enviados para o processamento.
 
-![Um cartão perfurado](./images/input/punched-card.jpg)
+![Um cartão perfurado](./images/inpout/punched-card.jpg)
 
 > Descrição da Imagem: Visão frontal um único cartão perfurado padrão IBM (com uma régua na base confirmando evidenciando sua largura de 18,7 cm). É visível também a indexação do cartão: logo abaixo da linha dos zeros (e repetida na borda inferior), há uma fileira de números pequenininhos indo de 1 a 80, indicando a posição de cada uma das 80 colunas. Os furos presentes acima da linha do zero pertencem às chamadas "linhas de zona" (historicamente designadas como linhas 11 e 12, ou X e Y). Enquanto um único furo nas linhas de 0 a 9 representava um dígito, era possível representar letras e símbolos especiais. Para isso, o sistema combinava mais de um furo por coluna (incluindo as furos nas linhas de zona). As diferentes combinações possíveis por coluna é o que permitia à máquina codificar e imprimir caracteres alfabéticos e matemáticos complexos. O texto "( I < U ) TRACERC[I+1] := RIGHT 'OF' TRACERC[I]", legível no topo do cartão, é a tradução dos furos (sim, cada coluna de furos se traduz a um dos caracteres dessa string. Consulte o tópico "4.5 Card Reader" aqui nesse mesmo arquivo para mais detalhes).
 
@@ -39,7 +39,7 @@ A confecção desses cartões era realizada por meio de máquinas eletromecânic
 
 > Nota: Esse subtópico não entra em tanto detalhe sobre o funcionamento das keypunches porque: 1. Não encontrei boa documentação sobre qual modelo exatamente era usado para perfurar os cartões que o ENIAC usava (estou chutando que era o standard da época), e 2. As keypunches não faziam parte do ENIAC, era mais um periférico necessário (como se fosse o teclado do ENIAC) para dar input, mas qual máquina exatamente fez os cartões não importava tanto, contatno que os cartões estivessem legíveis para o Card Reader.
 
-![Uma operadora trabalhando numa IBM type 032](./images/input/keypunch-ibm-32.jpg)
+![Uma operadora trabalhando numa IBM type 032](./images/inpout/keypunch-ibm-32.jpg)
 
 > Descrição da Imagem: Fotografia de uma operadora trabalhando em uma perfuradora de cartões IBM Type 032. Logo acima do teclado, quase não legível, vemos o texto "International" (de International Business Machines, a IBM).
 
@@ -55,7 +55,7 @@ Uma Keypunch assemelhava-se a uma pequena escrivaninha metálica pesada, equipad
 
 5. Empilhador: Ao finalizar as 80 colunas, o cartão era ejetado e empilhado ordenadamente no canto superior esquerdo da máquina, pronto para ser agrupado na pilha final.
 
-![Imagem de uma Keypunch IBM 026](./images/input/keypunch-ibm-26.jpg)
+![Imagem de uma Keypunch IBM 026](./images/inpout/keypunch-ibm-26.jpg)
 
 > Descrição da Imagem: Ilustração de uma perfuradora IBM 026. A imagem mapeia as estações de trabalho descritas acima, evidenciando o caminho que o cartão percorre da direita para a esquerda. O Card hopper (Alimentador), no canto superior direito, é por onde os cartões em branco entravam, descendo para a Punching station (Estação de Perfuração) e o Printing mechanism (Mecanismo de Impressão). Mais à esquerda, localiza-se a Reading station (Estação de Leitura), usada para a duplicação mecânica de dados, e finalmente no Card stacker (Empilhador) no canto superior esquerdo.
 
@@ -63,7 +63,7 @@ Como a maioria dos dados inseridos para os cálculos do ENIAC eram dados numéri
 
 A precisão era um fator crítico, pois não era possível dar ctrl + z num furo já feito no papel. Se a operadora percebesse que havia digitado um número errado na coluna 45, o cartão inteiro estava arruinado. A única forma de correção era ejetar o cartão com o erro, descartá-lo, alimentar um novo cartão em branco e usar a função de duplicação da Reading Station para copiar mecanicamente as primeiras 44 colunas corretas do cartão estragado, assumindo então o controle manual para digitar o restante dos dados corretamente (tecnicamente um ctrl + z, mas um cartão inteiro precisava ser descartado no processo).
 
-![Um desenho de um teclado de uma Keypunch IBM 026](./images/input/keypunch-ibm-026-keyboard.jpg)
+![Um desenho de um teclado de uma Keypunch IBM 026](./images/inpout/keypunch-ibm-026-keyboard.jpg)
 
 > Descrição da Imagem: Esquema do teclado combinado (Combination Keyboard) de uma perfuradora IBM 026. O diagrama destaca a zona hachurada à direita, que mostra como o teclado numérico (dígitos de 0 a 9) era densamente agrupado e sobreposto às teclas de letras (U, I, O, J, K, L, M). Isso permitia que a operadora digitasse longas sequências de operandos em alta velocidade usando apenas a mão direita (tomando cuidado com shift). Há também outras teclas de controle, como "DUP" (para acionar a função de duplicar as colunas de um cartão para o outro) e as teclas "NUM" e "ALPH" nas extremidades inferiores (funcionando como a tecla shift para alternar a configuração das lâminas entre a perfuração de números ou de letras).
 
@@ -93,7 +93,7 @@ O leitor possuía uma fileira com 80 escovas metálicas flexíveis posicionadas 
 
 > Nota: Uma dúvida que me surgiu foi "o que acontecia no espaço vazio entre um cartão e o próximo? Se não houvesse papel isolando o cilindro, as 80 escovas tocariam o metal simultaneamente, enviando uma leitura falsa de que o cartão estava inteiramente furado". A resposta é que para não acontecer, o leitor possuía um came mecânico (um interruptor rotativo sincronizado com as engrenagens da máquina). Esse interruptor cortava a energia do cilindro metálico no exato momento em que a borda final de um cartão passava pelas escovas, e só reenergizava o cilindro quando a borda do cartão seguinte já estivesse posicionada sob as escovas para a leitura. Isso garantia que a máquina só ficava de olhos abertos aos sinais elétricos durante a janela de tempo em que o cartão estava sendo processado.
 
-![Uma ilustração de um leitor de cartões com texto indicando os diferentes componentes](./images/input/card-reader.jpg)
+![Uma ilustração de um leitor de cartões com texto indicando os diferentes componentes](./images/inpout/card-reader.jpg)
 
 > Descrição da Imagem: Diagrama técnico de uma Máquina de Contabilidade IBM da série 400, o exato tipo de maquinário base que foi pesado e customizado para atuar como o Leitor de Cartões do ENIAC. Como a IBM não construiu um leitor do zero para o projeto, a equipe adaptou essa máquina comercial. No diagrama podemos ver os seguintes componentes:
 
@@ -175,7 +175,7 @@ Para evitar o desperdício de tempo mecânico lendo cartões com variáveis que 
 
 Essas chaves substituíam o buffer de relés na matriz de síntese. Quando um Program Pulse ativava a rotina de uma constante manual, as válvulas pentodo liam a tensão DC diretamente das chaves rotativas, aplicando a mesma lógica de coincidência com os sinais da Unidade Cíclica para gerar os Digit Pulses. O hardware permitia configurar até 20 dígitos numéricos e 4 sinais diretamente nas chaves, disponibilizando operandos fixos que podiam ser lidos em velocidades eletrônicas inúmeras vezes durante a execução do programa, sem qualquer gargalo mecânico.
 
-![Diagrama da Unidade de Transmissão de Constantes](./images/input/constant_transmitter_diagram.jpg)
+![Diagrama da Unidade de Transmissão de Constantes](./images/inpout/constant_transmitter_diagram.jpg)
 
 > Descrição da Imagem: Desenho técnico oficial da visão frontal da Unidade de Transmissão de Constantes. O diagrama ilustra claramente a divisão da unidade em três grandes painéis verticais modulares:
 >
@@ -188,9 +188,7 @@ Essas chaves substituíam o buffer de relés na matriz de síntese. Quando um Pr
 > Bandejas e Conexões: Atravessando horizontalmente a parte inferior dos painéis 1 e 2, vemos a representação das Digit Trays. Abaixo delas, há várias fileiras de pequenos círculos, que representam os soquetes (receptáculos) por onde os Program Pulses e Digit Pulses entravam e saíam da unidade através de cabos coaxiais e conectores de dados, roteando as informações para os Acumuladores.
 
 
-
 ## 4.4 Data Output
-- Como estados eletrônicos internos eram convertidos novamente para cartões perfurados
 
 A forma utilizada pelo ENIAC para manter e converter dados era um tanto quanto única, pois, haviam algumas etapas cadênciadas que o sistema seguia para que os resultados fossem repassados corretamente. O ponto inicial era entender onde se encontravam os valores "armazenados". Os acumuladores guardavam números em contadores de anel de flip-flops, um por casa decimal somados a um contador PM para o sinal. Cada estágio de um contador é um flip-flop, e cada acumulador tinha "saídas estáticas" ligadas direto aos estágios dos contadores. Dessa forma, o dado direto do digíto não precisava ser "lido" por pulsos, pois o estado elétrico dos flip-flops já estava disponível continuamente na corrente de sinais do sistema. 
 Após isso, as saídas precisavam ser levadas à impressora alocada ao ENIAC. As saídas estáticas de 80 contadores de dígito e 16 contadores PM eram ligadas à unidade printer, que era a responsável por transformar de forma direta os dados em perfurações nos cartões. 
@@ -204,10 +202,45 @@ Já quanto a saída direta e transformação fisíca dos dados em perfurações,
 
 Por fim, os cartões já perfurados, (que por formato padrão da ibm eram constituidos de 12 linhas por 80 colunas, contudo esses podiam ter sido modificados para o Eniac) eram utilizados primáriamente de duas formas. Como resultado final, onde as tabelas eram impressas automaticamente a partir dos cartões por um tabulador IBM não específicado. Ou como armazenamento intermediário, sendo que, caso faltasse espaço nos acumuladores, os números podiam ser perfurados pela printer e reintroduzidos depois pelo reader e pelo constant transmitter. 
 
-
 ## 4.5 Printer Unit
-- Como cartões perfurados eram traduzidos para números, simbolos e caracteres legíveis 
-(coloque uma tabelinha de tradução de colunas de cartões aqui)
+
+A Unidade de Impressão do ENIAC funcionava como uma interface de acionamento que lia a tensão estática dos contadores de anel dos acumuladores e amplificava esses sinais usando válvulas de potência. Essa corrente era enviada através de cabos umbilicais (sobre cabos umbilicais: tópico 3.7.4) para perfuradoras periféricas, como os modelos IBM 513 e IBM 514 Reproducing Summary Punches, que executavam a gravação dos dados elétricos nas tabelas numéricas nos cartões.
+
+![Diagramas da IBM-513 e 514](./images/inpout/ibm-513-514.png)
+
+> Descrição da Imagem: Ilustrações técnicas das perfuradoras eletromecânicas IBM 513 e IBM 514, ambas utilizadas como dispositivos de saída física de dados do ENIAC. Os diagramas mapeiam os componentes estruturais das máquinas, destacando no topo os compartimentos de alimentação (Punch Unit Feed), onde os cartões em branco eram inseridos, e os Card Stackers, para onde os cartões recém-perfurados eram ejetados. Um detalhe especial para a integração com o ENIAC é o encaixe para a o cabo umbilical (Summary Punch Cable), posicionado na lateral direita da IBM 513 e na lateral esquerda da IBM 514. Era através dessa conexão que os sinais elétricos amplificados pela Unidade de Imopressão viajavam para energizar os solenoides internos de corte. Na seção inferior e frontal, evidenciam-se os painéis de controle que permitiam o roteamento interno das operações via cabos, acompanhados das interfaces manuais de hardware, como chaves de energia (Main Line Switch), botões de início/parada e luzes de sinalização.
+
+### 4.5.1 Synchronization
+A perfuradora tracionava os cartões em branco pelo alimentador, inserindo a borda superior (linha 12) primeiro. Um came (um interruptor rotativo sincronizado com as engrenagens da máquina) acoplado ao eixo da perfuradora sincronizava a máquina com o ENIAC. Conforme o cartão passava sob as 80 lâminas de aço da estação de corte, o came fechava contatos elétricos e enviava pulsos de volta à Unidade de Impressão indicando exatamente qual linha do cartão estava sob as lâminas naquele momento.
+
+### 4.5.2 Punching Process
+![Um cartão mostrando todos os caracteres possíveis de se gravar](./images/inpout/punch-card-all-char.png)
+
+> Descrição da Imagem: Foto de um cartão listando todos os caracteres mais comuns e quais combinações por coluna resultavam em tais caracteres.
+
+Como perfurar papel cartonado exige uma força relativamente alta, o processo usava um sistema eletromecânic que, quando a Unidade de Impressão recebia o pulso indicando uma linha específica (como a linha do dígito 7) e o acumulador registrava o valor 7, a válvula disparava corrente para a perfuradora. Essa corrente energizava um solenoide, que puxava um pino metálico chamado interposer para debaixo de uma barra de pressão mecânica em constante movimento. A barra batia no pino, forçando a lâmina a cortar o cartão. Se não houvesse sinal, o pino continuava retraído e nada era registrado no papel.
+
+![Diagrama do sistema de leitura e perfuração numa perfuradora IBM](./images/inpout/brush-reading-punching-system.png)
+
+> Descrição da Imagem: Esquema técnico ilustrando o trajeto dos cartões dentro das unidades de leitura (à esquerda) e perfuração (à direita) do maquinário da IBM. Em ambos os fluxos, os cartões saem do alimentador (Feed Hopper) e avançam horizontalmente até o empilhador (Stacker). O diagrama da esquerda detalha o processo de leitura eletromecânica, onde o papel desliza entre roletes cilíndricos e fileiras de escovas metálicas (Reproducing Brushes e Comparing Brushes), que detectam a presença de furos para fechar contatos elétricos. O diagrama da direita mapeia a gravação dos dados, onde o cartão avança até a matriz de corte (Punching Dies), onde as lâminas de aço perfuram fisicamente o papel. Imediatamente após o corte, o cartão passa por um conjunto final de escovas (Punch Brushes), permitindo que a máquina faça a verificação elétrica dos furos recém-criados antes de ejetar o documento.
+
+O processo mecânico levava 0,6 segundos por cartão, limitando a saída a 100 cartões por minuto. Para não corromper os dados, as operações do ENIAC eram temporariamente travadas durante a impressão, com o processamento que dependia dos acumuladores em uso sendo suspenso até a última linha do último cartão ser perfurada e o cartão ser ejetado. Ao terminar, a perfuradora fechava um contato e enviava um Program Pulse para o ENIAC, destravando as unidades e permitindo que o cálculo continuasse.
+
+### 4.5.3 Offline Tabulation
+A tradução dos furos para texto legível acontecia fora do ENIAC, em uma Máquina de Tabulação da IBM (como a série 400). A equipe levava os cartões até o tabulador, que os puxava sobre um cilindro eletrificado sob escovas de leitura. Quando a escova passava por um furo, o contato elétrico acionava solenoides que controlavam barras de impressão. Cada barra possuía tipos metálicos em relevo. O pulso elétrico elevava a barra até o caractere correto, rebatendo-o contra uma fita de tinta e imprimindo o valor no papel.
+
+A tradução seguia o código Hollerith, onde cada uma das 80 colunas do cartão gerava um caractere impresso. Números de 0 a 9 precisavam de apenas um furo na linha correspondente da coluna. Para letras e símbolos, a máquina lia combinações de furos (2 furos ou mais por coluna). As linhas 12 e 11 funcionavam como zonas, e ao combinar furos entre as zonas e as linhas númericas, a máquina recebia o comando exato para selecionar a letra, número ou símbolo correto.
+
+![Tabela mostrando vários caracteres e a combinação de furos por coluna correspondente](./images/inpout/punch-card-encoding.png)
+
+> Descrição da Imagem: Cartão perfurado padrão IBM 5081 demonstrando a codificação do código Hollerith dividida nas três categorias indicadas no topo: dígitos, letras e caracteres especiais. O arranjo visual dos furos ilustra a lógica de perfuração por coluna, onde os números de 0 a 9 utilizam apenas um furo individual em sua respectiva linha numérica; as letras alfabéticas utilizam dois furos por coluna, combinando uma linha de zona superior (linha 12 para o bloco de A a I, linha 11 para J a R e linha 0 para S a Z) com uma linha numérica de 1 a 9; e os caracteres especiais empregam combinações de dois a três furos simultâneos na mesma coluna. No canto superior esquerdo, observa-se o corte chanfrado padrão, utilizado para identificar visualmente cartões desalinhados ou invertidos no lote.
+
+![Diagrama de cartão mostrando os caracteres mais comuns e como eles ficam por coluna](./images/tables/card-translation-table.jpg)
+
+> Descrição da Imagem: Tabela de conversão do código Hollerith detalhando a correspondência exata entre caracteres e as posições de perfuração por coluna. A primeira coluna lista os numerais de 0 a 9, cada um associado a um único furo em sua respectiva linha. A coluna central divide o alfabeto em três blocos estruturados por zonas: as letras de A a I combinam a linha de zona 12 com os dígitos de 1 a 9; de J a R combinam a zona 11 com os dígitos de 1 a 9; e de S a Z combinam a zona 0 com os dígitos de 2 a 9 (com a combinação 0-1 alocada para a barra diagonal). A terceira coluna mapeia símbolos, utilizando furos isolados de zona (como a linha 12 para "&" e a linha 11 para "-") ou combinações de duas a três perfurações simultâneas, frequentemente integrando a linha 8. Na base, indica-se o espaço em branco (Blank), representado pela ausência de furos na coluna.
+
+### 4.5.4 Formatting
+A disposição do texto no papel não precisava seguir a ordem das colunas do cartão. O tabulador possuía um painel de controle onde as operadoras usavam cabos para redirecionar os sinais. Por exemplo, um sinal lido na coluna 5 do cartão podia ser enviado para a barra de impressão na posição 30 do papel, o que permitia adicionar espaços, alinhar casas decimais, esconder zeros à esquerda e formatar as tabelas numéricas de forma legível sem alterar os furos originais.
 
 ## 4.6 Human Interaction
 - O trabalho manual envolvido no carregamento das pilhas de cartões e na operação dos leitores
