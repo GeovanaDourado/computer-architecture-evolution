@@ -6,7 +6,7 @@ A arquitetura CISC (Complex Instruction Set Computer) organiza e acessa a memór
 
 **Modos de Endereçamento Complexos**: Oferece grande variedade de formas para localizar dados (direto, indireto, indexado e base-índice), facilitando o acesso eficiente a estruturas complexas e vetores (arrays) na memória.
 
-**Operações Register-to-Memory**: Diferente de arquiteturas mais simples, o CISC permite que uma única instrução busque dados diretamente da memória, execute o processamento aritmético/lógico e grave o resultado de volta na memória, sem exigir comandos intermediários de leitura e escrita.
+**Operações Register-to-Memory**: Diferente de arquiteturas mais simples, o CISC permite que uma única instrução busque dados diretamente da memória, execute o processamento aritmético/lógico e grave o resultado de volta na memória, sem exigir comandos intermediários de leitura e escrita. Instrução de Armazenamento (Store): O comando pega o dado guardado em um registrador interno do processador e o grava em uma posição específica da memória RAM. Geralmente seguem a estrutura operação, destino e origem
 
 **Suporte Nativo a Pilha e Organização de Bytes**: Conta com instruções dedicadas no hardware (como PUSH e POP) para gerenciar sub-rotinas e alocação automática na pilha, utilizando habitualmente o formato de armazenamento Little Endian para os bytes.
 
