@@ -18,11 +18,11 @@ O processo de inserção de informações no ENIAC era estritamente focado em fo
 
 ![Pilha de papéis perfurados](./images/inpout/pilha_de_cartoes_perfurados.webp)
 
-> Descrição da Imagem: Uma foto de um maço espesso de cartões perfurados unidos por um elástico. Um detalhe visível nesta imagem é a linha diagonal vermelha cruzando o topo da pilha. Essa era uma técnica de segurança visual adotada pelos operadores: ao desenhar uma linha contínua na lateral de um lote ordenado, qualquer cartão que fosse acidentalmente retirado, embaralhado ou inserido fora de ordem faria com que um risco vermelho aparecesse num lado em branco, alertando aos operadores que um dos cartões estavam fora de ordem.
+> Descrição da Imagem: Uma foto de um maço de cartões perfurados unidos por um elástico. Um detalhe visível nesta imagem é a linha diagonal vermelha cruzando o topo da pilha. Essa era uma técnica de segurança visual adotada pelos operadores: ao desenhar uma linha contínua na lateral de um lote ordenado, qualquer cartão que fosse acidentalmente retirado, embaralhado ou inserido fora de ordem faria com que um risco vermelho aparecesse num lado em branco, alertando aos operadores que um dos cartões estavam fora de ordem.
 
 Para introduzir esses dados operacionais, a equipe utilizava o formato padrão da época: os cartões perfurados da IBM (historicamente conhecidos como cartões Hollerith). A informação numérica era representada mecanicamente pela presença ou ausência de furos retangulares em posições específicas da folha de papel cartonado.
 
-> Nota: Papel cartonado é um papel de alta gramatura (gramas por metro quadrado), bastante rígido e espesso (semelhante à um papelão bem fino). A rigidez extra era crucial, pois o papel precisava ser forte o suficiente para não rasgar ou amassar, o que poderia causar problemas de leitura.
+> Nota: Papel cartonado é um papel de alta gramatura (gramas por metro quadrado), bastante rígido (semelhante à um papelão bem fino). A rigidez extra era crucial, pois o papel precisava ser forte o suficiente para não rasgar ou amassar, o que poderia causar problemas de leitura.
 
 Os cartões possuíam dimensões padronizadas de aproximadamente 18,7325cm x 8,255cm x 0,018cm (números quebrados pois o tamanho não era definido em medida de gente, mas sim em polegadas). A área útil do cartão era dividida em uma grade invisível composta por 80 colunas verticais e 12 linhas horizontais. Cada coluna podia representar um único caractere ou dígito. Outro detalhe é que os furos não eram circulares, mas sim pequenos retangulozinhos, medindo cerca de 0,14 cm x 0,32 cm de altura cada.
 
