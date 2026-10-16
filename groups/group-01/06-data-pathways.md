@@ -8,9 +8,18 @@
 
 ## 6.3 Intermediate Results
 
+![Painéis de resultados intermediários](./images/photos/decade-ring-counter-and-function-switches.jpg)
+
+> Descrição da Imagem: Fotografia de painéis de Acumuladores do ENIAC preservados em exposição. O topo exibe as matrizes de lâmpadas neon dos contadores de anel decádicos (0 a 9). Na seção central e inferior, observam-se as calhas horizontais com cabos de manobra, as chaves rotativas de controle de programa e a fiação interna exposta na base. Na direita há um chassi aberto evidenciando a densa matriz de válvulas termiônicas que compunha os circuitos das unidades.
+
 A retenção de resultados parciais ocorria diretamente nos Acumuladores, eliminando o roteamento constante de dados para a memória externa. Ao finalizar uma etapa matemática, como uma adição ou a recepção de um produto parcial de um multiplicador, o valor recém-calculado permanecia gravado eletricamente no próprio hardware sem depender de ciclos de processamento contínuos.
 
 ### 6.3.1 Vacuum Triodes
+
+![Um tubo à vácuo modelo 6SN7](./images/vacuum-tubes/Raytheon_6SN7.jpg)
+
+> Descrição da Imagem: Foto de uma válvula duplo-tríodo 6SN7 (Raytheon JAN-CRP-6SN7WGT). É possível ver as duas estruturas internas paralelas contendo as placas, grades de controle e cátodos dos dois tríodos encapsulados. Em primeiro plano, à esquerda, destaca-se a lâmpada neon com seus dois eletrodos cilíndricos internos, responsável pela sinalização visual de condução do circuito biestável, ao lado da identificação "6SN7" anotada na chapa metálica.
+
 Para compreender como um valor era mantido eletricamente, é necessário analisar o funcionamento do tríodo, a válvula termiônica básica do sistema. Um tríodo consiste em um tubo de vidro selado a vácuo contendo quatro componentes internos principais:
 
 1. Filamento: Uma resistência elétrica que se aquece com a passagem de corrente, funcionando de maneira semelhante ao filamento de uma lâmpada incandescente.
@@ -18,12 +27,20 @@ Para compreender como um valor era mantido eletricamente, é necessário analisa
 3. Placa (Ânodo): Uma lâmina de metal posicionada na extremidade oposta do tubo, polarizada com alta tensão elétrica positiva. Pela lei da atração eletrostática, cargas opostas se atraem: a placa positiva atrai os elétrons negativos emitidos pelo cátodo, criando um fluxo contínuo de corrente elétrica através do vácuo.
 4. Grade de Controle: Uma malha fina de fios metálicos posicionada fisicamente entre o cátodo e a placa, por onde os elétrons precisam passar.
 
+![Diagrama de um 6SN7](./images/vacuum-tubes/pintout-6sn7.png)
+
+> Descrição da Imagem: Diagrama esquemático de pinagem da válvula duplo-tríodo 6SN7 em base octal de oito pinos. O esquema mapeia os eletrodos independentes dos dois tríodos encapsulados. O Tríodo 1 conecta-se aos pinos 4 (grade de controle), 5 (placa) e 6 (cátodo), enquanto o Tríodo 2 utiliza os pinos 1 (grade de controle), 2 (placa) e 3 (cátodo). Os pinos 7 e 8 são dedicados à alimentação elétrica do filamento de aquecimento compartilhado, permitindo a montagem compacta do circuito biestável em um único soquete.
+
 A grade de controle funciona como uma comporta eletrônica para o fluxo de elétrons, operada pela variação de sua voltagem entre dois estados:
 
 - Estado de Corte: Quando uma tensão fortemente negativa é aplicada à grade, sua carga repele os elétrons que tentam sair do cátodo (pois cargas iguais se repelem). O fluxo de partículas é fisicamente bloqueado antes de atingir a placa. Dessa forma a válvula entra em estado de corte, onde nenhuma corrente elétrica circula pelo circuito da placa.
 - Estado de Saturação: Quando a tensão da grade é elevada (tornando-se nula ou positiva em relação ao cátodo), a barreira de repulsão desaparece. Os elétrons atravessam livremente as aberturas da grade e colidem em alta velocidade contra a placa. A válvula entra em estado de condução/saturação, onde a corrente elétrica flui livremente pelo circuito.
 
 A válvula 6SN7, amplamente empregada no ENIAC, era um duplo-tríodo, ou seja, ela agrupava dois desses conjuntos completos de cátodo, grade e placa dentro de um único invólucro de vidro.
+
+![Tabela oficial de calibração de válvulas do ENIAC](./images/tables/test-standards-for-tubes.png)
+
+> Descrição da Imagem: Documento técnico oficial PX-1-103 da Moore School of Electrical Engineering, datado de 10 de setembro de 1945, intitulado "Test Standards for ENIAC Tubes". A tabela estabelece os critérios elétricos padronizados de teste e rejeição de válvulas para garantir a confiabilidade dos circuitos da máquina. Na última linha da tabela, destacam-se os parâmetros de homologação para o duplo-tríodo 6SN7: tensão de corte da grade de controle (Cutoff Voltage Grid 1) fixada em -4,5 V, corrente mínima de emissão de placa em 5,0 mA para uma tensão de teste de 75 V, e limite máximo de corrente contínua de trabalho em 2,5 mA. As notas de engenharia na base definem o protocolo de corte: qualquer válvula cuja corrente de placa não caísse para menos de 1/7 do valor mínimo sob polarização negativa de grade era imediatamente rejeitada, impedindo que vazamentos de elétrons desestabilizassem o travamento dos circuitos biestáveis.
 
 ### 6.3.2 Bistable Circuits
 O armazenamento de um estado elétrico dependia da união de dois tríodos em um circuito biestável, também conhecido como gatilho Eccles-Jordan ou flip-flop. Esse circuito foi projetado para possuir dois estados estáveis de repouso, utilizando a técnica de realimentação por acoplamento cruzado.
@@ -34,7 +51,16 @@ Quando uma corrente elétrica passa por um resistor ligado à placa de um tríod
 
 Os dois tubos travam-se mutuamente nesse estado. O Tríodo A permanece indefinidamente em condução contínua e o Tríodo B permanece indefinidamente bloqueado, sustentados apenas pelas linhas de corrente contínua da fonte de alimentação, sem necessitar de pulsos externos para manter a informação guardada. O circuito só inverte essa condição quando recebe um pulso elétrico deliberado em sua entrada, forçando o Tríodo A a cortar e o Tríodo B a conduzir.
 
+![Imagem de um circuito flip-flop](./images/circuits/flip-flop.png)
+
+> Descrição da Imagem: Documento técnico original PX-1-105 da Moore School of Electrical Engineering (Universidade da Pensilvânia), intitulado "Flip-Flop Circuit". O esquema detalha a arquitetura elétrica do circuito biestável (gatilho Eccles-Jordan) construído com válvulas duplo-tríodo 6SN7, utilizado como a unidade fundamental de retenção de estado nos acumuladores do ENIAC. No centro, observa-se o circuito de acoplamento cruzado: a placa de cada tríodo é ligada diretamente à grade do tríodo oposto através de divisores resistivos de 47 kΩ em paralelo com capacitores de comutação rápida de 25 pF (C3 e C4), estabelecendo o laço de realimentação contínua que mantém um tubo em condução e o outro em corte. O circuito é alimentado por linhas de corrente contínua com tensões de polarização fixadas em -360 V, -450 V e -555 V. Na seção inferior, destacam-se os terminais de entrada de pulsos: "INPUT (Set)" à esquerda para comutar o circuito e "INPUT (Reset)" à direita para forçar o retorno ao repouso. No canto superior direito, a linha de saída ("OUTPUT") extrai os níveis diferenciais de tensão contínua (-435 V e -465 V) para leitura não destrutiva, ladeada por uma lâmpada neon que fornecia indicação luminosa direta do estado ativo na face do painel. No canto inferior esquerdo, o desenho inclui o símbolo padronizado do bloco biestável utilizado nos diagramas lógicos gerais da máquina.
+
 ### 6.3.3 Ring Counters
+
+![Diagrama simplificado de um contador de anel do ENIAC](./images/circuits/decade-counter.gif)
+
+> Descrição da Imagem: Diagrama simplificado de um contador de anel decádico do ENIAC. O diagrama ilustra a disposição vertical dos dez estágios biestáveis (numerados de 0 a 9) que formam uma única casa decimal. Cada bloco é dividido em duas metades para indicar o estado de condução dos tríodos: os estágios de 0 a 5 e de 7 a 9 encontram-se em estado de repouso (marcado à esquerda), enquanto o estágio 6 apresenta o estado invertido/ativado (marcado à direita), representando a retenção do número decimal 6. A linha condutora externa à esquerda conecta a saída do estágio 9 de volta ao estágio 0. Na base, o bloco de controle recebe os pulsos de dados dos troncos de digitos, os sinais de controle de programa e o pulso de transporte da década anterior, acionando a linha comum de avanço vertical. No topo, a transição entre o estágio 9 e o estágio 0 aciona as comportas superiores, direcionando o pulso de transporte de dezenas para a década seguinte à esquerda ("ten's carry to next decade") e liberando a transmissão dos dados calculados para o barramento ("output along digit trunk").
+
 Para armazenar e operar números decimais, os biestáveis eram organizados em contadores de anel decádico. Cada anel representava uma única casa decimal (unidades, dezenas, centenas) e era formado por dez circuitos biestáveis interligados em uma fila circular fechada (circular no sentido de que após o nove vinha o número 0, não literalmente circular), numerados de 0 a 9. O terminal de saída do estágio 9 era conectado diretamente de volta à entrada do estágio 0, fechando o anel.
 
 A representação do número dentro de cada década era puramente posicional, sendo que dentro dos dez estágios do anel, nove biestáveis permaneciam em repouso (repouso = Tríodo A conduzindo e Tríodo B em corte) e apenas um biestável permanecia ativado (ativado = Tríodo A em corte e Tríodo B conduzindo). O valor numérico correspondia à posição física do estágio ativado, por exemplo: Se o estágio 0 estivesse ativado, a década armazenava o número 0; Se o estágio 7 estivesse ativado e todos os outros nove em repouso, a década armazenava o número 7.
@@ -45,8 +71,16 @@ Dessa forma, cada pulso recebido pela linha comum empurrava o estado ativado um 
 
 Um Acumulador completo continha dez desses anéis enfileirados lado a lado no painel (armazenando uma palavra de dez dígitos decimais), além de um biestável isolado no topo para indicar o sinal algébrico (Positivo ou Negativo).
 
+![Captura de tela de um simulador do ENIAC, mostrando os contadores de anéis e seletores de funções](./images/simulator/ring-counters-and-function-switches.png)
+
+> Descrição da Imagem: Captura de tela de simulador estrutural do ENIAC exibindo a face frontal de dois Acumuladores interconectados durante a execução de uma multiplicação por adições sucessivas (100×5=500). No topo de cada painel, a matriz de lâmpadas neon reflete o estado estático dos contadores de anel decádicos, com o acumulador da esquerda exibindo a lâmpada do dígito 1 acesa na terceira década (ou seja, uma centena) e lâmpadas no zero nas demais posições, retendo o valor 100; o acumulador da direita exibe a lâmpada do dígito 5 acesa nas centenas, retendo o produto acumulado de 500. Na seção intermediária, cabos verticais conectam a saída de transmissão da primeira unidade e a entrada de recepção da segunda unidade à mesma linha horizontal nas bandejas de dados, demonstrando o tráfego de trens de pulso ponto a ponto. Na base dos painéis, observam-se as chaves rotativas de configuração de entrada (α,β,γ,δ,ϵ), controles de operação e cabos coaxiais acoplados às calhas de controle inferiores (Program Trays) para disparar a repetição do ciclo.
+
+![Diagrama detalhado de um contador de anel do ENIAC](./images/circuits/Eniac_decade_ring_counter.jpg)
+
+> Descrição da Imagem: Esquema elétrico de um contador de anel decádico do ENIAC. O circuito detalha a interconexão em laço fechado dos estágios de contagem, onde a saída do estágio 9 conecta-se diretamente de volta à entrada do estágio 0 através da linha superior. Cada estágio individual (Stage 0, Stage 1 e Stage 9, com os estágios 2 a 8 omitidos no desenho) é estruturado em torno de uma válvula duplo-tríodo 6SN7 com acoplamento cruzado resistivo e capacitores de aceleração, acompanhada por uma lâmpada neon para sinalização visual do estado ativo. À esquerda, uma válvula de potência 6L6 atua como estágio de entrada, injetando os pulsos de 100 kHz na linha comum que comuta os biestáveis sequencialmente. No topo de cada estágio, destacam-se os terminais de saída estática ("Static output"), responsáveis por fornecer a tensão contínua que representa o operando retido. No canto inferior direito, uma válvula conectada à entrada "Clear input" força o retorno síncrono do anel ao estágio 0 ao receber o pulso de Reset.
+
 ### 6.3.4 Signal Transmission
-A transformação dos números retidos nos anéis em pulsos móveis dentro das calhas de dados ocorria através da coordenação entre o Acumulador e a Unidade Cíclica. O Acumulador modulava os sinais contínuos gerados pela Unidade Cíclica para organizar a traduzir os números nos anéis em pulsos.
+A transformação dos números retidos nos anéis em pulsos móveis dentro das calhas de dados ocorria através da coordenação entre o Acumulador e a Unidade Cíclica. O Acumulador modulava os sinais contínuos gerados pela Unidade Cíclica para organizar e traduzir os números nos anéis em pulsos.
 
 A transmissão operava dentro do Ciclo de Adição padrão de 200 microssegundos, dividido em 20 intervalos de 10 microssegundos. A Unidade Cíclica distribuía permanentemente para toda a máquina dois trens de pulso mestres pela bandeja de sincronização:
 
@@ -55,7 +89,16 @@ A transmissão operava dentro do Ciclo de Adição padrão de 200 microssegundos
 
 Quando um Program Pulse atingia o terminal de controle de um Acumulador, ordenando a emissão do seu valor, a unidade executava uma leitura por rotação completa, onde o Acumulador desviava o trem 10P da Unidade Cíclica diretamente para a linha de entrada comum dos seus anéis decádicos. Esses dez pulsos forçavam os anéis a avançarem exatamente dez passos, fazendo o estado ativado dar uma volta completa pelo anel e retornar ao mesmo número original. Simultaneamente, o trem 9P da Unidade Cíclica era aplicado à entrada de uma válvula pentodo (que operava como uma comporta de saída para a calha de dados). No instante exato em que o anel passava do estágio 9 para o estágio 0 durante a rotação, a tensão de transição acionava essa comporta pentodo, liberando a passagem dos pulsos restantes do trem 9P para o cabo de saída (Digit Trunk).
 
-Por exemplo, para transmitir o dígito 4 o anel iniciava no estágio 4. Os primeiros seis pulsos do trem 10P avançavam o anel até o estágio 0 (5, 6, 7, 8, 9, 0). Nesse momento após o sexto tempo, a comporta pentodo abria. Os quatro pulsos restantes do trem 9P (nos tempos 7, 8, 9 e o complemento de fechamento) passavam livremente pela válvula aberta e entravam no Digit Trunk. Ao término do décimo pulso de 10P, o anel completava os quatro passos finais (1, 2, 3, 4), parando exatamente no estágio 4 onde havia começado.
+![Diagrama assustador](./images/circuits/accumulator-pm-clear-plug-in_unit.png)
+
+> Descrição da Imagem: Documento técnico original PX-5-108 da Moore School of Electrical Engineering (Universidade da Pensilvânia), intitulado "Accumulator PM & Clear Plug-In Unit". O esquema elétrico detalha o circuito modular plugável responsável por três funções centrais do Acumulador: a indicação de sinal algébrico (PM - Plus/Minus), a seleção de rotas de saída de pulsos (Add/Subtract) e o disparo de limpeza das décadas (Clear). O diagrama divide-se em blocos funcionais sequenciais da esquerda para a direita:
+>
+> Decade Clear Tubes: O alinhamento de válvulas de potência à esquerda (tubos 2 a 11, identificados individualmente como 6L6) é dedicado a resetar as dez décadas contadoras do acumulador. Quando a unidade opera em Modo de Limpeza (Clear), um pulso recebido pela entrada "Clear Input" dispara essas válvulas em paralelo, injetando uma descarga elétrica síncrona que força os dez anéis decádicos simultaneamente de volta ao estágio 0.
+> Pulse Former e PM Counter: Na região central (tubos 12 a 14), localiza-se o circuito formatador de pulsos acoplado ao biestável do contador de sinal (PM Counter). Esse biestável retém o estado do sinal algébrico do resultado intermediário (+ ou -), controlando a polarização das portas lógicas subsequentes.
+> Transmission Gates e Transmitters (Add/Sub): Na metade direita (tubos 15 a 25), encontram-se as comportas pentodo de transmissão ("Trans. Gates") e os bancos de amplificadores de saída para adição ("Add Trans.") e subtração ("Sub Trans."). Esse conjunto executa o chaveamento dos trens de pulso da Unidade Cíclica detalhado no tópico 6.3.4, direcionando os pulsos emitidos diretamente para os terminais de saída "Add Pulse Out" ou "Sub Pulse Out".
+> Terminais de Conexão (PAB, PBB e SCB): As tabelas de pinagem nas extremidades mapeiam as linhas de alimentação contínua (-400 V, -150 V, +150 V, +225 V) e os pontos de interligação física com as calhas da máquina, incluindo a recepção dos pulsos de controle ("Prog. Input") e a saída de status estático ("PM Static Out").
+
+Por exemplo, para transmitir o dígito 4, o anel iniciava no estágio 4. Os primeiros seis pulsos do trem 10P avançavam o anel até o estágio 0 (5, 6, 7, 8, 9, 0). Nesse momento após o sexto tempo, a comporta pentodo abria. Os quatro pulsos restantes do trem 9P (nos tempos 7, 8, 9 e o complemento de fechamento) passavam livremente pela válvula aberta e entravam no Digit Trunk. Ao término do décimo pulso de 10P, o anel completava os quatro passos finais (1, 2, 3, 4), parando exatamente no estágio 4 onde havia começado.
 
 Ao final do ciclo de 200 microssegundos, a chave de programa determinava o estado final do Acumulador:
 
