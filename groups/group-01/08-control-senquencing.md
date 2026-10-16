@@ -19,5 +19,5 @@
 - Por que o ciclo moderno de busca, decodificação e execução não se aplica
 
 ## 8.7 Operation Sequence
-Diagrama lógico, passo a passo, de como as operações eram encadeadas
+- Diagrama lógico, passo a passo, de como as operações eram encadeadas e detalhamento do processo
 (Add image)

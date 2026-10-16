@@ -3,8 +3,8 @@
 ## 5.1 Distributed Memory
 - Explicar a falta de uma memória unificada e como instruções e dados eram armazenados de formas completamente diferentes
 
-## 5.2 Decimal Ring Counters
-- Como funcionava a configuração dos tubos usados para armazenar números de base 10
+## 5.2 External Storage
+- Uso de cartões perfurados para armazenamento de dados estáticamente
 
 ## 5.3 Read/Write Memory (Accumulators)
 - Como os 20 acumuladores funcionavam como resgistradores temporários/RAM
@@ -12,8 +12,8 @@
 ## 5.4 Read-Only Memory (Function Tables)
 - Painéis de interruptores manuais para armazenar constantes/valores fixos
 
-## 5.5 External Storage
-- Uso de cartões perfurados para armazenamento de dados estáticamente
+## 5.5 Decimal Ring Counters
+- Como funcionava a configuração dos tubos usados para armazenar números de base 10
 
 ## 5.6 Decimal Representation
 - Como os dados eram armazenados usando contadores em anel (base 10, não binária)
