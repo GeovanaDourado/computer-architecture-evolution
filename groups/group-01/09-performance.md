@@ -4,7 +4,7 @@
 - Como o processamento, o controle e o armazenamento funcionavam em conjunto
 
 ## 9.2 Computational Speed
-Avaliação comparativa do desempenho das diferentes opeçãoes que o ENIAC fazia
+- Avaliação comparativa do desempenho das diferentes operaçãoes que o ENIAC fazia
 
 ## 9.3 Setup x Execution
 - Levar dias para conectar os cabos de um programa que era executado em segundos
