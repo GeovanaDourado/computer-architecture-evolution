@@ -18,9 +18,17 @@ A restrição física dos circuitos valvulados exigia o uso de cartões perfurad
 
 Cada cartão abrigava 80 colunas, o que corresponde matematicamente a 80 caracteres (ou 80 bytes de dados não compactados). Para lidar com o volume de milhares de cartões, os lotes eram guardados em gaveteiros metálicos modulares alocados na sala de operações. A manutenção desse arquivo exigia controle rigoroso do ambiente onde eles se encontravam, pois variações de umidade dilatavam ou deformavam o papel cartonado, causando atolamentos e desalinhamentos no cilindro eletrificado do leitor. Em termos de capacidade física, uma caixa contendo 12.500 cartões perfurados equivalia a aproximadamente 1 megabyte de informação.
 
+![Caixa cheia de cartões perfurados](./images/memory/PunchCardDecks.agr.jpg)
+
+> Descrição da Imagem: Fotografia de uma caixa de papelão contendo aproximadamente 2.000 cartões perfurados agrupados em lotes. Considerando a capacidade cada cartão, o volume total desta caixa representa cerca de 160 kilobytes. Na face superior dos maços, destacam-se anotações de identificação e linhas diagonais contínuas desenhadas com marcador. Essas marcações além de aturarem como um mecanismo de segurança também serviam para separar diferentes grupos de cartões (como se fosse uma indexação dos dados em uma coordenada da memória externa). 
+
 A natureza não-destrutiva da leitura eletromecânica permitia a reutilização contínua dos mesmos lotes de dados. Em problemas de integração numérica ou equações diferenciais que exigiam múltiplas iterações sobre as mesmas variáveis, a equipe recolhia a pilha ejetada no empilhador do Leitor de Cartões e a realimentava no compartimento de entrada. Esse ciclo de reintrodução posicionava os cartões como uma memória estática de leitura repetitiva.
 
 Esse meio também atuava como uma expansão do armazenamento temporário para contornar o esgotamento dos contadores internos. Quando um problema matemático complexo gerava uma quantidade de resultados intermediários superior ao número de Acumuladores disponíveis, a máquina acionava a perfuradora periférica para descarregar esses valores elétricos em cartões virgens. Posteriormente, a equipe reintroduzia essa pilha de resultados parciais no Leitor de Cartões para dar prosseguimento à equação, utilizando o papel como um mecanismo externo de armazenamento auxiliar para leitura e escrita cíclica.
+
+![Imagem de um armazem contendo milhares de caixas de cartões perfurados](./images//memory/IBM_card_storage.jpg)
+
+> Descrição da Imagem: Fotografia do Centro de Registros Federais em Alexandria (1959), evidenciando o volume do armazenamento de massa não-volátil em larga escala. A instalação abrigava dezenas de fileiras de paletes empilhados, contendo milhares de caixas. Há aproximadamente 20 fileiras de paletes, cada fileira sendo 15 palets de largura e 2 de altura (~600 palets). Cada palet guardava 45 caixas de 2.000 cartões cada (54 Milhões de cartões no total). Multiplicando a quantidade de cartões por quantos caracteres cada um armazena (54 milhões x 80), o galpão inteiro armazena aproximadamente 4,32 bilhões de caracteres (equivalente a 4,3 gigabytes). (Os data centers da época, como todo o esforço do mundo, tinham uma capacidade de armazenamento quase que inusável para uma única pessoa atualmente...)
 
 ## 5.3 Read/Write Memory (Accumulators)
 - Como os 20 acumuladores funcionavam como resgistradores temporários/RAM
