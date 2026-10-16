@@ -27,6 +27,8 @@
 ## 5.9 1953 Upgrade
 - Adição posterior de memória de núcleo magnético
 
+![Hardware da memória de núcleo magnético](./images/memory/magnetic-core-memory.jpg)
+
 ## 5.10 Modern Comparison
 - Como as formas de memória do ENIAC se compara as formas de memória atuais
 
