@@ -78,9 +78,9 @@ Encontrei um vídeo mostrando uma "IBM 026 Key Punch" funcionando! O vídeo most
 
 ### 4.2.3 IBM Card Reader
 
-![Uma operadora inserindo cartões perfurados no Card Reader](./images/photos/inserting-cards-in-card-reader.jpg)
+![Uma operadora inserindo cartões perfurados no Card Reader](./images/photos/operating-card-reader-and-punch.jpeg)
 
-> Descrição da Imagem: Fotografia de uma operadora do ENIAC alimentando uma pilha de cartões perfurados no Leitor de Cartões da IBM. É possível ver a parede direita do ENIAC, bem perto de onde se encontra a Unidade de Transmissão de Constantes, que recebe a leitura dos cartões feita pelo Card Reader.
+> Descrição da Imagem: Fotografia da estação de Entrada e Saída do ENIAC, documentando duas operadoras manuseando os periféricos eletromecânicos acoplados ao sistema. À esquerda, em segundo plano, encontra-se o Leitor de Cartões (entrada). A operadora (provavelmente) estava preparando uma pilha de cartões antes de inseri-lo no alimentador. À direita, em primeiro plano, está a Perfuradora de Cartões (saída), que consegui identifica-la como uma IBM 513 Reproducing Punch. A operadora retira os cartões recém-perfurados do empilhador (card stacker). É possível ver de fundo o cabo umbilical que conecta o leitor de cartões ao painel 1 da unidade de transmissão constante.
 
 O dispositivo responsável por extrair as informações do papel era um leitor de cartões da IBM adaptado para o sistema. Os cartões preenchidos com os dados inicias eram empilhados no alimentador do leitor. Um sistema de roletas puxava um cartão por vez, fazendo-o deslizar em velocidade constante sobre um cilindro metálico eletrificado, lendo aproximadamente 125 cartões por minuto. Logo acima desse cilindro, repousava uma fileira de escovas metálicas flexíveis, alinhadas com as colunas do cartão.
 
