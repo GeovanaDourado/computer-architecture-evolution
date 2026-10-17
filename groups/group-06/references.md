@@ -16,3 +16,4 @@ Microchip Technology Inc., “AVR 8-bit Architecture,” AVR42787: AVR Software 
 Uso na pesquisa: fonte oficial para conferir um caso concreto AVR. As características descritas ali pertencem ao AVR. 
 R. Pawson, “The Myth of the Harvard Architecture,” IEEE Annals of the History of Computing, vol. 44, no. 3, pp. 59–69, 2022, doi: 10.1109/MAHC.2022.3175612.
 Uso na pesquisa: apoio para evitar afirmações históricas ou técnicas imprecisas sobre o rótulo “Harvard”.
+https://www.sciencedirect.com/science/chapter/bookseries/abs/pii/B9780122341205500205
