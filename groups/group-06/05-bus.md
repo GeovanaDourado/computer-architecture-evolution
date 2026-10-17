@@ -1,20 +1,40 @@
 # 5. Bus Architecture
 
 ## 5.1 Bus Overview
-arquitetura Harvard clássica é uma organização de computadores caracterizada pela separação entre o espaço de armazenamento das instruções do programa e o espaço destinado aos dados. Diferentemente da arquitetura von Neumann tradicional, na qual instruções e dados compartilham o mesmo espaço de memória e os mesmos caminhos de comunicação, a arquitetura Harvard utiliza estruturas independentes para essas duas categorias de informação. Nessa organização, o processador possui caminhos distintos para acessar as instruções e os dados, permitindo que cada tipo de informação tenha uma via própria de comunicação. Portanto, a principal característica da arquitetura Harvard clássica é a independência entre os espaços de instruções e dados e seus respectivos caminhos de acesso.
+A organização Harvard clássica separa a memória de programa da memória de dados e fornece caminhos independentes de comunicação entre a CPU e cada espaço de memória. Assim, a busca de instruções não precisa usar obrigatoriamente o mesmo caminho das transferências de dados. Em um diagrama de blocos, esses caminhos podem ser representados como uma interface para a memória de programa e outra para a memória de dados.
+
+Os termos barramento de endereço, barramento de dados e barramento de controle ajudam a explicar as funções dos sinais em cada interface. Porém, a organização física desses sinais depende da implementação. A arquitetura Harvard, por si só, não define uma quantidade fixa de fios, uma largura de barramento ou um protocolo elétrico específico.
 
 ## 5.2 Data Bus
+O caminho da memória de programa transporta instruções da memória de programa para a CPU. O caminho da memória de dados transporta valores entre a memória de dados e a CPU. Dependendo da operação, os dados podem sair da memória em uma leitura ou sair da CPU em uma gravação.
+
+Manter esses caminhos independentes significa que a transferência de uma instrução não precisa disputar o mesmo caminho de dados usado por uma operação na memória de dados. Isso descreve uma possibilidade da organização; a implementação determina se as transferências ocorrem ao mesmo tempo.
 
 ## 5.3 Address Bus
+A CPU identifica uma posição na memória de programa quando busca uma instrução. Ela identifica uma posição na memória de dados quando uma operação precisa ler ou gravar um dado. Na organização Harvard clássica, esses acessos pertencem a espaços de memória separados e usam caminhos de comunicação independentes.
+
+Por isso, um endereço da memória de programa e um endereço da memória de dados pertencem a espaços diferentes. A arquitetura não exige que os dois espaços usem a mesma faixa de endereços ou a mesma largura de endereço. Esses detalhes dependem da implementação.
 
 ## 5.4 Control Bus
 
 ## 5.5 Communication Process
+Um fluxo típico de instruções e dados pode ser descrito assim:
 
-Explain how CPU communicates with memory.
+1. O contador de programa identifica o endereço da próxima instrução na memória de programa.
+2. A interface da memória de programa envia essa instrução à CPU.
+3. A CPU decodifica a instrução e determina qual operação deve realizar.
+4. Se a operação precisar de um valor da memória de dados, a CPU seleciona um endereço e solicita uma leitura.
+5. A memória de dados devolve o valor à CPU, que pode processá-lo em seus registradores ou na ULA.
+6. Se a operação precisar gravar um resultado na memória de dados, a CPU envia o resultado e o endereço de destino pela interface dessa memória.
+
+Como os caminhos de programa e de dados são independentes, uma implementação pode sobrepor a busca de uma instrução a uma transferência de dados. A sequência e o momento dessa sobreposição dependem do projeto do processador. O diagrama representa a organização, e não uma sequência de ciclos garantida.
 
 ## 5.6 Bus Width
+A organização Harvard não define uma largura universal para os barramentos. A largura do caminho da memória de programa e a do caminho da memória de dados dependem da implementação do processador. Elas podem ser iguais ou diferentes.
+
+Se o grupo apresentar valores de largura, deve associá-los a um processador ou sistema específico e usar a documentação desse sistema como fonte. Sem escolher uma implementação, a conclusão correta é que essa característica depende do projeto.
 
 ## 5.7 Performance Impact
+
 
 ## 5.8 Comparison with Current Architectures
