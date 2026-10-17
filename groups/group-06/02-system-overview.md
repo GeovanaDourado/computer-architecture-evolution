@@ -1,6 +1,7 @@
 # 2. System Overview
 
 ## 2.1 General Description
+A arquitetura Harvard é um modelo de organização de computadores que utiliza memórias separadas para armazenar instruções e dados, além de barramentos independentes para acessá-los. Seus principais componentes são a CPU (Unidade Central de Processamento), a memória de instruções, a memória de dados e os barramentos de comunicação. Essa separação permite que o processador busque instruções e acesse dados de forma independente, podendo realizar essas operações simultaneamente.
 
 ## 2.2 Main Components
 
@@ -14,12 +15,16 @@
 (Add image)
 
 ## 2.4 Data Flow
-
-Explain how data moves through the architecture.
+O processador busca as instruções na memória de instruções por meio de um barramento específico e acessa os dados por outro barramento. Em seguida, interpreta e executa as instruções, utilizando a memória de dados quando necessário. Como os caminhos são separados, a busca de uma nova instrução pode ocorrer enquanto a instrução anterior está sendo executada, dependendo da implementação.
 
 ## 2.5 Main Characteristics
 
-Table
-
 | Feature | Description |
 |---------|-------------|
+|Memórias separadas|Instruções e dados são armazenados em espaços de memória distintos.|
+|Barramentos independentes|Existem caminhos separados para a transferência de instruções e dados.|
+|Acesso simultâneo|O processador pode buscar instruções e acessar dados ao mesmo tempo.|
+|Redução de conflitos|A separação dos barramentos diminui a disputa pelo acesso à memória.|
+|Eficiência de processamento|O acesso independente pode melhorar o desempenho do sistema.|
+|Complexidade de hardware|A utilização de caminhos e memórias separados pode aumentar a complexidade do projeto.|
+|Organização flexível|As memórias de instruções e dados podem ter capacidades e larguras diferentes.|
