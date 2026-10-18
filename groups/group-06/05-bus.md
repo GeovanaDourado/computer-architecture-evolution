@@ -16,6 +16,9 @@ A CPU identifica uma posição na memória de programa quando busca uma instruç
 Por isso, um endereço da memória de programa e um endereço da memória de dados pertencem a espaços diferentes. A arquitetura não exige que os dois espaços usem a mesma faixa de endereços ou a mesma largura de endereço. Esses detalhes dependem da implementação.
 
 ## 5.4 Control Bus
+A Unidade de Controle (UC) é responsável por interpretar as instruções recebidas pelo processador e gerar sinais elétricos que coordenam o funcionamento dos componentes internos. Esses sinais controlam o fluxo de informações, ativando os elementos necessários para a execução de cada instrução. Na arquitetura Harvard, a UC organiza as operações de leitura e escrita na memória por meio de sinais específicos, garantindo que cada componente execute sua função corretamente.
+
+Os principais sinais de controle da memória de dados são o MemRead, responsável por permitir a leitura de informações armazenadas na memória, e o MemWrite, que permite gravar dados na memória. Dessa forma, a arquitetura Harvard utiliza memórias e barramentos separados para instruções e dados, possibilitando acessos independentes e, em determinadas situações, simultâneos. Isso contribui para aumentar a velocidade e a eficiência do processamento, sendo especialmente útil em microcontroladores, processadores digitais de sinais (DSPs) e sistemas de tempo real.
 
 ## 5.5 Communication Process
 Um fluxo típico de instruções e dados pode ser descrito assim:
