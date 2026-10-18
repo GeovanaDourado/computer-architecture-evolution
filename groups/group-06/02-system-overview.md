@@ -12,29 +12,29 @@ A arquitetura Harvard é um modelo de organização de computadores que utiliza 
 
 ## 2.3 Block Diagram
 
-```mermaid
+    ```mermaid
 graph TD
-    subgraph CPU ["Unidade Central de Processamento (CPU)"]
-        UC ["Unidade de Controle (UC)"]
-        ULA ["Unidade Lógica e Aritmética (ULA)"]
-        REG ["Registradores"]
+    subgraph CPU [Unidade Central de Processamento]
+        UC[Unidade de Controle]
+        ULA[Unidade Logica e Aritmetica]
+        REG[Registradores]
     end
 
-    subgraph MemProg ["Memória de Programa"]
-        Instrucoes ["Instruções do Sistema"]
+    subgraph MemProg [Memoria de Programa]
+        Instrucoes[Instrucoes do Sistema]
     end
 
-    subgraph MemDados ["Memória de Dados"]
-        Dados ["Dados / Variáveis"]
+    subgraph MemDados [Memoria de Dados]
+        Dados[Dados / Variaveis]
     end
 
-    CPU <== " Barramento de Instruções " ==> MemProg
-    CPU <== " Barramento de Dados " ==> MemDados
+    CPU <==> |Barramento de Instrucoes| MemProg
+    CPU <==> |Barramento de Dados| MemDados
 
     style CPU fill:#f9f9f9,stroke:#333,stroke-width:2px
     style MemProg fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
     style MemDados fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
-
+    
     A Arquitetura Harvard Clássica possui espaços de memória e barramentos de comunicação totalmente independentes para instruções e para dados.
     CPU: Contém a Unidade de Controle, ULA e Registradores.
     Memória de Programa: Armazena estritamente as instruções do sistema.
