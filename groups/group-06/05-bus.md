@@ -39,5 +39,14 @@ Se o grupo apresentar valores de largura, deve associá-los a um processador ou 
 
 ## 5.7 Performance Impact
 
+O principal impacto da Arquitetura de Harvard no desempenho de um processador é a eliminação do chamado "Gargalo de von Neumann". Como existem barramentos físicos separados para a memória de programa (instruções) e para a memória de dados, a CPU pode realizar a busca de uma instrução e acessar um dado (leitura ou gravação) simultaneamente, no mesmo ciclo de clock.
 
 ## 5.8 Comparison with Current Architectures
+
+Hoje em dia, a arquitetura Harvard normal, é usada principalmente em chips mais simples e específicos, como microcontroladores (encontrados em sistemas embarcados e placas como o Arduino).
+
+Já os processadores modernos de uso geral (computadores, servidores e celulares) utilizam a Arquitetura Harvard Modificada, que mistura duas ideias para obter o melhor custo-benefício:
+
+Por dentro do processador: Funciona como Harvard. O processador possui memórias super rápidas (Caches L1) separadas para as instruções e para os dados. Isso permite que ele leia os dois ao mesmo tempo, mantendo a alta velocidade.
+
+Por fora  : Funciona como von Neumann, as instruções e os dados se misturam na mesma memória principal (RAM) e viajam pelo mesmo barramento. Isso simplifica a construção da placa-mãe e barateia o sistema.
