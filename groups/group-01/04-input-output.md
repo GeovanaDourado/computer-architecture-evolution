@@ -191,9 +191,8 @@ Essas chaves substituíam o buffer de relés na matriz de síntese. Quando um Pr
 ## 4.4 Data Output
 
 A forma utilizada pelo ENIAC para manter e converter dados era um tanto quanto única, pois, haviam algumas etapas cadênciadas que o sistema seguia para que os resultados fossem repassados corretamente. O ponto inicial era entender onde se encontravam os valores "armazenados". Os acumuladores guardavam números em contadores de anel de flip-flops, um por casa decimal somados a um contador PM para o sinal. Cada estágio de um contador é um flip-flop, e cada acumulador tinha "saídas estáticas" ligadas direto aos estágios dos contadores. Dessa forma, o dado direto do digíto não precisava ser "lido" por pulsos, pois o estado elétrico dos flip-flops já estava disponível continuamente na corrente de sinais do sistema. 
-Após isso, as saídas precisavam ser levadas à impressora alocada ao ENIAC. As saídas estáticas de 80 contadores de dígito e 16 contadores PM eram ligadas à unidade printer, que era a responsável por transformar de forma direta os dados em perfurações nos cartões. 
+Após isso, as saídas precisavam ser levadas à impressora alocada ao ENIAC. As saídas estáticas de 80 contadores de dígito e 16 contadores PM eram ligadas à unidade printer, que era a responsável por transformar de forma direta os dados em perfurações nos cartões.
 
->Por foto demonstrando (place holder)
 >Ao que tudo indica esses números correspondem à capacidade de um cartão de 80 colunas.
 
 Por mais que os valores estivessem já corretamente calculados e fossem formados nos acumuladores ligados à impressora, ou enviados a eles, antes do momento da impressão, e os dados fossem quase onipresentes no sistemas por serem armazenados em uma corrente elétrica que se mantinha constate no ENIAC. A unidade printer só "recebia" o conhecimento dos pulsos os punha em cartão quando recebia uma instrução de programa exata dada por um operador. 
