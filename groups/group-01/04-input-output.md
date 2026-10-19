@@ -242,9 +242,42 @@ A tradução seguia o código Hollerith, onde cada uma das 80 colunas do cartão
 A disposição do texto no papel não precisava seguir a ordem das colunas do cartão. O tabulador possuía um painel de controle onde as operadoras usavam cabos para redirecionar os sinais. Por exemplo, um sinal lido na coluna 5 do cartão podia ser enviado para a barra de impressão na posição 30 do papel, o que permitia adicionar espaços, alinhar casas decimais, esconder zeros à esquerda e formatar as tabelas numéricas de forma legível sem alterar os furos originais.
 
 ## 4.6 Human Interaction
-- O trabalho manual envolvido no carregamento das pilhas de cartões e na operação dos leitores
+A interação humana no ENIAC era a principal chave da máquina, tanto para a programação, quanto para a entrada e saída. A entrada e a saída eram feitas por meio de cartões perfurados, que armazenavam dados e informações para os cálculos, e os operadores da máquina colocavam as pilhas de cartões. Além do trabalho manual de conectar e desconectar cabos/interruptores para operar e fazer a máquina funcionar.
 
-## 4.7 Modern Comparison
-- Como a interface do ENIAC se diferencia da de um computador moderno
+Os cartões perfurados não foram inovadores na época, pois já haviam sido redesenhados pela IBM para o novo modelo com 80 colunas e furos retangulares.  
+
+O cartão de entrada não era perfurado no ENIAC e sim em uma máquina conhecida como "card punch". A pessoa que operava a "card punch" digitava os números e a máquina fazia os furos correspondentes.
+
+Para a saída, que também era em cartões perfurados, era necessário outra máquina (como as da IBM) para fazer a leitura do cartão e, em seguida, gerar a resposta impressa.
+
+![Mulher com uma pilha de Cartões Perfurados](./images/photos/woman-with-many-punched-cards.jpg)
+
+## 4.7 Input-to-Output Diagram
+Consistia na:
+
+    Preparação dos Dados;
+    Perfuradora de cartões (card punch);
+    Leitora de cartões;
+    ENIAC (processamento com acumuladores, multiplicadores e divisores);
+    Perfuradora de cartões (card punch);
+    Leitora de cartões;
+    Resultado final
+
+Dessa forma, temos a organização dos dados que serão utilizados, em seguida eles são direcionados ao "card punch". Após a perfuradora, o cartão já perfurado é encaminhado pra leitora de cartões IBM, que transmitia os dados/números para o ENIAC realizar o processamento. Para a saída do ENIAC, o processo é o mesmo, que passa pelo "card punch" e pela leitora de cartões novamente, até chegar no resultado final impresso.
+
+![Cartões Perfurados](./images/photos/punched-cards.jpg)
+
+## 4.8 Modern Comparison
+A comparação das características gerais de computadores atuais com o ENIAC gera diferenças tecnológicas expressivas. Isso porque o ENIAC tinha a tecnologia de cerca de 17.468 válvulas eletrônicas (tecnologia revolucionária à época), e os computadores modernos possuem bilhões de transistores em processadores. Em operações, enquanto o ENIAC processava cerca de 5 mil adições por segundo, os computadores atuais processam até bilhões de operações por segundo. Além do mais, o ENIAC continha toda essa tecnologia em aproximadamente 167 m², com cerca de 27 toneladas. Já os computadores atuais, como os notebooks, possuem toda essa operabilidade com o peso de alguns poucos quilogramas, podendo ser facilmente transportados e utilizados. 
+
+Quanto à entrada (input) e saída (output), a comparação fica ainda mais discrepante. Enquanto eram absolutamente necessárias as alterações manuais de cabos para realizar as programações, exigindo que as programadoras manejassem diversos cabos em cada programação, os computadores modernos necessitam apenas de teclado, mouse e rede, por exemplo, para realizar toda a entrada, além dos periféricos como câmera e microfone. Tanto na entrada, quanto na saída, eram precisos cartões perfurados em grande quantidade para que fosse possível utilizar a máquina. Já nos atuais computadores, é necessário apenas um monitor, áudio (alto-falantes ou fones de ouvido), impressora, rede e o uso de arquivos digitais para gerar a saída (output).
+
+A velocidade de entrada do ENIAC era de 125 cartões por minuto (aproximadamente 2,08 cartões por segundo). Isso representa até 1 mil valores numéricos de 10 dígitos por minuto (sem contar com possíveis limitações de processamento). Já a velocidade de saída do ENIAC era ainda mais lenta, sendo cerca de 100 cartões por minuto (aproximadamente 1,67 cartão por segundo).
+
+Enquanto isso, a velocidade de entrada dos computadores modernos, a depender de diversos fatores de processador e dispositivos, é avassaladora. Se 10.000 valores numéricos de 10 dígitos fossem transmitidos por uma conexão de 1 Gbit/s, o tempo do transporte desses dados, teoricamente, seria de 0,00088s (0,88 milissegundo).
+
+É imprescindível citar o contexto histórico de cada um deles, visto que o ENIAC era inovador à época e trazia mais velocidade de processamento que as opções disponíveis. Atualmente, a tecnologia avança rapidamente e o ENIAC foi um grande marco nessa corrida, trazendo uma grande contribuição até chegarmos ao que temos nos dias atuais.
+
+![Trabalhadores atuando no ENIAC](./images/photos/workers-on-eniac.jpg)
 
 | ENIAC I/O | Modern I/O |
