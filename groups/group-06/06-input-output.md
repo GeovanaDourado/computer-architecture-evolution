@@ -18,7 +18,7 @@ Finalmente, os cientistas e operadores humanos obtinham esses resultados de form
 
 ## 6.5 Mecanismos de Saída e Obtenção dos Resultados
 A organização Harvard não determina quais dispositivos de saída um computador deve usar; isso depende da implementação. No Harvard Mark I, os resultados podiam ser registrados em cartões perfurados ou apresentados como números impressos por máquinas de escrever. A documentação da coleção de instrumentos científicos de Harvard descreve essas duas formas de saída, e o Smithsonian identifica uma máquina de escrever elétrica como equipamento de saída do Mark I.
-Na saída impressa, os números ficavam diretamente legíveis para as pessoas. Os operadores recolhiam os resultados impressos ao final do processo. chsi.harvard.edu Assim, o Mark I podia transformar o resultado do cálculo em um registro físico, destinado à leitura humana ou à manipulação em cartões.
+Na saída impressa, os números ficavam diretamente legíveis para as pessoas. Os operadores recolhiam os resultados impressos ao final do processo. Assim, o Mark I podia transformar o resultado do cálculo em um registro físico, destinado à leitura humana ou à manipulação em cartões.
 
 ## 6.6 — Participação Humana e Fluxo Integrado
 Nas primeiras implementações operacionais baseadas na Arquitetura Harvard (como o computador Harvard Mark I), a interação com o sistema dependia fundamentalmente do trabalho manual direto exercido por operadores e programadores. A comunicação entre o ambiente externo e a máquina exigia um fluxo integrado composto por várias etapas físicas e sequenciais:
@@ -29,6 +29,8 @@ Nas primeiras implementações operacionais baseadas na Arquitetura Harvard (com
 4. **Execução e Monitoramento:** Durante a computação, o operador acompanhava os sinais visuais do painel e mantinha a máquina alimentada continuamente.
 5. **Obtenção dos Resultados:** Os resultados processados eram direcionados para máquinas de escrever elétricas ou perfuradoras de cartão, de onde o operador retirava fisicamente as impressões e relatórios finais.
 
+'''mermaid
+graph LR
     subgraph Entrada ["1. Entrada / Preparação Manual"]
         A[Operador / Programador] -->|Perfuração de Mídias| B[Fitas e Cartões Perfurados]
         A -->|Configuração Manual| C[Chaves e Painel de Controle]
