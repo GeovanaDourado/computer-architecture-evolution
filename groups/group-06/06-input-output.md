@@ -14,7 +14,46 @@ No contexto da Arquitetura de Harvard, a entrada do programa corresponde ao proc
 
 ## 6.6 Histórico de Evolução
 
-Como as E/S mudaram durante o tempo?
+## 6.6 Participação Humana e Fluxo Integrado
+
+Nas primeiras implementações operacionais baseadas na Arquitetura Harvard (como o computador Harvard Mark I), a interação com o sistema dependia fundamentalmente do trabalho manual direto exercido por operadores e programadores. A comunicação entre o ambiente externo e a máquina exigia um fluxo integrado composto por várias etapas físicas e sequenciais:
+
+1. **Preparação de Mídias e Programação:** Programadores e operadores codificavam as instruções e tabelas numéricas perfurando fita de papel ou cartões perfurados.
+2. **Configuração Inicial do Sistema:** Antes da execução, o operador devia configurar manualmente chaves e comutadores no painel da máquina para definir parâmetros iniciais de cálculo e registradores.
+3. **Alimentação de Dados e Instruções:** O operador inseria as fitas perfuradas de programa nos leitores de instrução e as fitas de dados nos leitores de dados.
+4. **Execução e Monitoramento:** Durante a computação, o operador acompanhava os sinais visuais do painel e mantinha a máquina alimentada continuamente.
+5. **Obtenção dos Resultados:** Os resultados processados eram direcionados para máquinas de escrever elétricas ou perfuradoras de cartão, de onde o operador retirava fisicamente as impressões e relatórios finais.
+
+### Fluxo Integrado de Entrada, Processamento e Saída
+
+```mermaid
+graph LR
+    subgraph Entrada ["1. Entrada / Preparação Manual"]
+        A[Operador / Programador] -->|Perfuração de Mídias| B[Fitas e Cartões Perfurados]
+        A -->|Configuração Manual| C[Chaves e Painel de Controle]
+    end
+
+    subgraph Processamento ["2. Processamento e Interação"]
+        B -->|Leitura de Instruções e Dados| D[CPU / Unidades da Arquitetura Harvard]
+        C -->|Sinais de Parâmetros| D
+    end
+
+    subgraph Saida ["3. Saída e Extração"]
+        D -->|Sinais de Resultado| E[Impressoras / Máquinas de Escrever / Perfuradoras]
+        E -->|Coleta de Resultados Impressos| F[Operador / Usuário Final]
+    end
+
+    style Entrada fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style Processamento fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+    style Saida fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+
+    Legenda do Fluxo:
+
+Entrada Manual: Ação humana direta no preparo de mídias físicas (fitas/cartões) e ajuste de chaves.
+
+Processamento: Leitura independente e execução das instruções e dados pela CPU.
+
+Saída: Impressão ou gravação física do resultado retido e analisado pelo operador.
 
 ## 6.7 Comparação Moderna
 
