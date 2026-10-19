@@ -5,10 +5,11 @@ A arquitetura Harvard é um modelo de organização de computadores que utiliza 
 
 ## 2.2 Main Components
 
-- CPU
-- Memory
-- Bus
-- I/O
+A organização Harvard clássica pode ser descrita por quatro elementos principais:
+- CPU (Unidade Central de Processamento): busca e interpreta instruções e realiza as operações solicitadas pelo programa. Em geral, inclui a Unidade de Controle, a ULA e registradores, embora a organização interna varie conforme o processador.
+- Memória de programa: armazena as instruções que a CPU busca para executar o programa.
+- Memória de dados: armazena valores que podem ser lidos ou gravados durante a execução, como dados de entrada, valores temporários e resultados.
+- Caminhos de comunicação: conectam a CPU às memórias de programa e de dados. Na organização Harvard clássica, esses caminhos são independentes. Eles transportam informações como instruções, dados, endereços e sinais de controle. A forma física e a largura desses caminhos dependem da implementação.
 
 ## 2.3 Block Diagram
 
