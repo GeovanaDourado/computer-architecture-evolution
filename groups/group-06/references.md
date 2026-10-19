@@ -13,3 +13,5 @@ https://www.americanhistory.si.edu/pt/collections/object/nmah_904260
 - Harvard Computation Laboratory (Staff of the Computation Laboratory, incluindo Howard H. Aiken e Grace M. Hopper). A Manual of Operation for the Automatic Sequence Controlled Calculator. Cambridge: Harvard University Press, 1946. .
 Aiken, Howard H.; Hopper, Grace M. "The Automatic Sequence Controlled Calculator". Electrical Engineering, Vol. 65, Nos. 8-9 e 10, pp. 384-391, 1946.
 Cohen, I. Bernard. Howard Aiken: Portrait of a Computer Pioneer. Cambridge: MIT Press, 1999.
+
+-GEEKSFORGEEKS. Harvard Architecture. GeeksforGeeks, 2 abr. 2026. Disponível em: https://www.geeksforgeeks.org/computer-organization-architecture/harvard-architecture/. Acesso em: 17 out. 2026.
