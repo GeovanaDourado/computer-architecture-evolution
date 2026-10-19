@@ -114,6 +114,60 @@ Ao final do ciclo de 200 microssegundos, a chave de programa determinava o estad
 ## 6.6 Switch-Based Data Selection
 - Uso de chaves seletoras para indicar a um acumulador quais dados internos enviar para a saída
 
+Cada acumulador Do Eniac tinha 12 controles de programa, e cada um tinha uma chave de operação de 9 posições. Essa chave decidia se o acumulador receberia dados (por qual dos 5 canais de entrada) ou transmitiria o número guardado, o seu complemento, ou os dois. Outras chaves definiam quantas vezes transmitir e se limpar depois. Essa junção simples de ações, quando combinadas geravam a complexidade assustadora do Eniac.
+
+### 6.6.1 Separação e divisão das chaves seletoras
+
+Quanto as chaves em si, cada posição direcionava o acumulador a uma ação diferente, sendo que as posições se dividiam em:
+
+α (Alfa), β (Beta), γ (Gama), δ (Delta), ε (Épsilon) Recebiam o número que chega pelo canal de entrada correspondente
+> Essas serviam apenas como direcionadoras de dados, servindo como uma espécie de ponte para que as operações pudessem ser reorganizadas e alinhadas. Um fato curioso é que de certa forma, é possível compreender estas como "Váriaveis" visto que são cabeamentos tratados como icógnitas que apenas representam valor verdadeiro após algum outro valor ter sido atrelado a este anteriormente.
+
+A	Transmitir o número armazenado (saída “add”)
+> Nesse caso o número armazenado era repassado com o comando ADD, gerando uma soma com seja lá qual outro número era complementado.
+
+S	Transmitir o complemento do número (saída “subtract”)
+> Mesma situação do coamndo ADD mas nesse caso sendo o SUBTRACT, logo, subtraindo o valor do conjunto de dados.
+
+AS	Transmitir os dois ao mesmo tempo
+> Usado em operações mais complexas para trnasmitir um mesmo valor como soma e subtração sem necessitar do uso de dois acumuladores. Economizando linhas de transferência de dados.
+
+O	Não receber nem transmitir (útil para limpar ou atrasar um pulso)
+> Uso mais situacional e dependente da necessidade de sincronização ou "descarte" de dados. Também utilizado quando não havia dado correlacionado necessário.
+
+### 6.6.2 Funcinamento das chaves seletoras
+
+A chave não movia dados diretamente, mas sim escolhia qual circuito seria ativado quando um pulso de programa chegasse ao controle. O flip-flop do controle estimulado enviava um sinal por uma seção da chave aos circuitos de recepção ou de transmissão. Na transmissão, abria as portas que deixavam os pulsos de dígitos chegarem às saídas A e/ou S.
+Já para a saída do dado interno, na transmissão, os pulsos 10P eram enviados a todas as décadas do acumulador ao mesmo tempo, e cada pulso avançava o contador de anel um estágio para um dígito d armazenado.
+Primeiro saíam 9−"d" pulsos de uma outra linha (9P) pela saída S, que representam o complemento do dígito.
+O pulso que levava o contador de 9 para 0 acionava o flip-flop da década, que fechava a saída S e abria a A.
+Depois saíam "d" pulsos pela saída A, que representam o próprio dígito.
+> Nesse caso, "d" representa o valor variavél que era trago pela linha 9P
+Ao fim dos 10 pulsos, o contador voltava ao dígito original. Ou seja, transmitir não apagava o número, a menos que a chave de limpeza (O) mandasse. Já o sinal seguia uma regra parecida. Para um número positivo, 9 pulsos saíam pelo fio de sinal da saída S. Para um negativo, saíam pelo da saída A. Essa diferença era usada para decisões de desvio, enviando o sinal a um “programa fantasma” onde posteriormente poderia ser resgatado.
+
+### 6.6.3 Chaves extras
+
+Haviam outras chaves extras que completavam a seleção, sendo elas:
+
+Chave de limpeza e correção (C ou O), sendo que em transmissão, o C faz o acumulador se limpar depois de enviar. Em recepção, C faz com que ele capture o pulso 1'P (usado para completar o complemento de 10).
+> Como já citado, a chave "O" servia como negativo, então apenas cortava e limpava o pulso como um todo sem amiores rodeios.
+
+Chave de repetição (1 a 9), nessas o acumulador executa a operação "r" vezes seguidas, uma por tempo de adição. A limpeza ocorre uma única vez, no fim da última repetição, e o pulso de saída é emitido depois de "r" tempos.
+> Sendo logicamente, "r" o número selecionado na chave.
+
+Chave de algarismos significativos (0 a 10), essa chave em especial é comum ao acumulador inteiro, definindo em que casa o pulso 1'P entra quando se transmite o complemento e em que década fica o “5” ao limpar.
+>  Era o jeito de arredondar contas com valores quebrados, caso fosse necessário.
+
+Chave de limpeza seletiva (SC ou O), essa aqui definia quais acumuladores limpam quando a unidade iniciadora manda um sinal geral.
+> Novamente citando que (O) era uma limpeza geral do acumulador, enquanto SC limpava de forma mais ordenada seguindo  o sinal geral.
+
+### 6.6.4 Exemplo didático
+
+Um exemplo mais prático e visual seria:
+
+Para somar o acumulador 3 (valor 15) ao acumulador 4 (valor 27), os dois recebem o mesmo pulso de programa. O 3 está com a chave em A e transmite 1 pulso na casa das dezenas e 5 nas unidades. O 4 está em α (Alfa) e recebe, resultando em 42. Para formar a + r·b, o primeiro acumulador recebe com repetição r e o segundo transmite com repetição maior ou igual a r.
+> Sendo nesse caso aqui, 3 e 4 numerações genéricas de acumuladores anteriores, podendo ser substituido por X,Y A,B ou etc. no caso da formula a + r·b, "a" é o acumulador 3, "r" é o número na chave de repetições (quantas vezes quer repetir aquela ação), e "b" o acumulador 4.
+
 ## 6.7 Access Bottlenecks (DO NOT READ THE BEGINNING OF THIS LINE, IT IS DEATH MAGIC!)
 - Limitações físicas no encaminhamento de dados entre painéis distantes
 
