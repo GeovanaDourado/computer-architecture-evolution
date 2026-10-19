@@ -9,9 +9,14 @@ No contexto da Arquitetura de Harvard, a entrada do programa corresponde ao proc
 ## 6.3 — Entrada dos Dados do Problema
 
 ## 6.4 — Produção e obtenção dos resultados
+=======
+## 6.3 Interfaces de Comunicação
+Os dados numéricos eram fornecidos ao Harvard Mark I de forma totalmente segregada das instruções de controle, utilizando três mecanismos principais: cartões perfurados padrão IBM de 80 colunas para a entrada de variáveis e dados dinâmicos, leitores de fitas numéricas secundárias para tabelas de funções, e um painel com 60 conjuntos de chaves rotativas manuais para o armazenamento de constantes de até 24 dígitos. A preparação dessas informações ocorria antes da execução, quando a equipe de programadores e operadores — que incluía nomes como Grace Hopper — perfurava previamente os dados em cartões usando máquinas keypunches e ajustava manualmente cada chave de constante no painel. Durante a operação, os técnicos carregavam os lotes de cartões nos leitores mecânicos para que os dados fossem alimentados automaticamente nos registradores sob demanda, mantendo uma separação rígida em relação à fita principal de controle de 24 canais, a qual continha exclusivamente a lógica de programação.
+## 6.4 Dispositivos Periféricos
+>>>>>>> 1fbadb59fc8d63ce1c402f5227c0d8600e006bfa
 
 ## 6.5 Mecanismos de Saída e Obtenção dos Resultados
-A organização Harvard não determina quais dispositivos de saída um computador deve usar; isso depende da implementação. No Harvard Mark I, os resultados podiam ser registrados em cartões perfurados ou apresentados como números impressos por máquinas de escrever. A documentação da coleção de instrumentos científicos de Harvard descreve essas duas formas de saída, e o Smithsonian identifica uma máquina de escrever elétrica como equipamento de saída do Mark I. chsi.harvard.edu
+A organização Harvard não determina quais dispositivos de saída um computador deve usar; isso depende da implementação. No Harvard Mark I, os resultados podiam ser registrados em cartões perfurados ou apresentados como números impressos por máquinas de escrever. A documentação da coleção de instrumentos científicos de Harvard descreve essas duas formas de saída, e o Smithsonian identifica uma máquina de escrever elétrica como equipamento de saída do Mark I.
 Na saída impressa, os números ficavam diretamente legíveis para as pessoas. Os operadores recolhiam os resultados impressos ao final do processo. chsi.harvard.edu Assim, o Mark I podia transformar o resultado do cálculo em um registro físico, destinado à leitura humana ou à manipulação em cartões.
 
 ## 6.6 — Participação Humana e Fluxo Integrado
@@ -23,8 +28,6 @@ Nas primeiras implementações operacionais baseadas na Arquitetura Harvard (com
 4. **Execução e Monitoramento:** Durante a computação, o operador acompanhava os sinais visuais do painel e mantinha a máquina alimentada continuamente.
 5. **Obtenção dos Resultados:** Os resultados processados eram direcionados para máquinas de escrever elétricas ou perfuradoras de cartão, de onde o operador retirava fisicamente as impressões e relatórios finais.
 
-```mermaid
-graph LR
     subgraph Entrada ["1. Entrada / Preparação Manual"]
         A[Operador / Programador] -->|Perfuração de Mídias| B[Fitas e Cartões Perfurados]
         A -->|Configuração Manual| C[Chaves e Painel de Controle]
@@ -46,11 +49,11 @@ graph LR
 
     Legenda do Fluxo:
 
-Entrada Manual: Ação humana direta no preparo de mídias físicas (fitas/cartões) e ajuste de chaves.
+    Entrada Manual: Ação humana direta no preparo de mídias físicas (fitas/cartões) e ajuste de chaves.
 
-Processamento: Leitura independente e execução das instruções e dados pela CPU.
+    Processamento: Leitura independente e execução das instruções e dados pela CPU.
 
-Saída: Impressão ou gravação física do resultado retido e analisado pelo operador.
+    Saída: Impressão ou gravação física do resultado retido e analisado pelo operador.
 
 
 ## 6.7 Comparação Moderna
