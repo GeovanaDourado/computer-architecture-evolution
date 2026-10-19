@@ -12,8 +12,10 @@ A arquitetura Harvard é um modelo de organização de computadores que utiliza 
 
 ## 2.3 Block Diagram
 
-    ```mermaid
-graph TD
+    ![Diagrama conceitual da organização Harvard clássica](images/harvard-classica-visao-geral.png)
+
+    *Figura 1 — Representação conceitual da CPU, das memórias de programa e de dados e de seus caminhos independentes de comunicação.*
+
     subgraph CPU [Unidade Central de Processamento]
         UC[Unidade de Controle]
         ULA[Unidade Logica e Aritmetica]
