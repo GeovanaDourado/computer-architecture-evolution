@@ -6,14 +6,12 @@ A Arquitetura de Harvard é um modelo de organização de computadores caracteri
 ## 6.2 Entrada do Programa
 No contexto da Arquitetura de Harvard, a entrada do programa corresponde ao processo de fornecer à máquina as instruções que determinam quais operações devem ser executadas e em que sequência. No Harvard Mark I, esse processo começava com a preparação do programa pelos programadores, que precisavam transformar um problema matemático em uma sequência de instruções compatíveis com as operações da máquina. Depois, essas instruções eram codificadas em uma fita de papel perfurada. O mecanismo de controle de sequência realizava a leitura da fita, uma linha de cada vez, e acionava a operação correspondente. Após executar uma instrução, o sistema avançava para a seguinte, respeitando a sequência estabelecida. Diferentemente dos computadores modernos que armazenam programas em memórias eletrônicas, o Mark I recebia suas instruções por meio desse suporte físico externo. A fita podia ser preparada, corrigida e reutilizada, e sequências de instruções podiam ser armazenadas para resolver outros problemas. Esse método demonstra como as instruções eram representadas e fornecidas separadamente dos dados utilizados nos cálculos.
 
+
 ## 6.3 — Entrada dos Dados do Problema
+Os dados numéricos eram fornecidos ao Harvard Mark I de forma totalmente segregada das instruções de controle, utilizando três mecanismos principais: cartões perfurados padrão IBM de 80 colunas para a entrada de variáveis e dados dinâmicos, leitores de fitas numéricas secundárias para tabelas de funções, e um painel com 60 conjuntos de chaves rotativas manuais para o armazenamento de constantes de até 24 dígitos. A preparação dessas informações ocorria antes da execução, quando a equipe de programadores e operadores — que incluía nomes como Grace Hopper — perfurava previamente os dados em cartões usando máquinas keypunches e ajustava manualmente cada chave de constante no painel. Durante a operação, os técnicos carregavam os lotes de cartões nos leitores mecânicos para que os dados fossem alimentados automaticamente nos registradores sob demanda, mantendo uma separação rígida em relação à fita principal de controle de 24 canais, a qual continha exclusivamente a lógica de programação.
 
 ## 6.4 — Produção e obtenção dos resultados
-=======
-## 6.3 Interfaces de Comunicação
-Os dados numéricos eram fornecidos ao Harvard Mark I de forma totalmente segregada das instruções de controle, utilizando três mecanismos principais: cartões perfurados padrão IBM de 80 colunas para a entrada de variáveis e dados dinâmicos, leitores de fitas numéricas secundárias para tabelas de funções, e um painel com 60 conjuntos de chaves rotativas manuais para o armazenamento de constantes de até 24 dígitos. A preparação dessas informações ocorria antes da execução, quando a equipe de programadores e operadores — que incluía nomes como Grace Hopper — perfurava previamente os dados em cartões usando máquinas keypunches e ajustava manualmente cada chave de constante no painel. Durante a operação, os técnicos carregavam os lotes de cartões nos leitores mecânicos para que os dados fossem alimentados automaticamente nos registradores sob demanda, mantendo uma separação rígida em relação à fita principal de controle de 24 canais, a qual continha exclusivamente a lógica de programação.
-## 6.4 Dispositivos Periféricos
->>>>>>> 1fbadb59fc8d63ce1c402f5227c0d8600e006bfa
+
 
 ## 6.5 Mecanismos de Saída e Obtenção dos Resultados
 A organização Harvard não determina quais dispositivos de saída um computador deve usar; isso depende da implementação. No Harvard Mark I, os resultados podiam ser registrados em cartões perfurados ou apresentados como números impressos por máquinas de escrever. A documentação da coleção de instrumentos científicos de Harvard descreve essas duas formas de saída, e o Smithsonian identifica uma máquina de escrever elétrica como equipamento de saída do Mark I.
@@ -57,7 +55,6 @@ Nas primeiras implementações operacionais baseadas na Arquitetura Harvard (com
 
 
 ## 6.7 Comparação Moderna
-
 A diferença central em relação a E/S é que a Arquitetura de Harvard clássica mantém barramentos totalmente independentes para instruções e dados, garantindo que o acesso a periféricos (via barramento de dados) nunca dispute caminho com a busca de instruções. Já a Arquitetura Harvard moderna (modificada) preserva a separação apenas no nível de cache e trata a E/S quase sempre como memória mapeada dentro do espaço de dados, compartilhando o barramento de memória principal. Assim, ambos os modelos oferecem bom desempenho para E/S, mas a Harvard clássica é mais “pura” na separação física, enquanto a moderna privilegia a flexibilidade e a compatibilidade com sistemas operacionais e carregamento dinâmico de programas.
 
 
