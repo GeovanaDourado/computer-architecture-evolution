@@ -56,4 +56,41 @@ Tomando como caso concreto o **Harvard Mark I (IBM ASCC)**, o sistema utilizava 
 
 ## 4.6 Aplicabilidade dos Conceitos do Template
 
+A arquitetura Harvard define-se estritamente pela separação lógica e de barramentos entre o armazenamento, não exigindo tecnologias de hardware específicas. Os tipos de memória associados a ela dividem-se entre os espaços conceituais exigidos pelo modelo e as tecnologias físicas adotadas no mundo real.
+
+Memória de Instruções (Program Memory)
+
+Função: Armazenar os comandos, o código compilado ou as sequências de operações que o processador deve buscar e executar.
+
+Classificação: Característica geral e obrigatória. A existência de um espaço exclusivo para as instruções, com caminhos de comunicação próprios, é o pilar da arquitetura Harvard.
+
+Memória de Dados (Data Memory)
+
+Função: Guardar variáveis, resultados intermediários, pilhas de execução (stack) e valores lidos ou escritos durante o processamento.
+
+Classificação: Característica geral e obrigatória. O isolamento deste espaço em relação à memória de instruções permite que o processador leia uma instrução e acesse um dado simultaneamente.
+
+Memória Flash / EEPROM / Mask ROM
+
+Função: Prover armazenamento de leitura rápida e retenção não-volátil para o código do programa.
+
+Classificação: Implementação específica. É a tecnologia padrão adotada para materializar a Memória de Instruções em microcontroladores modernos (como a família AVR, base do Arduino ou PICs), garantindo que o programa persista sem energia.
+
+SRAM (Static RAM)
+
+Função: Fornecer armazenamento volátil de altíssima velocidade para leitura e escrita em tempo de execução.
+
+Classificação: Implementação específica. É frequentemente a tecnologia escolhida para materializar a Memória de Dados no chip de microcontroladores, pois dispensa os ciclos de atualização (refresh) exigidos por memórias RAM comuns.
+
+Memória Cache L1 (Dividida em I-Cache e D-Cache)
+
+Função: Acelerar o processamento mantendo cópias locais de instruções e dados que estão em uso frequente, minimizando a lentidão no acesso a níveis de memória inferiores.
+
+Classificação: Implementação específica. É a base da chamada "Arquitetura Harvard Modificada". Em processadores modernos (como ARM Cortex-A, Intel, AMD), a memória principal costuma ser unificada, mas a memória Cache L1 dentro do processador é fisicamente separada entre Cache de Instruções e Cache de Dados para garantir o desempenho simultâneo característico do modelo Harvard.
+
+Mídias Físicas e Eletromecânicas (Fitas de Papel e Contadores)
+
+Função: Fitas de papel perfuradas ditavam as instruções em sequência, enquanto contadores mecânicos de rodas dentadas e relés armazenavam e operavam os valores matemáticos.
+
+Classificação: Implementação específica e histórica. Foi o mecanismo utilizado no computador Harvard Mark I original, demonstrando que a arquitetura independe completamente da existência de RAM, ROM ou chips de silício.
 
