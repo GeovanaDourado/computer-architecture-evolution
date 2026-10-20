@@ -121,7 +121,7 @@ Cada acumulador Do Eniac tinha 12 controles de programa, e cada um tinha uma cha
 Quanto as chaves em si, cada posição direcionava o acumulador a uma ação diferente, sendo que as posições se dividiam em:
 
 α (Alfa), β (Beta), γ (Gama), δ (Delta), ε (Épsilon) Recebiam o número que chega pelo canal de entrada correspondente
-> Essas serviam apenas como direcionadoras de dados, servindo como uma espécie de ponte para que as operações pudessem ser reorganizadas e alinhadas. Um fato curioso é que de certa forma, é possível compreender estas como "Váriaveis" visto que são cabeamentos tratados como icógnitas que apenas representam valor verdadeiro após algum outro valor ter sido atrelado a este anteriormente.
+> Essas serviam apenas como direcionadoras de dados, representando uma espécie de ponte para que as operações pudessem ser reorganizadas e alinhadas. Um fato curioso é que de certa forma, é possível compreender estas como "Váriaveis" visto que são cabeamentos tratados como icógnitas que apenas representam valor verdadeiro após algum outro valor ter sido atrelado a este anteriormente.
 
 A	Transmitir o número armazenado (saída “add”)
 > Nesse caso o número armazenado era repassado com o comando ADD, gerando uma soma com seja lá qual outro número era complementado.
@@ -142,7 +142,9 @@ Já para a saída do dado interno, na transmissão, os pulsos 10P eram enviados 
 Primeiro saíam 9−"d" pulsos de uma outra linha (9P) pela saída S, que representam o complemento do dígito.
 O pulso que levava o contador de 9 para 0 acionava o flip-flop da década, que fechava a saída S e abria a A.
 Depois saíam "d" pulsos pela saída A, que representam o próprio dígito.
+
 > Nesse caso, "d" representa o valor variavél que era trago pela linha 9P
+
 Ao fim dos 10 pulsos, o contador voltava ao dígito original. Ou seja, transmitir não apagava o número, a menos que a chave de limpeza (O) mandasse. Já o sinal seguia uma regra parecida. Para um número positivo, 9 pulsos saíam pelo fio de sinal da saída S. Para um negativo, saíam pelo da saída A. Essa diferença era usada para decisões de desvio, enviando o sinal a um “programa fantasma” onde posteriormente poderia ser resgatado.
 
 ### 6.6.3 Chaves extras
@@ -150,13 +152,13 @@ Ao fim dos 10 pulsos, o contador voltava ao dígito original. Ou seja, transmiti
 Haviam outras chaves extras que completavam a seleção, sendo elas:
 
 Chave de limpeza e correção (C ou O), sendo que em transmissão, o C faz o acumulador se limpar depois de enviar. Em recepção, C faz com que ele capture o pulso 1'P (usado para completar o complemento de 10).
-> Como já citado, a chave "O" servia como negativo, então apenas cortava e limpava o pulso como um todo sem amiores rodeios.
+> Como já citado, a chave "O" servia como negativo, então apenas cortava e limpava o pulso como um todo sem maiores rodeios.
 
 Chave de repetição (1 a 9), nessas o acumulador executa a operação "r" vezes seguidas, uma por tempo de adição. A limpeza ocorre uma única vez, no fim da última repetição, e o pulso de saída é emitido depois de "r" tempos.
 > Sendo logicamente, "r" o número selecionado na chave.
 
 Chave de algarismos significativos (0 a 10), essa chave em especial é comum ao acumulador inteiro, definindo em que casa o pulso 1'P entra quando se transmite o complemento e em que década fica o “5” ao limpar.
->  Era o jeito de arredondar contas com valores quebrados, caso fosse necessário.
+>  Isso representava a forma de arredondar contas com valores quebrados, caso fosse necessário.
 
 Chave de limpeza seletiva (SC ou O), essa aqui definia quais acumuladores limpam quando a unidade iniciadora manda um sinal geral.
 > Novamente citando que (O) era uma limpeza geral do acumulador, enquanto SC limpava de forma mais ordenada seguindo  o sinal geral.
