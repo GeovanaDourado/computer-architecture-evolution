@@ -13,6 +13,29 @@ Um exemplo histórico associado à Harvard é o Mark I. Segundo a coleção de i
 No contexto da arquitetura de software, informações e configurações duradouras que precisam persistir além do ciclo de vida de uma execução do programa, são mantidas na camada de persistência. Essa camada geralmente é composta por sistemas de gerenciamento de bancos de dados (relacionais ou NoSQL), sistemas de arquivos estruturados (como arquivos JSON, XML ou YAML para configurações de ambiente) ou serviços de armazenamento em nuvem. A responsabilidade dessa estrutura é garantir propriedades fundamentais como a durabilidade e a consistência dos dados, isolando o estado da aplicação de falhas de hardware ou reinicializações do sistema operacional.
 Por outro lado, o processo de entrada e saída (I/O), foca estritamente na camada de apresentação ou de interface, tratando do fluxo de dados em tempo de execução. Enquanto a persistência lida com o armazenamento estático e de longo prazo, os mecanismos de I/O são dinâmicos e efêmeros, responsáveis por capturar as requisições do usuário (entradas) e exibir as respostas processadas (saídas) por meio de consoles, APIs REST ou interfaces gráficas. Portanto, a distinção arquitetural reside no propósito: o I/O gerencia a comunicação imediata e a transformação dos dados trafegados entre o usuário e o sistema, enquanto o armazenamento lida com a retenção histórica e a integridade desses dados após o término dessa interação.
 
+[ Usuário / Cliente ]
+                 │
+                 ▼  (Dados Efêmeros / Parâmetros)
+┌─────────────────────────────────────────────────────────┐
+│              CAMADA DE INTERFACE (I/O)                  │
+│  - Captura as entradas do usuário                       │
+│  - Exibe os resultados e saídas processadas             │
+└────────────────────────┬────────────────────────────────┘
+                         │
+                         ▼ (Dados Validados)
+┌─────────────────────────────────────────────────────────┐
+│               CAMADA DE LÓGICA / NEGÓCIO                │
+│  - Processa as regras da Entrega 03                     │
+│  - Toma decisões de roteamento e cálculo                │
+└────────────────────────┬────────────────────────────────┘
+                         │
+                         ▼ (Acesso ao Estado/Configuração)
+┌─────────────────────────────────────────────────────────┐
+│                 CAMADA DE PERSISTÊNCIA                  │
+│  - Armazenamento duradouro (Arquivos JSON/YAML/BD)      │
+│  - Mantém informações que sobrevivem ao fim do processo │
+└─────────────────────────────────────────────────────────┘
+
 ## 4.5 Tecnologia, capacidade e acesso
 Na Arquitetura Harvard clássica, os limites de armazenamento e velocidade dependem estritamente das tecnologias físicas adotadas na implementação analisada, não sendo uma limitação do modelo teórico em si. 
 
