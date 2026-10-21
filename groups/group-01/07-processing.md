@@ -46,6 +46,62 @@ A principal limitação estrutural para a escala do paralelismo global era a dis
 ## 7.3 Accumulators
 - Como estes performavam adições e subtrações usando trens de pulso
 
+A ideia central é que o ENIAC representava números por quantidade de pulsos que ficava armazenado temporiariamente em um flip-flop. Um dígito "X" era o equivalente a "X" pulsos em um fio, e um número de 10 dígitos mais o sinal viajava em 11 fios ao mesmo tempo, um por casa decimal e um para o sinal, essa junção de fios eram as chamadas trays (bandejas).
+
+### 7.3.1 Agrupamento de pulsos e dígitos
+
+Cada casa decimal do numéro correspondia a um anel de 10 flip-flops. O dígito era indicado pelo único flip-flop em estado diferente dos outros nove. Logo se o terceiro flip-flop estava acionado e o resto desligado, o número daquela casa decimal seria o 3. Havia ainda um contador binário (PM) para o sinal, separando assim número positivos ou negativos.
+Cada pulso recebido avançava o anel uma posição, como a roda de uma calculadora mecânica. Um anel em 5 que recebe 3 pulsos avança e para em 8. Se o anel passa de 9 para 0, gera um pulso de “vai-um” para a casa vizinha. Assim aumentando a contagem do próximo acumulador.
+> Importante dizer que negativos eram guardados como complemento de 10¹⁰ com sinal M, o que evitava fazer o contador girar ao contrário.
+
+### 7.3.2 Origem dos pulsos e trens de pulso
+
+Como já mencionado, os acumuladores não geravam os pulsos. Na realidade apenas abriam portas para deixar passar pulsos novos provenientes da Unidade de ciclagem, visto que os pulsos se enfraqueciam ao percorrer a máquina.Nesse caso a Unidade de ciclagem emitia vários trens de pulso a cada tempo de adição, que correspondiam a 20 pulsos, ou 200 µs. O que equivale a 5.000 vezes por segundo. 
+Os trens relevantes para soma e subtração são:
+
+
+CPP (pulso de programa central)	Dispara a próxima operação programada.
+> Usado de forma ampla por todo o sitema, destrava as próximas portas para que os pulsos seguissem.
+
+10P (10 pulsos)	Gira os anéis na transmissão. Uma volta completa devolve o número ao valor original.
+> Pulso simples, apenas adiciona um valor ao anel de flip-flops.
+
+9P (9 pulsos)	Vira os pulsos de dígito que saem pelas saídas A e S.
+> Reinicia os flip-flops e abre as saídas para rediricionar os pulsos quando uma soma de 10 digítos era alcançada.
+
+1'P (pulso de complemento)	Completa o complemento de 10.
+> Trabalhando em conjunto com o 9P, esse pulso serve como "saída" final, indicando a nova dezena, centena ou etc do próximo anel de flip-flops.
+
+Carry-clear (pulso longo de 70 µs)	Mantém abertas as portas de vai-um.
+> O pulso responsável por permetir a passagem do pulso Vai-um
+
+Reset	Rearma os flip-flops de vai-um.
+> Usado para reprogramar caso fosse necessário usar o vai-um (quase sempre)
+
+### 7.3.3 Transmissão
+
+Os 10P entravam em todas as casas ao mesmo tempo. Se a casa guarda o dígito "X", os primeiros 9−X dos 9P saem pela saída S (complemento). O pulso que leva o anel de 9 para 0 aciona o flip-flop da casa, que fecha S e abre A, e os "X" pulsos seguintes saem por A, assim garantindo que cada unidade, dezena e assim por diante estivesse em seu devido lugar. Ao fim, o anel volta ao dígito original, então transmitir não apagava o número, a menos que a chave de limpeza mandasse.
+
+### 7.3.4 Receber e propagar o vai-um
+
+O acumulador receptor abria as portas de um dos 5 canais de entrada, e cada pulso recebido avançava o anel. Se uma casa chegava ao 9 e recebia mais um pulso, o flip-flop da casa “lembrava” o vai-um. Esse vai-um era liberado depois, pelo pulso de reset. Quando o vai-um caía numa casa que já estava em 9, usava-se o carry-clear para propagar em cascata. No pior caso, se considerar 1 + 9.999.999.999, o vai-um deveria passar por todos os estágios dos flip-flops de todos os aneis, sabendo que a propagação levava até 25 µs foi criada uma janela de 70 µs para que o vai-um pudesse contabilizar tudo.
+
+### 7.3.5 Subtração
+
+Subtrair era somar o complemento. A saída S enviava o complemento de 9 de cada dígito, mais o pulso 1'P na casa certa para virar complemento de 10. O sinal era invertido (P envia 9 pulsos pelo fio de sinal, M envia nenhum). Por último o vai-um da 10ª casa entrava no contador de sinal, o que dava o sinal correto no resultado.
+
+### 7.3.6 Exemplos
+
+#### 7.3.6.1 Soma: 
+O acumulador 1 guarda 15 e o 2 guarda 27. O 1 transmite 1 pulso na casa das dezenas e 5 nas unidades. No 2, as dezenas vão de 2 para 3, as unidades vão de 7 para 2 com vai-um contabilizado, e as dezenas chegam a 4, resultando em 42.
+
+#### 7.3.6.2 Subtração 
+27 − 15. A saída S do 15 envia 8 pulsos nas dezenas (9−1) e 4 nas unidades (9−5), mais o 1'P, o que dá 85, o complemento de 15 em 100. Somando, 27 + 85 = 112. O vai-um que sai da casa mais alta inverte o sinal e deixa +12.
+
+> Somar, subtrair e transmitir levavam um tempo de adição, ou seja, 200 µs.
+
+> Cada acumulador tinha cerca de 550 válvulas, o que dá cerca de 11.000 só nos 20 acumuladores.
+
 ## 7.4 High-Speed Multiplier
 - Unidade dedicada à operações de multiplicação
 
