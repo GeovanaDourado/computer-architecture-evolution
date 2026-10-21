@@ -103,7 +103,22 @@ O acumulador 1 guarda 15 e o 2 guarda 27. O 1 transmite 1 pulso na casa das deze
 > Cada acumulador tinha cerca de 550 válvulas, o que dá cerca de 11.000 só nos 20 acumuladores.
 
 ## 7.4 High-Speed Multiplier
-- Unidade dedicada à operações de multiplicação
+
+ A unidade dedicada a operações de multiplicação por uma tebela foi idealizada pelos projetistas na necessidade de otimizar os calculos. Inicialmente cogitaram multiplicar por somas repetidas. No entanto, mesmo sendo rápido eletronicamente, acabaram optando por uma consulta a uma tabela. Visto que assim poupariam processamento e memória. Como só havia um multiplicador na máquina, era de suma necessidade que este fosse o mais rápido possível, visto que multiplicações apareciam com frequência semelhante à das somas.
+
+### 7.4.1 Funcionamento
+
+A tabuada era uma matriz de resistores. Ao receber dois dígitos decimais, ela devolvia dois pulsos que representavam o produto, sempre com dois dígitos, como por exemplo 2 × 3 = 06.
+A casa das unidades era enviada para um acumulador, enquanto as dezenas eram enviadas a outro, formando dois produtos parciais. Ao fim, eles eram somados. Isso foi inspirado no método usado pelo multiplicador eletromecânico da IBM 601. 
+Os dígitos do multiplicador chegavam de forma estática até os “seletores do multiplicador”, que eram uma matriz 10 × 10 de válvulas ligada por cabos aos contadores do acumulador, a válvula da linha "X" e coluna "Y" acendia quando a casa "Y" guardava o dígito "X", assim concretizando o resultado da multiplicação. Ligar isso levava cerca de um tempo de adição, ou 200 µs.
+
+### 7.4.2 Exemplo: 
+23 × 4. Pela tabuada, 3 × 4 = 12, nesse caso seriam repassados os dados de unidade 2, dezena 1. Já em 2 × 4 = 08 geraria unidade 8, dezena 0. O parcial das unidades fica 82 com 2 na casa das unidades e 8 na das dezenas. O parcial das dezenas fica 10, sendo 1 na casa das dezenas e 0 na das centenas. Somando ambos se tem o resultado. 82 + 10 = 92.
+
+### 7.4.3 Tempo de operação
+
+Cada dígito do multiplicador levava um tempo de adição, os famosos 200 µs. A conta total era "X" + 4 tempos de adição, onde "X" é o número de dígitos do multiplicador. Num exemplo rápido, 7 dígitos dão 11 e 10 dígitos dão 14. Já para dois números de 10 dígitos, isso é 14 tempos, ou 2,8 ms, oque gera cerca de 357 multiplicações por segundo.
+O produto tinha até 20 dígitos, e o operador escolhia 10, sendo os mais significativos e com arredondamento, já o multiplicador e multiplicando eram preservados.Era possível usar o multiplicador enquanto acumuladores somavam e o divisor calculava, desde que as bandejas de dígitos fossem separadas.
 
 ## 7.5 Divider & Square-Rooter
 - Unidade dedicada à aritimética mais complexa
