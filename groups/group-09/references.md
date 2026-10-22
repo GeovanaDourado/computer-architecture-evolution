@@ -61,3 +61,9 @@ rocm.docs.amd.com/projects/HIP/en/docs-7.0.2/understand/hardware_implementation.
 - NVIDIA. *CUDA C++ Programming Guide: SIMT Architecture*. Disponível em: https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#simt-architecture.
 - NVIDIA. *CUDA C++ Programming Guide: Asynchronous Concurrent Execution*. Disponível em: https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#asynchronous-concurrent-execution.
 - AMD. *ROCm Documentation: Hardware Implementation*. Disponível em: https://rocm.docs.amd.com/projects/HIP/en/docs-7.0.2/understand/hardware_implementation.html.
+
+## G. Controle e sequência de operações
+
+- NVIDIA. *CUDA C++ Programming Guide: Thread Hierarchy*. Disponível em: https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#thread-hierarchy.
+- NVIDIA. *CUDA C++ Programming Guide: Synchronization Functions*. Disponível em: https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#synchronization-functions.
+- NVIDIA. *CUDA C++ Programming Guide: Control Flow*. Disponível em: https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#control-flow.
