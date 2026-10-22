@@ -125,7 +125,43 @@ Esse sinal de disparo saia do painel frontal da Unidade Iniciadora através do b
 - Como a máquina alterava o fluxo de operações com base em um resultado positivo ou negativo
 
 ## 8.6 Absence of Fetch-Decode-Execute
-- Por que o ciclo moderno de busca, decodificação e execução não se aplica
+
+### 8.6.1 O que é o ciclo Fetch-Decode-Execute:
+Nos computadores modernos, o processador geralmente executa instruções seguindo três etapas:
+
+1. Fetch (busca): o processador busca uma instrução armazenada na memória.
+2. Decode (decodificação): a unidade de controle interpreta a instrução e identifica qual operação deve ser realizada.
+3. Execute (execução): o processador realiza a operação solicitada, como uma soma ou multiplicação.
+
+Esse ciclo se repete durante a execução dos programas, permitindo que o computador processe diferentes instruções automaticamente.
+
+### 8.6.2 Por que esse ciclo não se aplicava ao ENIAC:
+
+O ENIAC não possuía uma memória de programa convencional, na qual instruções fossem armazenadas e buscadas sequencialmente pelo processador.
+
+Em vez disso, as operações eram definidas por conexões físicas de cabos, interruptores e controles de programação.
+
+Assim, o ENIAC não precisava buscar e decodificar instruções armazenadas na memória, pois as operações já estavam determinadas pela configuração dos circuitos.
+
+O processamento era coordenado por pulsos elétricos, que ativavam as unidades responsáveis por cada operação.
+
+### 8.6.3 Exemplo prático:
+
+Suponha que o ENIAC precisasse realizar o seguinte cálculo:
+
+248 x 36 = 8.928
+
+Assim, a operação ocorreria da seguinte forma:
+1. Os operadores configuravam os cabos e controles para utilizar a unidade multiplicadora e os acumuladores necessários.
+2. Os valores 248 e 36 eram disponibilizados nas unidades configuradas para a multiplicação.
+3. Um pulso de programação acionava a unidade multiplicadora, que realizava a operação utilizando seus circuitos eletrônicos e os acumuladores associados.
+4. O resultado 8.928 era armazenado nos acumuladores destinados a recebê-lo.
+5. Ao finalizar, um pulso de conclusão poderia iniciar outra operação previamente configurada.
+Dessa maneira, o ENIAC executava a multiplicação automaticamente, sem buscar ou decodificar uma instrução armazenada na memória.
+
+A operação já havia sido determinada pelas conexões físicas e pelos controles de programação.
+
+![Painéis e Cabos do ENIAC](./images/photos/panels-and-cables.jpg)
 
 ## 8.7 Operation Sequence
 - Diagrama lógico, passo a passo, de como as operações eram encadeadas e detalhamento do processo
