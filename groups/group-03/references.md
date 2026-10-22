@@ -28,4 +28,4 @@ Disponível em: https://documentation.espressif.com/esp32_datasheet_en.html
 
 Acesso em: 22 out. 2026.
 
-**Utilização no projeto:** fornece informações técnicas sobre o processador Xtensa LX6 de 32 bits, memória, interfaces de entrada e saída e conectividade Wi-Fi do ESP32 original.
+**Utilização no projeto:** fornece informações técnicas sobre o processador Xtensa LX6 de 32 bits, memória, interfaces de entrada e saída e conectividade Wi-Fi do ESP32 original conforme proposto no projeto.

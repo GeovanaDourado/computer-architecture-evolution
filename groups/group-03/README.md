@@ -208,4 +208,4 @@ Dessa forma, o trabalho conecta a pesquisa histórica e teórica à construção
 
 ## Referências
 
-As fontes utilizadas na pesquisa estão organizadas no arquivo [references.md](references.md), que reúne referências acadêmicas e documentação técnica oficial.
+As fontes utilizadas na pesquisa estão organizadas no arquivo [references.md](references.md), que reúne referências acadêmicas e documentação técnica oficial fornecida.
