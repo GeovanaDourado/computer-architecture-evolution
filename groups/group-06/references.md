@@ -7,6 +7,18 @@ https://www.sciencedirect.com/topics/computer-science/harvard-architecture
 
 [1] Swarthmore College, Dive into Systems: A Textbook for Introductory Computer Science, seção “The CPU”. [Online]. Disponível em: https://diveintosystems.cs.swarthmore.edu/book/C5-Arch/cpu.html. Acesso em: 19 out. 2026.
 [2] Harvard University, Collection of Historical Scientific Instruments, “Harvard IBM Mark I — Function”. [Online]. Disponível em: https://chsi.harvard.edu/harvard-ibm-mark-1-function. Acesso em: 19 out. 2026.
+https://chsi.harvard.edu/harvard-ibm-mark-1-function?
+https://www.si.edu/object/electromechanical-computer-component-assc-mark-i-output-typewriter%3Anmah_904260
+https://www.americanhistory.si.edu/pt/collections/object/nmah_904260
+
+- WILLIAMS, Michael R. *A History of Computing Technology*. 2. ed. Los Alamitos: IEEE Computer Society Press, 1997.
+- COMPUTATION LABORATORY OF HARVARD UNIVERSITY. *A Manual of Operation for the Automatic Sequence Controlled Calculator*. Cambridge: Harvard University Press, 1946.
+
+- Harvard Computation Laboratory (Staff of the Computation Laboratory, incluindo Howard H. Aiken e Grace M. Hopper). A Manual of Operation for the Automatic Sequence Controlled Calculator. Cambridge: Harvard University Press, 1946. .
+Aiken, Howard H.; Hopper, Grace M. "The Automatic Sequence Controlled Calculator". Electrical Engineering, Vol. 65, Nos. 8-9 e 10, pp. 384-391, 1946.
+Cohen, I. Bernard. Howard Aiken: Portrait of a Computer Pioneer. Cambridge: MIT Press, 1999.
+
+- GEEKSFORGEEKS. Harvard Architecture. GeeksforGeeks, 2 abr. 2026. Disponível em: https://www.geeksforgeeks.org/computer-organization-architecture/harvard-architecture/. Acesso em: 17 out. 2026.
 https://www.sciencedirect.com/science/chapter/bookseries/abs/pii/B9780122341205500205
 
 Arvind, R. S. Nikhil, J. S. Emer, and M. Vijayaraghavan, Computer Architecture: A Constructive Approach: Using Executable and Synthesizable Specifications, rev. Aug. 25, 2015, ch. 5, sec. 5.3, pp. 5-6–5-9. MIT CSAIL. [Online]. Available: https://csg.csail.mit.edu/6.375/6_375_2019_www/resources/archbook_2015-08-25.pdf. Acesso em: 17 out. 2026.
