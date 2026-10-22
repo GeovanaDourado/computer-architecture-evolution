@@ -105,11 +105,69 @@ Ao final do ciclo de 200 microssegundos, a chave de programa determinava o estad
 - Modo de Retenção: O anel permanecia no estágio original (preservando o número 4 para cálculos futuros).
 - Modo de Limpeza (Clear): No tempo 19/20, um pulso de Reset era injetado no anel, forçando o estágio ativo a ir para o estágio 0, apagando o resultado intermediário e liberando a unidade para receber novos dados.
 
+
 ## 6.4 Operand Identification
-- Como dados específicos eram selecionados (conexão direta de cabos, não endereços)
+No ENIAC original, a seleção e a transferência de dados eram realizadas por meio de conexões físicas e controles de programação, diferente dos computadores modernos, que utilizam endereços de memória para localizar informações na RAM.
+
+Os números ficavam armazenados em unidades específicas, como os acumuladores, o Constant Transmitter e as Function Tables. Para a comunicação entre essas unidades, os operadores configuravam cabos, interruptores e controles nos painéis do computador.
+
+### 6.4.1 Como funcionavam as conexões:
+O ENIAC utilizava dois sistemas importantes de transmissão:
+
+1. Digit Trays: responsáveis por transportar os pulsos elétricos que representavam os valores numéricos.
+2.  Program Trays: responsáveis por transmitir sinais de controle, para coordenar a execução das operações.
+
+Esses sistemas permitiam estabelecer a comunicação entre diferentes unidades do computador.
+
+As conexões eram configuradas antes da execução e podiam ser utilizadas novamente durante o processamento, sem a necessidade de modificar os cabos a cada operação.
+
+### 6.4.2 Exemplo prático:
+Considerando que o acumulador A armazene o valor 154 e o acumulador B armazene 47.
+
+Para realizar a soma, os operadores configuravam as conexões e os controles necessários para que o acumulador A transmitisse seu valor ao acumulador B.
+
+Quando a operação era acionada, o acumulador A enviava os pulsos elétricos correspondentes ao número 154. O acumulador B recebia esses pulsos e realizava a soma com o número 47, armazenando o resultado 201.
+
+Dessa forma, a seleção da origem e do destino dos dados era determinada pela configuração das conexões e pelos sinais de controle, sem utilizar endereços de memória RAM.
+
+### 6.4.3 Seleção de valores nas Function Tables:
+As Function Tables possuíam um mecanismo específico para selecionar valores numéricos configurados anteriormente.
+
+Cada tabela apresentava 104 linhas, numeradas de -2 até 101, e a seleção de uma linha era realizada a partir de um argumento numérico fornecido por um acumulador.
+
+Por exemplo, caso o argumento fosse 5, o ENIAC poderia selecionar a linha 5 e transmitir os valores previamente configurados nela.
+Esse mecanismo permitia acessar diferentes valores durante o processamento, mas não representava um sistema geral de endereçamento de memória RAM.
+
+![Cabos e conexões do ENIAC](./images/photos/very-scary-image.jpg)
 
 ## 6.5 Lack of Modern Addressing
-- Por que conceitos como endereços de RAM ou ponteiros não se aplicam ao ENIAC
+Nos computadores modernos, a memória RAM é organizada em posições identificadas por endereços numéricos. Esses endereços permitem o processador de localizar, recuperar e modificar informações armazenadas.
+
+No ENIAC, não existia uma memória RAM centralizada organizada dessa maneira. Os dados eram armazenados em unidades específicas, e sua transferência dependia de conexões físicas e controles de programação.
+
+### 6.5.1 Endereços de memória:
+Um endereço de memória identifica uma posição na qual determinada informação está armazenada.
+
+Por exemplo, em um computador moderno, o endereço 0x1000 poderia identificar uma posição que contém o valor 125.
+
+No ENIAC original, entretanto, o acesso a um valor armazenado em um acumulador não era realizado por meio de um endereço geral de RAM, mas pela seleção e ativação da unidade correspondente.
+
+### 6.5.2 Ponteiros:
+Na programação moderna, um ponteiro é um valor que representa um endereço de memória, permitindo acessar indiretamente uma informação armazenada.
+
+No ENIAC, esse conceito não era aplicado igualmente, pois o computador não possuía uma memória RAM geral endereçável, na qual os endereços pudessem ser utilizados para acessar diferentes posições de armazenamento.
+
+Embora as tabelas de funções permitissem selecionar valores por argumentos numéricos, esse mecanismo não era equivalente ao uso de ponteiros em uma memória RAM moderna.
+
+### 6.5.3 Modificações em 1948:
+É válido destacar que o ENIAC passou por modificações em 1948, permitindo a execução de programas codificados e armazenados nas tabelas de funções.
+
+Com essa mudança, o computador passou a utilizar mecanismos de endereçamento das tabelas para recuperar instruções e valores previamente configurados.
+
+Mesmo assim, após essas modificações, o ENIAC não possuía uma memória RAM convencional como a utilizada nos computadores modernos.
+
+Logo, a ausência de endereçamento geral de RAM e de ponteiros convencionais caracteriza principalmente a arquitetura original do ENIAC, baseada em conexões físicas e controles distribuídos.
+
 
 ## 6.6 Switch-Based Data Selection
 - Uso de chaves seletoras para indicar a um acumulador quais dados internos enviar para a saída
