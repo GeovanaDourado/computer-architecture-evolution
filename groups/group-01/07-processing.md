@@ -133,7 +133,69 @@ O produto tinha até 20 dígitos, e o operador escolhia 10, sendo os mais signif
 - Unidade de controle para loops, ramificações e sub-rotinas
 
 ## 7.9 Mathematical Precision
-- Operação com números decimais com sinal de 10 dígitos (tamanho da palavra) 
+
+### 7.9.1 Representação dos números decimais:
+
+O ENIAC utilizava o sistema decimal, diferentemente dos computadores modernos, que utilizam predominantemente o sistema binário.
+
+Cada um dos 20 acumuladores podia armazenar um número de 10 dígitos decimais, acompanhado de um sinal positivo ou negativo.
+
+Por exemplo:
+
+(+) 0 0 0 0 0 5 8 9 2 5 = 58.925
+
+(-) 0 0 0 0 0 0 3 8 9 4 = -3.894
+
+Assim, o maior número positivo que um acumulador podia representar era +9.999.999.999, enquanto o menor era -9.999.999.999.
+
+### 7.9.2 Precisão decimal e suas limitações:
+
+O ENIAC utilizava aritmética decimal de ponto fixo. Isso significa que a posição da vírgula não era armazenada automaticamente, sendo determinada pela organização do cálculo.
+
+Por exemplo, os dígitos 0000012345 poderiam representar:
+12345;
+1234,5;
+123,45;
+12,345;
+E outras opções, dependendo da posição estabelecida para a vírgula.
+
+A principal limitação era a capacidade de 10 dígitos por acumulador. Se uma operação produzisse um resultado maior, seria necessário utilizar técnicas adicionais para representá-lo corretamente.
+
+Portanto, a precisão dependia tanto da capacidade dos acumuladores quanto da escala e dos métodos matemáticos utilizados.
+
+![Contador Decimal Físico](./images/photos/contador-decimal-fisico.jpg)
 
 ## 7.10 Processing Cycle
-- Como um pulso desengatilhava uma sequência de operações pelas unidades
+### 7.10.1 Como funcionava o ciclo de processamento:
+
+O ENIAC utilizava pulsos elétricos para sincronizar e executar suas operações. A unidade responsável pela sincronização era chamada de Cycling Unit.
+
+Ela operava com uma frequência principal de 100.000 ciclos por segundo (100 kHz), enquanto uma operação básica de adição podia ser realizada em aproximadamente 200 microssegundos, permitindo até 5.000 adições por segundo.
+
+Diferentemente dos computadores modernos, o ENIAC original não buscava instruções em uma memória convencional. As operações eram determinadas por conexões físicas e controles previamente configurados.
+
+### 7.10.2 Como um pulso iniciava uma sequência de operações:
+
+O processamento ocorria da seguinte maneira:
+1. Os operadores configuravam os cabos e interruptores necessários para o cálculo.
+2. Um pulso de programação iniciava a primeira operação.
+3. A unidade recebia o pulso e executava a operação configurada.
+4. Ao terminar, enviava um pulso de conclusão para acionar a próxima unidade.
+5. O processo continuava automaticamente até finalizar a sequência.
+Dessa forma, um único pulso inicial podia desencadear diversas operações consecutivas, sem necessidade de intervenção humana durante cada etapa.
+
+### 7.10.3 Exemplo prático:
+
+Suponha que o ENIAC precisasse calcular:
+
+(132 + 29) × 2 = 322
+
+Primeiro, um pulso de programação iniciava a soma entre os acumuladores, produzindo 161.
+
+Ao finalizar, um pulso de conclusão acionava a etapa seguinte, na qual a unidade multiplicadora realizava 161 × 2.
+
+O resultado 322 era então armazenado no acumulador destinado a recebê-lo.
+
+Esse mecanismo permitia ao ENIAC executar sequências de cálculos automaticamente, utilizando os pulsos de programação para coordenar as operações e a Cycling Unit para sincronizar os circuitos.
+
+![Programadoras do ENIAC](./images/photos/eniac-programmers.jpg)
