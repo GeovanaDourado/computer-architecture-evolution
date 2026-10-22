@@ -31,10 +31,101 @@ Esse meio também atuava como uma expansão do armazenamento temporário para co
 > Descrição da Imagem: Fotografia do Centro de Registros Federais em Alexandria (1959), evidenciando o volume do armazenamento de massa não-volátil em larga escala. A instalação abrigava dezenas de fileiras de paletes empilhados, contendo milhares de caixas. Há aproximadamente 20 fileiras de paletes, cada fileira sendo 15 palets de largura e 2 de altura (~600 palets). Cada palet guardava 45 caixas de 2.000 cartões cada (54 Milhões de cartões no total). Multiplicando a quantidade de cartões por quantos caracteres cada um armazena (54 milhões x 80), o galpão inteiro armazena aproximadamente 4,32 bilhões de caracteres (equivalente a 4,3 gigabytes). (Os data centers da época, como todo o esforço do mundo, tinham uma capacidade de armazenamento quase que inusável para uma única pessoa atualmente...)
 
 ## 5.3 Read/Write Memory (Accumulators)
-- Como os 20 acumuladores funcionavam como resgistradores temporários/RAM
+
+Os acumuladores armazenavam os números temporariamente e participavam diretamente das operações aritméticas. Eles funcionalmente eram semelhantes a registradores de processamento, mas não constituíam uma memória RAM como as atuais.
+
+### 5.3.1 A capacidade dos acumuladores: 
+O ENIAC possuía 20 acumuladores. Eles tinham 2 funções, realizar operações de adição e subtração e armazenar temporariamente os números utilizados nos cálculos. Ao contrário dos computadores modernos, que geralmente possui a memória principal diferente da unidade de processamento, no ENIAC o acumulador realizava as duas funções.
+
+Cada um dos acumuladores podia representar um número decimal de 10 dígitos, com um sinal de positivo ou negativo, por ex.:
+
+(+) 0 0 0 0 0 1 2 5 8 7 
+Esse valor, no acumulador, equivale a 12.587
+
+(-) 0 0 0 0 0 0 8 9 4 1
+Já esse valor, equivale a -8.941
+
+Cada uma dessas posições decimais (cada casa) podia assumir valores de 0 a 9
+
+### 5.3.2 Como o acumulador armazenava os números fisicamente:
+O principal mecanismo era o contador decimal em anel em dez estados, chamado de "decade ring counter"
+
+Cada um dos acumuladores possuía: 
+10 contadores decimais (um pra cada dígito);
+Um circuito pra representar o valor positivo ou negativo;
+Circuitos de transporte (ou "carry"), responsáveis pela passagem de uma dezena para a próxima posição;
+Circuitos de entrada, saída e controle, que recebiam, transmitiam e manipulavam os números.
+
+Ele funcionava em 4 etapas:
+Armazenamento, onde o circuito mantém um estado eletrônico correspondente ao valor do dígito. Se a posição das unidades equivale a 7, o contador está no estado 7.
+Pulsos elétricos, onde o ENIAC transmite as informações numéricas. Para acrescentar 2 ao dígito armazenado, o contador recebe 2 pulsos.
+Transporte decimal (com o carry), se um contador vai de 9 para 0, automaticamente a posição decimal seguinte receba mais 1 dígito. Como, 0 0 9 + 0 0 1 = 0 1 0.
+Manutenção do resultado, o valor permanece armazenado eletronicamente até que outra operação o mude ou um comando limpe-o.
+
+### 5.3.3 Exemplo prático de uma operação:
+
+Vamos supor que queremos fazer uma soma com 2 acumuladores
+O acumulador A representa o valor +125
+O acumulador B representa o valor +37
+
+[Acumulador A]
+(+) 0 0 0 0 0 0 0 1 2 5
+
+[Acumulador B]
+(+) 0 0 0 0 0 0 0 0 3 7
+
+[Ainda no acumulador B]
+(+) 0 0 0 0 0 0 0 1 6 2
+
+Assim, o ENIAC não necessita de uma unidade aritmética independente pra realizar a soma, o próprio circuito (nesse caso, o acumulador B) realiza a operação e armazena temporariamente os dados. 
+Aqui, o acumulador B (que representa 37) recebe os pulsos elétricos equivalentes ao acumulador A (125), assim realizando a soma diretamente no acumulador B.
+
+### 5.3.4 Motivo da comparação de acumuladores com a memória RAM:
+Essa comparação só é plausível no que se refere ao armazenamento temporário.
+Ambos tinham a função de guardar operandos e resultados (no caso da RAM, dados em geral e instruções), mas os acumuladores ainda realizavam operações aritméticas.
+Enquanto os acumuladores possuíam apenas 20 unidades aritméticas, a RAM moderna já possui grande espaço de memória endereçável.
+
+![Painel Frontal do Acumulador](./images/photos/accumulator-front-panel.jpg)
 
 ## 5.4 Read-Only Memory (Function Tables)
-- Painéis de interruptores manuais para armazenar constantes/valores fixos
+No ENIAC, nem todos os valores precisavam ser calculados durante a execução. Alguns números já eram conhecidos antes do início do processamento e podiam ser utilizados repetidamente.
+Para isso, o computador utilizava dispositivos com interruptores e seletores manuais, como:
+O Constante Transmitter (transmissor de constantes);
+As três Function Tables (tabelas de funções).
+
+Essas unidades tornavam possível configurar números diretamente no equipamento, sem precisar introduzi-los de novo a cada operação.
+
+Assim, os interruptores não funcionavam apenas pra ligar ou desligar, mas sim eram seletores com diferentes posições, usados para representar dígitos decimais ou estabeles condições de operação.
+### 5.4.1 Como funcionava o Constant Transmitter:
+Ele tinha a função de disponibilizar números para as unidades aritméticas.
+Ele podia utilizar tanto números previamente configurados, quanto números introduzidos por cartões perfurados.
+
+Funcionava da seguinte maneira:
+O operador configurava os dígitos e o sinal de um número;
+Quando o transmissor era acionado, ele convertia o valor do número em sinais elétricos;
+Os sinais eram enviados às unidades receptoras (como os acumuladores);
+E as configurações originais dos números continuavam disponíveis para utilizar posteriormente.
+
+Logo, o transmissor não realizava a soma, ele fornecia um número para ser recebido e processado pelo acumulador.
+
+### 5.4.2 Como funcionavam as Function Tables:
+As 3 function tables eram especialmente importantes quando um cálculo exigia consultar vários valores estabelecidos previamente.
+Cada uma das 3 tabelas possuía 104 linhas de configuração, numeradas de -2 até 101. Cada linha permitia configurar 2 números com sinal, de 6 dígitos cada.
+
+Isso equivalia a:
+3 tabelas;
+312 linhas (104 linhas x 3 tabelas);
+624 campos numéricos (2 números de 6 dígitos para cada linha).
+
+Como em um cálculo que precise consultar valores numéricos para diferentes condições. Uma tabela podia ser configurada previamente com valores para cada uma dessas condições. Assim, durante o processamento, o ENIAC poderia selecionar a linha apropriada e transmitir o valor configurado aos circuitos de cálculo.
+
+### 5.4.3 Comparação com a memória ROM:
+No ENIAC, a configuração era manual (pelos seletores), já na ROM, a configuração é gravada eletronicamente ou na fabricação.
+Quanto ao acesso, no ENIAC ele era por meio de circuitos de seleção e por programação. Já na ROM, o acesso era por endereçamento eletrônico.
+
+A comparação pode até ser feita para compreender a função dos painéis do ENIAC, mas a tecnologia, organização e modo de acesso eram diferentes das ROM atuais.
+
+![Seletores da Function Table](./images/photos/seletores-function-table.jpg)
 
 ## 5.5 Decimal Ring Counters
 - Como funcionava a configuração dos tubos usados para armazenar números de base 10
