@@ -232,12 +232,12 @@ Para somar o acumulador 3 (valor 15) ao acumulador 4 (valor 27), os dois recebem
 O ENIAC possuía limitações físicas no encaminhamento de dados entre painéis distantes, pois a comunicação entre suas unidades dependia de conexões elétricas estabelecidas por cabos e bandejas de transmissão. Como os acumuladores, multiplicadores, e outras unidades ocupavam diferentes painéis físicos, era necessário estabelecer caminhos específicos para que os pulsos elétricos de uma unidade chegassem até a outra unidade.
 A transferência dos valores numéricos ocorria por meio dos Digit Trays (que transportavam os pulsos correspondentes aos algarismos) e, para conectar duas unidades, os operadores precisavam ligar a saída da unidade transmissora à entrada da unidade receptora, utilizando os pontos de conexão disponíveis. Assim, a distância física entre os painéis influenciava a organização do cabeamento e a complexidade da montagem do sistema.
 
-###6.7.1 Dificuldades no encaminhamento dos dados
+### 6.7.1 Dificuldades no encaminhamento dos dados
 Uma das principais limitações era a necessidade de organizar fisicamente as conexões entre as unidades. Quando uma operação exigia que o resultado de um cálculo fosse enviado a um painel distante, era necessário garantir que os cabos estivessem conectados aos terminais corretos e que os controles de programa estivessem configurados para autorizar a transmissão e a recepção dos dados e, por isso, a grande quantidade de cabos e conexões dificultava a identificação de falhas. 
 Além disso, uma ligação incorreta, um mau contato ou uma configuração inadequada poderia impedir que os pulsos chegassem ao destino esperado, exigindo verificações nos painéis e no cabeamento.
 Ademais, sua estrutura física limitava a flexibilidade do encaminhamento porque o ENIAC dependia de rotas previamente estabelecidas e, para modificar o caminho dos dados, os operadores precisavam alterar as conexões e os controles envolvidos.
 
-###6.7.2 Impacto na execução dos cálculos
+### 6.7.2 Impacto na execução dos cálculos
 Em cálculos que envolviam várias unidades, era necessário definir antecipadamente como os valores seriam transferidos de um painel para outro, garantindo que cada resultado chegasse à unidade responsável pela próxima operação.
 Embora os pulsos elétricos percorressem os cabos rapidamente, a complexidade estava principalmente na organização física das ligações, na manutenção dos contatos e na necessidade de sincronizar as unidades transmissoras e receptoras. Portanto, a distância entre os painéis não representava um grande atraso elétrico por si só, mas aumentava as exigências de cabeamento, organização e manutenção.
 Dessa forma, os gargalos de acesso do ENIAC estavam associados à dependência de conexões físicas específicas para encaminhar informações entre unidades distantes. Essa característica tornava alterações na estrutura de processamento mais trabalhosas.
