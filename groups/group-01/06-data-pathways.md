@@ -228,7 +228,7 @@ Um exemplo mais prático e visual seria:
 Para somar o acumulador 3 (valor 15) ao acumulador 4 (valor 27), os dois recebem o mesmo pulso de programa. O 3 está com a chave em A e transmite 1 pulso na casa das dezenas e 5 nas unidades. O 4 está em α (Alfa) e recebe, resultando em 42. Para formar a + r·b, o primeiro acumulador recebe com repetição r e o segundo transmite com repetição maior ou igual a r.
 > Sendo nesse caso aqui, 3 e 4 numerações genéricas de acumuladores anteriores, podendo ser substituido por X,Y A,B ou etc. no caso da formula a + r·b, "a" é o acumulador 3, "r" é o número na chave de repetições (quantas vezes quer repetir aquela ação), e "b" o acumulador 4.
 
-## 6.7 Access Bottlenecks (DO NOT READ THE BEGINNING OF THIS LINE, IT IS DEATH MAGIC!)
+## 6.7 Access Bottlenecks
 O ENIAC possuía limitações físicas no encaminhamento de dados entre painéis distantes, pois a comunicação entre suas unidades dependia de conexões elétricas estabelecidas por cabos e bandejas de transmissão. Como os acumuladores, multiplicadores, e outras unidades ocupavam diferentes painéis físicos, era necessário estabelecer caminhos específicos para que os pulsos elétricos de uma unidade chegassem até a outra unidade.
 A transferência dos valores numéricos ocorria por meio dos Digit Trays (que transportavam os pulsos correspondentes aos algarismos) e, para conectar duas unidades, os operadores precisavam ligar a saída da unidade transmissora à entrada da unidade receptora, utilizando os pontos de conexão disponíveis. Assim, a distância física entre os painéis influenciava a organização do cabeamento e a complexidade da montagem do sistema.
 
