@@ -121,8 +121,78 @@ Esse sinal de disparo saia do painel frontal da Unidade Iniciadora através do b
 ## 8.4 Stepper Counters
 - Como a máquina acompanhava as iterações dos loops 
 
+No Eniac haviam dois níveis de contagem, sendo que cada um era utilizado de forma similar porém com necessidades diferentes. Um era a nível local para cada unidade, e a nível central diretamente no progrmador mestre.
+
+### 8.4.1 Nivel local 
+
+No nível local, cada controle de programa de repetição tinha uma chave de repetição (1 a 9) e um “anel repetidor”. O anel avançava um estágio por tempo de adição enquanto a operação durava, e o estágio ligado à chave sinalizava o fim. É o que permitia, por exemplo, somar um valor por uma quantidade especificada de vezes seguidas. Ao terminar a contagem, o controle emitia um pulso de programa de saída (CPP) para disparar a operação seguinte. 
+>Esse metódo só era usado para repetições curtas.
+
+### 8.4.2 Nível central
+
+Já no nível central, o programador mestre tinha 10 contadores de 6 estágios chamados steppers, e 20 contadores de década, que em laços maiores e aninhados, era responsável por contabilizar as iterações.
+Cada stepper tinha três entradas e seis saídas, uma por estágio. 
+> Uma forma de resumir melhor as dedicações de cada elemento seria chamando as décadas de “contadores de iteração” e os steppers de “chaves de passo em anel de seis”.
+
+### 8.4.3 Funcionamento
+
+Cada controle recebia pulsos de programa por uma única entrada e os emitia por um terminal de saída um certo número de vezes, definido por uma chave. Logo após isso,enviava o resultado ao terminal.
+Dessa forma, uma sequência de operações vira um laço, sendo que o último pulso da sequência volta ao programador mestre, e o primeiro pulso da sequência é puxado da linha ligada ao terminal ativo. Terminado o número de repetições, o stepper avança de estágio, e esse novo terminal dispara o que vem depois. Mantendo a correlação entre os dados repassados sem que sejam perdidos pelas repetições.
+
+### 8.4.4 Entradas de stepper
+Haviam três entradas de um stepper, sendo elas:
+
+Entrada direta: "X" pulsos avançam o stepper "X" estágios imediatamente.
+
+
+Entrada normal: um CPP faz sair, um tempo de adição depois, um CPP pelo terminal do estágio atual.
+> Usado para manter a sincronazação e simultanemate como "Tiro de largada" para operações em espera daquela seção do programa.
+
+Limpeza direta: volta o stepper ao primeiro estágio.
+
+### 8.4.5 Exemplo
+
+Se o stepper está no estágio 3 e um CPP entra, 200 µs depois sai um CPP pelo terminal 3. A linha de programa ligada a esse terminal então dispara as operações que estiverem penduradas nela, como uma soma, uma transmissão ou outra sequência. Para mudar a sequência do estágio 3 para o estágio 5, basta que 2 pulsos passem pela pela entrada direta. E para retornar o stepper ao estágio 1 se utiliza a limpeza direta.
+
+### 8.4.6 Laços alinhados
+
+Para laços aninhados, o terminal de um estágio podia acionar a entrada de outro stepper. Dessa forma criando Loops encadeados por sequência, e loops em loops.
+
+> Havia uma forma também de manter uma contagem de laços como váriavel determinante, por exemplo, um laço de 10 passos poderia usar o acumulador 14 como contador. Ele seria decrementado a cada passo e o sinal dele testado para decidir se o laço continua.
+
 ## 8.5 Conditional Branching
-- Como a máquina alterava o fluxo de operações com base em um resultado positivo ou negativo
+
+O ENIAC podia escolher entre sequências de programa conforme a magnitude de um número obtido como resultado ou inserção de dados. Por exemplo, comparar a e b. E se a ≥ b segue uma sequência, caso contrário outra. Isso era feito com um acumulador e o programador mestre, usando os pulsos de sinal ou de dígito para estimular controles de programa. A comparação em si era feita ao subtrair e avaliar o sinal obtido.
+
+### 8.5.1 Walkthrough
+
+ Uma descrição em passo-a-passo de como o sistema se comunicava e utilizava os resultados para alterar seu fluxo.
+
+#### 8.5.1.1 Saída do sinal
+
+A saída do sinal funcionava como guia, quando o sinal de um acumulador saia como pulsos no fio de sinal, se o sinal fosse positivo não enviava pulso, já se o sinal fosse negativo enviava 9 pulsos. Tendo apenas duas saídas com um só caminho ativo, a saída A guiava o sinal do número como estava, e a saída S mandava o complemento, com o sinal invertido. Ligando as duas, apenas uma delas teria pulsos:
+
+Se o resultado fosse negativo a linha de sianl A receberia 9 pulsos enquanto a linha S receberia nenhum.
+Já se fosse um resultado diferente de negativo, era a linha A a ficar sem pulsos, enquanto a linha S teria 9.
+
+#### 8.5.1.2 Adaptadores de dígito/programa
+
+Esses eram cabos que abriam as 11 linhas de uma bandeja de dígitos em 11 conexões individuais, o que permitia ligar o fio de sinal (ou um dígito) a um controle de programa. Assim utilizando os resultados como padrão de esolha para divergir o fluxo dos dados.
+
+#### 8.5.1.3 Programa fantasma
+
+Os pulsos de sinal eram enviados a um programa fantasma, um controle de programa que não faz nada numérico e só serve para gerar um pulso de programa limpo. Em um exemplo, o sinal de A passa por um programa fantasma até a linha 4-10 (negativo), e o sinal de S passa por outro até a 4-11 (não negativo). E aqui se aplica a lógica da divisão de caminhos, se o resultado é negativo, só a linha 4-10 recebe o CPP, e o fluxo segue por ali. Se não for, é a 4-11. Assim dividindo o fluxo e seus operações posteriores.
+
+### 8.5.2 Inserção do programador mestre
+
+A saída do programa fantasma vai para a entrada direta de um stepper, deixando-o no estágio 1 ou 2 conforme o caso. Um CPP na entrada normal sai pelo terminal de um dos dois estágios, e os dois terminais disparam as ações negativa e não negativa.
+> Essa foi uma alternativa utilizada posterioermente, onde ao invés de duas linhas de fluxo separadas fisicamente, o programador mestre direcionava os dados, assim, as saídas do acumulador não eram monopolizadas e paralelamente, era possível utilizar mais do que apenas duas vias, sendo assim aumentando a variavel de maior ou menor que 0 e similares, para equações mais complexas. Como, maior que 0 e menor que 10, um fluxo para maior que 3, outro para maior que 5 e similares.
+
+### 8.5.3 Desvio de várias vias (“goto computado”)
+
+Um dígito selecionado de um acumulador vai para a entrada direta de um stepper. O dígito "X" envia "X" pulsos e avança o stepper "X" estágios, então as saídas dos estágios 1 a 6 correspondem aos valores 0 a 5. Em um exemplo, o símbolo sob a cabeça (0 a 5) iria para o stepper C, e as 6 saídas dele disparam programas em tabelas de função. O dígito de parada (0 = parar, 9 = continuar) decide em seguida se o ciclo recomeça ou não.
+
+> Depois de 1948, houve a adição do Converter Code, assim a ordem de transferência condicional passou a cumprir esse papel, tirando do programador mestre o uso de repetir sequências.
 
 ## 8.6 Absence of Fetch-Decode-Execute
 
