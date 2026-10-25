@@ -1,5 +1,9 @@
 # 6. Data Flow and Access
 
+![Diagrama do fluxo de dados no ENIAC](./images/layout/data-pathways.png)
+
+> Descrição da Imagem: Diagrama de blocos conceitual mapeando a topologia de comunicação, fluxo de dados e controle entre os módulos funcionais do ENIAC. Na borda externa, o barramento de sincronização (Synchronization Bus) recebe os sinais de temporização da Unidade Cíclica (Cycling Unit) e os distribui continuamente para todos os blocos do sistema. Ao centro, duas vias de comunicação horizontais interligam as unidades: a calha de programa (Program Trays), que conduz os pulsos de controle que ordenam o início das operações, e a calha de dados (Digit Trays), responsável pelo tráfego dos operandos numéricos. No topo esquerdo, o bloco de controle abriga a Unidade Cíclica e a Unidade Iniciadora (Initializing Unit), que fornece os comandos de partida para a malha de programa. À direita, o bloco aritmético e de memória distribui os 20 Acumuladores, o Multiplicador e a Unidade de Divisão e Raiz Quadrada, conectados bidirecionalmente a ambas as calhas centrais para receber instruções de temporização e permutar valores intermediários. Na base esquerda, o setor de entrada e saída (Input / Output) integra o Leitor de Cartões com o Transmissor de Constantes e a Perfuradora com a Unidade de Impressão, gerenciando a leitura e gravação da mídia física externa de cartões perfurados (Outside Recording Media).
+
 ## 6.1 Data Origins
 
 No ENIAC, os operandos não eram obtidos a partir de uma memória central endereçável como ocorre em computadores modernos. A máquina não possuía uma RAM central na qual cada valor pudesse ser localizado por meio de um endereço. Em vez disso, os dados permaneciam armazenados nas próprias unidades funcionais e eram transferidos entre elas por meio de conexões físicas configuradas previamente.
