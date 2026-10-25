@@ -1,8 +1,8 @@
 # 4. Input and Output
 
-![Uma operadora ao lado de uma pilha enorme de cartões perfurados](./images/inpout/62500-punched-cards.jpg)
+![Marlyn Wescoff e Ruth Lichterman demonstrando a operação de entrada e saída do ENIAC](./images/photos/Marlyn%20Wescoff%20and%20Ruth%20Lichterman%20demonstrating%20a%20punch%20card%20machine..jpg)
 
-> Descrição da Imagem: Fotografia exibindo uma operadora posicionada ao lado de uma imensa pilha de cartões perfurados. A estrutura, que atinge quase a altura dos ombros da operadora, é composta por aproximadamente 62.500 cartões de papel cartonado. A imagem ilustra muito bem o volume físico equivalente a 5 milhões de caracteres (cerca de 5 megabytes) de dados, o que correspondia à capacidade total de armazenamento dos primeiros discos magnéticos comerciais da época, como o IBM 305 RAMAC. Atrás da pilha é visível o que parece ser uma Keypunch (máquina de perfurar cartões). A imagem ajuda a visualizar a escala material do volume de dados, indiretamente expondo o extremo esforço logístico e espacial exigido para o manuseio das informações. Todo esse volume precisava ser fisicamente perfurado, rigorosamente ordenado para evitar falhas de sequência, transportado e alimentado em lotes nos leitores eletromecânicos para garantir a continuidade dos cálculos. Isso causava um gargalo que iremos tratar mais pra frente.
+> Descrição da Imagem: Fotografia das programadoras Marlyn Wescoff (à esquerda) e Ruth Lichterman (à direita) demonstrando a operação da interface de Entrada e Saída do ENIAC. Wescoff manuseia o alimentador (hopper) do Leitor de Cartões IBM, ajustando o peso mecânico superior que mantém a pressão correta para a tração contínua da pilha de cartões. Lichterman inspeciona visualmente o padrão de furos de um cartão individual. Ao fundo, acima do painél 3 do Transmissor de Constantes e do painel 1 da Unidade de Impressão do ENIAC, nota-se uma placa de advertência instruindo a não alterar as chaves e cabos configurados enquanto a máquina estivesse em operação, além de uma etiqueta menor identificando o painel da unidade "PRINTER" (Unidade de Impressão). Na extremidade direita do enquadramento, é parcialmente visível o topo do chassi da Perfuradora de Cartões IBM (Summary Punch), completando a estação de periféricos de I/O.
 
 ## 4.1 I/O Contextualization
 - Não havia interfaces modernadas como monitores, teclados e muito menos mouses
@@ -30,7 +30,7 @@ Além dos furos e da impressão, todo cartão possuía um corte diagonal em um d
 
 ![Um cartão perfurado](./images/inpout/punched-card.jpg)
 
-> Descrição da Imagem: Visão frontal um único cartão perfurado padrão IBM (com uma régua na base confirmando evidenciando sua largura de 18,7 cm). É visível também a indexação do cartão: logo abaixo da linha dos zeros (e repetida na borda inferior), há uma fileira de números pequenininhos indo de 1 a 80, indicando a posição de cada uma das 80 colunas. Os furos presentes acima da linha do zero pertencem às chamadas "linhas de zona" (historicamente designadas como linhas 11 e 12, ou X e Y). Enquanto um único furo nas linhas de 0 a 9 representava um dígito, era possível representar letras e símbolos especiais. Para isso, o sistema combinava mais de um furo por coluna (incluindo as furos nas linhas de zona). As diferentes combinações possíveis por coluna é o que permitia à máquina codificar e imprimir caracteres alfabéticos e matemáticos complexos. O texto "( I < U ) TRACERC[I+1] := RIGHT 'OF' TRACERC[I]", legível no topo do cartão, é a tradução dos furos (sim, cada coluna de furos se traduz a um dos caracteres dessa string. Consulte o tópico "4.5 Card Reader" aqui nesse mesmo arquivo para mais detalhes).
+> Descrição da Imagem: Visão frontal um único cartão perfurado padrão IBM (com uma régua na base confirmando evidenciando sua largura de 18,7 cm). É visível também a indexação do cartão: logo abaixo da linha dos zeros (e repetida na borda inferior), há uma fileira de números pequenininhos indo de 1 a 80, indicando a posição de cada uma das 80 colunas. Os furos presentes acima da linha do zero pertencem às chamadas "linhas de zona" (historicamente designadas como linhas 11 e 12, ou X e Y). Enquanto um único furo nas linhas de 0 a 9 representava um dígito, era possível representar letras e símbolos especiais. Para isso, o sistema combinava mais de um furo por coluna (incluindo as furos nas linhas de zona). As diferentes combinações possíveis por coluna é o que permitia à máquina codificar e imprimir caracteres alfabéticos e matemáticos complexos. O texto "( I < U ) TRACERC[I+1] := RIGHT 'OF' TRACERC[I]", legível no topo do cartão, é a tradução dos furos (sim, cada coluna de furos se traduz a um dos caracteres dessa string. Consulte o tópico "4.5 Printer Unit" aqui nesse mesmo arquivo para mais detalhes).
 
 > Nota: Para indicar que um número era negativo, a operadora fazia um furo extra na linha de zona 11 (historicamente conhecido como furo X) em uma coluna específica designada para abrigar o sinal daquele operando. Quando o cartão passava pelo leitor, a escova detectava esse furo na zona superior e enviava um pulso elétrico que ativava um relé dedicado exclusivamente ao sinal de menos no Constant Transmitter. Se não houvesse furo nessa posição, o circuito assumia o comportamento padrão e o número era tratado como positivo.
 
@@ -78,9 +78,9 @@ Encontrei um vídeo mostrando uma "IBM 026 Key Punch" funcionando! O vídeo most
 
 ### 4.2.3 IBM Card Reader
 
-![Uma operadora inserindo cartões perfurados no Card Reader](./images/photos/inserting-cards-in-card-reader.jpg)
+![Uma operadora inserindo cartões perfurados no Card Reader](./images/photos/operating-card-reader-and-punch.jpeg)
 
-> Descrição da Imagem: Fotografia de uma operadora do ENIAC alimentando uma pilha de cartões perfurados no Leitor de Cartões da IBM. É possível ver a parede direita do ENIAC, bem perto de onde se encontra a Unidade de Transmissão de Constantes, que recebe a leitura dos cartões feita pelo Card Reader.
+> Descrição da Imagem: Fotografia da estação de Entrada e Saída do ENIAC, documentando duas operadoras manuseando os periféricos eletromecânicos acoplados ao sistema. À esquerda, em segundo plano, encontra-se o Leitor de Cartões (entrada). A operadora (provavelmente) estava preparando uma pilha de cartões antes de inseri-lo no alimentador. À direita, em primeiro plano, está a Perfuradora de Cartões (saída), que consegui identifica-la como uma IBM 513 Reproducing Punch (Diagrama desse modelo no tópico 4.5 Printer Unit). A operadora retira os cartões recém-perfurados do empilhador (card stacker). É possível ver de fundo o cabo umbilical que conecta o leitor de cartões ao painel 1 da unidade de transmissão constante.
 
 O dispositivo responsável por extrair as informações do papel era um leitor de cartões da IBM adaptado para o sistema. Os cartões preenchidos com os dados inicias eram empilhados no alimentador do leitor. Um sistema de roletas puxava um cartão por vez, fazendo-o deslizar em velocidade constante sobre um cilindro metálico eletrificado, lendo aproximadamente 125 cartões por minuto. Logo acima desse cilindro, repousava uma fileira de escovas metálicas flexíveis, alinhadas com as colunas do cartão.
 
@@ -191,9 +191,8 @@ Essas chaves substituíam o buffer de relés na matriz de síntese. Quando um Pr
 ## 4.4 Data Output
 
 A forma utilizada pelo ENIAC para manter e converter dados era um tanto quanto única, pois, haviam algumas etapas cadênciadas que o sistema seguia para que os resultados fossem repassados corretamente. O ponto inicial era entender onde se encontravam os valores "armazenados". Os acumuladores guardavam números em contadores de anel de flip-flops, um por casa decimal somados a um contador PM para o sinal. Cada estágio de um contador é um flip-flop, e cada acumulador tinha "saídas estáticas" ligadas direto aos estágios dos contadores. Dessa forma, o dado direto do digíto não precisava ser "lido" por pulsos, pois o estado elétrico dos flip-flops já estava disponível continuamente na corrente de sinais do sistema. 
-Após isso, as saídas precisavam ser levadas à impressora alocada ao ENIAC. As saídas estáticas de 80 contadores de dígito e 16 contadores PM eram ligadas à unidade printer, que era a responsável por transformar de forma direta os dados em perfurações nos cartões. 
+Após isso, as saídas precisavam ser levadas à impressora alocada ao ENIAC. As saídas estáticas de 80 contadores de dígito e 16 contadores PM eram ligadas à unidade printer, que era a responsável por transformar de forma direta os dados em perfurações nos cartões.
 
->Por foto demonstrando (place holder)
 >Ao que tudo indica esses números correspondem à capacidade de um cartão de 80 colunas.
 
 Por mais que os valores estivessem já corretamente calculados e fossem formados nos acumuladores ligados à impressora, ou enviados a eles, antes do momento da impressão, e os dados fossem quase onipresentes no sistemas por serem armazenados em uma corrente elétrica que se mantinha constate no ENIAC. A unidade printer só "recebia" o conhecimento dos pulsos os punha em cartão quando recebia uma instrução de programa exata dada por um operador. 
@@ -243,9 +242,42 @@ A tradução seguia o código Hollerith, onde cada uma das 80 colunas do cartão
 A disposição do texto no papel não precisava seguir a ordem das colunas do cartão. O tabulador possuía um painel de controle onde as operadoras usavam cabos para redirecionar os sinais. Por exemplo, um sinal lido na coluna 5 do cartão podia ser enviado para a barra de impressão na posição 30 do papel, o que permitia adicionar espaços, alinhar casas decimais, esconder zeros à esquerda e formatar as tabelas numéricas de forma legível sem alterar os furos originais.
 
 ## 4.6 Human Interaction
-- O trabalho manual envolvido no carregamento das pilhas de cartões e na operação dos leitores
+A interação humana no ENIAC era a principal chave da máquina, tanto para a programação, quanto para a entrada e saída. A entrada e a saída eram feitas por meio de cartões perfurados, que armazenavam dados e informações para os cálculos, e os operadores da máquina colocavam as pilhas de cartões. Além do trabalho manual de conectar e desconectar cabos/interruptores para operar e fazer a máquina funcionar.
 
-## 4.7 Modern Comparison
-- Como a interface do ENIAC se diferencia da de um computador moderno
+Os cartões perfurados não foram inovadores na época, pois já haviam sido redesenhados pela IBM para o novo modelo com 80 colunas e furos retangulares.  
+
+O cartão de entrada não era perfurado no ENIAC e sim em uma máquina conhecida como "card punch". A pessoa que operava a "card punch" digitava os números e a máquina fazia os furos correspondentes.
+
+Para a saída, que também era em cartões perfurados, era necessário outra máquina (como as da IBM) para fazer a leitura do cartão e, em seguida, gerar a resposta impressa.
+
+![Mulher com uma pilha de Cartões Perfurados](./images/photos/woman-with-many-punched-cards.jpg)
+
+## 4.7 Input-to-Output Diagram
+Consistia na:
+
+    Preparação dos Dados;
+    Perfuradora de cartões (card punch);
+    Leitora de cartões;
+    ENIAC (processamento com acumuladores, multiplicadores e divisores);
+    Perfuradora de cartões (card punch);
+    Leitora de cartões;
+    Resultado final
+
+Dessa forma, temos a organização dos dados que serão utilizados, em seguida eles são direcionados ao "card punch". Após a perfuradora, o cartão já perfurado é encaminhado pra leitora de cartões IBM, que transmitia os dados/números para o ENIAC realizar o processamento. Para a saída do ENIAC, o processo é o mesmo, que passa pelo "card punch" e pela leitora de cartões novamente, até chegar no resultado final impresso.
+
+![Cartões Perfurados](./images/photos/punched-cards.jpg)
+
+## 4.8 Modern Comparison
+A comparação das características gerais de computadores atuais com o ENIAC gera diferenças tecnológicas expressivas. Isso porque o ENIAC tinha a tecnologia de cerca de 17.468 válvulas eletrônicas (tecnologia revolucionária à época), e os computadores modernos possuem bilhões de transistores em processadores. Em operações, enquanto o ENIAC processava cerca de 5 mil adições por segundo, os computadores atuais processam até bilhões de operações por segundo. Além do mais, o ENIAC continha toda essa tecnologia em aproximadamente 167 m², com cerca de 27 toneladas. Já os computadores atuais, como os notebooks, possuem toda essa operabilidade com o peso de alguns poucos quilogramas, podendo ser facilmente transportados e utilizados. 
+
+Quanto à entrada (input) e saída (output), a comparação fica ainda mais discrepante. Enquanto eram absolutamente necessárias as alterações manuais de cabos para realizar as programações, exigindo que as programadoras manejassem diversos cabos em cada programação, os computadores modernos necessitam apenas de teclado, mouse e rede, por exemplo, para realizar toda a entrada, além dos periféricos como câmera e microfone. Tanto na entrada, quanto na saída, eram precisos cartões perfurados em grande quantidade para que fosse possível utilizar a máquina. Já nos atuais computadores, é necessário apenas um monitor, áudio (alto-falantes ou fones de ouvido), impressora, rede e o uso de arquivos digitais para gerar a saída (output).
+
+A velocidade de entrada do ENIAC era de 125 cartões por minuto (aproximadamente 2,08 cartões por segundo). Isso representa até 1 mil valores numéricos de 10 dígitos por minuto (sem contar com possíveis limitações de processamento). Já a velocidade de saída do ENIAC era ainda mais lenta, sendo cerca de 100 cartões por minuto (aproximadamente 1,67 cartão por segundo).
+
+Enquanto isso, a velocidade de entrada dos computadores modernos, a depender de diversos fatores de processador e dispositivos, é avassaladora. Se 10.000 valores numéricos de 10 dígitos fossem transmitidos por uma conexão de 1 Gbit/s, o tempo do transporte desses dados, teoricamente, seria de 0,00088s (0,88 milissegundo).
+
+É imprescindível citar o contexto histórico de cada um deles, visto que o ENIAC era inovador à época e trazia mais velocidade de processamento que as opções disponíveis. Atualmente, a tecnologia avança rapidamente e o ENIAC foi um grande marco nessa corrida, trazendo uma grande contribuição até chegarmos ao que temos nos dias atuais.
+
+![Trabalhadores atuando no ENIAC](./images/photos/workers-on-eniac.jpg)
 
 | ENIAC I/O | Modern I/O |
