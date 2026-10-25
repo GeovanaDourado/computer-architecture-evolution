@@ -6,10 +6,10 @@
 
 A interconexão dos 40 painéis modulares do ENIAC era realizada por um sistema de cabeamento estritamente segmentado e roteado de acordo com a função elétrica. A estrutura de comunicação e alimentação da máquina era dividida em três formas principais de cabeamento:
 
-### 3.1.1. Backplate Cabling
+### 3.1.1 Backplate Cabling
 Calhas de energia pesadas e barramentos de cobre maciço ficavam ocultos na parte traseira da máquina. Essa infraestrutura distribuía as linhas de corrente contínua (DC) para polarizar as placas e grades dos tubos, além de imensas correntes alternadas (AC) dedicadas exclusivamente aos circuitos de aquecimento dos filamentos das válvulas. Como o ENIAC consumia cerca de 150 quilowatts de energia (suficiente para iluminar uma pequena cidade da época), essa fiação traseira era superdimensionada e estritamente separada. Nenhum dado numérico ou pulso elétrico trafegava por essa área para evitar que o intenso campo eletromagnético da alimentação causasse interferência no processamento.
 
-### 3.1.2. Internal Cabling
+### 3.1.2 Internal Cabling
 Dentro de cada um dos 40 painéis, as conexões entre os tubos de vácuo, resistores, capacitores e relés eram fixas e soldadas ponto a ponto diretamente nos chassis. Essa fiação interna resolvia a lógica local da unidade, formando os caminhos fixos por onde o processamento era de fato executado. Uma característica notável desse design era a modularidade, os chassis internos funcionavam como gavetas removíveis. Se uma válvula queimasse ou um fio interno partisse, os engenheiros não precisavam dessoldar o painel inteiro, bastava desencaixar o módulo defeituoso da estrutura e plugar um chassi de reposição idêntico, minimizando o tempo de inatividade da máquina.
 
 ![Circuitos internos conectados às válvulas de vácuo](./images/vacuum-tubes/tube-backend-circuitry.jpg)
@@ -50,7 +50,7 @@ Um pulso no ENIAC é uma variação transitória e rápida de potencial elétric
 
 Toda a operação do sistema era regida por quatro categorias de sinais elétricos sincronizados pela Unidade Cíclica e encapsulados em um ciclo de 200 microsegundos (dividido em 20 tempos, cada tempo possuindo 10 microsegundos):
 
-### 3.2.1. Digit Pulses
+### 3.2.1 Digit Pulses
 Os dados trafegavam em base decimal através de trens de pulso emitidos na primeira metade do ciclo (tempos 1/20 a 10/20). A Unidade Cíclica não possuía geradores dedicados para cada um dos números de 1 a 9, em vez disso, ela gerava blocos fundamentais de pulsos com durações e espaçamentos temporais específicos:
 - 1P: Emite 1 pulso no tempo 1/20
 - 2P: Emite 2 pulsos sequenciais nos tempos 2/20 e 3/20
@@ -64,19 +64,19 @@ Ao realizar a soma lógica de 1P + 2P + 4P para formar o dígito 7, os pulsos nu
 
 As saídas 9P e 10P eram pré-fabricadas com 9 e 10 pulsos contínuos. Elas eram o mecanismo central para contornar a ausência de circuitos dedicados de subtração. O ENIAC realizava subtrações utilizando a aritmética de complemento de dez: para subtrair um valor, a linha de sinal (a 11ª via do Digit Trunk) instruía as portas lógicas a injetarem o trem de 9P em todos os dígitos vazios e o trem 1P (no tempo 10) para arredondar, transformando a subtração em uma adição contínua que transbordava a capacidade do contador, resultando no valor negativo correto.
 
-### 3.2.2. Program Pulses
+### 3.2.2 Program Pulses
 Os comandos e transições de rotina utilizavam pulsos unitários curtos de 2 microssegundos, idênticos em formato elétrico aos Digit Pulses, mas roteados através de bandejas isoladas e cabos coaxiais. Em vez de representarem quantidades matemáticas, eles atuavam exclusivamente como gatilhos de eventos e controle de estado.
 
 - Central Programming Pulse (CPP): O pulso mestre gerado pontualmente no tempo 17/20 de cada ciclo. Ele era o metrônomo que ditava a transição entre as etapas do programa.
 - Lógica de Transmissão e Paralelismo: Quando uma unidade recebia um pulso de programa em seu terminal de entrada, ela ativava um circuito flip-flop interno que acordava a unidade para realizar sua tarefa local no ciclo seguinte. Ao encerrar o cálculo, seu circuito liberava a passagem do CPP daquele ciclo para o borne de saída. Esse detalhe da arquitetura que permitia o paralelismo do ENIAC. Um único pulso de saída podia ser roteado e ramificado através de múltiplos cabos simultaneamente, despolarizando as grades das válvulas de três ou quatro unidades diferentes ao mesmo tempo. Isso permitia que a máquina iniciasse operações matemáticas inteiramente distintas no exato mesmo microssegundo.
 - Dummy Programs: Como o fluxo do programa era puramente ditado pela viagem dos cabos de uma unidade a outra, a equipe precisava de métodos para atrasar certas operações enquanto aguardava cálculos mais demorados (como uma divisão). Para isso, roteava-se o Program Pulse para os controles de programa ociosos de um acumulador, configurados para não realizar nenhuma soma matemática e apenas aguardar um número de ciclos anteriormente definidos, e após estes, emitia o pulso de volta na saída, criando um temporizador de atraso lógico.
 
-### 3.2.3. Gate Signals
+### 3.2.3 Gate Signals
 Diferente dos pulsos curtos de 2 microssegundos, uma Porta (Gate) era uma elevação contínua de tensão mantida estável para habilitar a condução em válvulas pentodo (compostas por múltiplos filamentos de grade). A operação dessas portas baseava-se em um princípio físico de coincidência: o tubo só permitia a passagem de corrente se a sua primeira grade e a sua terceira grade recebessem voltagens positivas simultaneamente. O sinal de Porta era aplicado em uma das grades, liberando a válvula. Apenas enquanto essa Porta estivesse ativa, um pulso numérico de 2 microssegundos batendo na outra grade conseguiria atravessar a válvula. Se a Porta estivesse desligada (em tensão negativa), os pulsos de dados eram fisicamente bloqueados. É dessa forma puramente analógica que o ENIAC executava a lógica AND.
 
 - Carry-Clear Gate: Janela temporal contínua que permanecia ativa entre os tempos 11/20 e 18/20 (70 microsegundos). Esse sinal desobstruía os circuitos de transporte de dezenas, permitindo que os contadores repassassem o "vai-um" gerado pela adição aos estágios seguintes sem colidir com os dados de dígitos (que haviam terminado no tempo 10).
 
-### 3.2.4. Reset Pulses
+### 3.2.4 Reset Pulses
 Embora fizessem parte da regência de sincronismo da Unidade Cíclica, os pulsos de reset não eram janelas contínuas como os Gate Signals, nem carregavam informações numéricas ou acionavam rotinas. Tratavam-se de pulsos agudos de limpeza elétrica, referenciados em 0V (com pico transiente em +50V), disparados exclusivamente em dois momentos críticos para reverter as válvulas biestáveis ao seu estado de repouso.
 
 Seu propósito era restaurar mecanicamente a memória curta dos circuitos. O pulso do tempo 13/20 reiniciava os gatilhos de transporte (carry triggers) logo após o transporte de dezenas ter sido concluído. Já o pulso do tempo 19/20 zerava os estados transitórios de todos os controles de programa da máquina. Esse choque pontual de +50V "limpava o palco" um microssegundo antes do tempo 0, garantindo que nenhum circuito permanecesse ativado por capacitância residual e que a máquina iniciasse o ciclo subsequente com todas as linhas estabilizadas.
@@ -169,7 +169,7 @@ Para possibilitar o funcionamento das linhas de programa, esse obstáculo elétr
 
 > Nota: Ainda que o cabo coaxial preservasse o formato do sinal melhor que fios convencionais, as perdas resistivas ao longo de dezenas de metros continuavam presentes, tornando obrigatório o uso periódico dos Pulse Standardizers nas unidades de destino para restaurar a amplitude e os cantos retangulares da onda. (Mais detalhes sobre isso no tópico 3.2, subtópico Pulse Standardizers)
 
-### 3.7.4 Umbilical Cabling
+### 3.7.4 Portable Units and Umbilical Cabling
 Além dos cabos de manobra locais e dos barramentos horizontais nas calhas, a operação do ENIAC dependia de interconexões pesadas para integrar periféricos móveis, com destaque para a Tabela de Funções Portátil. Por se tratar de um painel montado sobre rodízios e sem válvulas ativas internas, a leitura de suas matrizes de interruptores manuais exigia uma linha umbilical de transmissão estática direta com os painéis principais da máquina.
 
 Ao contrário das linhas dinâmicas de 11 vias dos Digit Trunks, o cabo de conexão da Tabela de Funções agregava dezenas de condutores paralelos sob uma espessa blindagem mecânica. Como o periférico operava no centro da sala e precisava ser manobrado livremente, o cabo era exposto a atrito e pisoteamento constante. A proteção contra desgaste era garantida por uma jaqueta externa tubular tecida em malha de cobre estanhado ou aço, que atuava simultaneamente como barreira contra abrasão mecânica e malha de aterramento contínuo.
