@@ -1,10 +1,97 @@
 # 6. Data Flow and Access
 
 ## 6.1 Data Origins
-- De onde vinham os operandos (transmissor de constante ou cálculo anterior)
+
+No ENIAC, os operandos não eram obtidos a partir de uma memória central endereçável como ocorre em computadores modernos. A máquina não possuía uma RAM central na qual cada valor pudesse ser localizado por meio de um endereço. Em vez disso, os dados permaneciam armazenados nas próprias unidades funcionais e eram transferidos entre elas por meio de conexões físicas configuradas previamente.
+
+Duas situações são especialmente importantes para compreender a origem dos operandos: a introdução de constantes pelo **Constant Transmitter** e a utilização de resultados produzidos anteriormente durante o processamento.
+
+### 6.1.1 Constant Transmitter
+
+O **Constant Transmitter** era uma unidade utilizada para fornecer valores constantes ao restante do ENIAC. Ele podia receber números provenientes do sistema de entrada, como cartões perfurados, além de permitir a configuração manual de valores.
+
+O Constant Transmitter, portanto, funcionava como uma das fontes de operandos da máquina. Seu papel não era equivalente ao de uma RAM moderna: ele fornecia valores previamente configurados para que outras unidades pudessem utilizá-los durante a execução.
+
+### 6.1.2 Resultado de uma operação anterior
+
+Outra origem importante dos operandos era o próprio processamento do ENIAC. Os **Acumuladores** combinavam armazenamento e operações aritméticas. Dessa forma, o resultado produzido por uma operação podia permanecer armazenado em um acumulador e posteriormente ser transmitido para outra unidade.
+
+Por exemplo, considerando dois acumuladores:
+
+```text
+Accumulator A = 15
+Accumulator B = 27
+```
+
+uma operação de adição poderia produzir:
+
+```text
+15 + 27 = 42
+```
+
+O valor `42` passava então a estar armazenado no acumulador de destino. Esse resultado poderia ser utilizado como operando em uma operação posterior:
+
+```text
+Operação 1
+15 + 27
+   │
+   ▼
+  42
+   │
+   ▼
+armazenado no acumulador
+   │
+   ▼
+Operação 2
+42 + outro valor
+```
+
+Esse mecanismo permite compreender uma característica fundamental da arquitetura do ENIAC: os resultados intermediários não precisavam ser imediatamente enviados para uma memória externa. Eles podiam permanecer nas unidades que participavam diretamente do processamento e posteriormente ser transmitidos por meio das conexões configuradas.
+
+Portanto, a origem de um operando no ENIAC estava relacionada à própria organização física da máquina: um valor poderia ser fornecido por uma unidade de entrada/constantes ou ser resultado de uma operação anterior armazenado em uma unidade funcional.
+
+---
 
 ## 6.2 Data Movement Process
-- Como um número percorria o caminho da Unidade A até a Unidade B por meio de bandejas de dígitos
+
+Depois que um número estava disponível em uma unidade de origem, era necessário transportá-lo até a unidade que executaria a próxima operação. No ENIAC, essa comunicação era realizada por meio de **Digit Trays**, conjuntos de linhas de transmissão que percorriam fisicamente os painéis da máquina.
+
+![Foto real de um Digit Tray](./images/photos/digit-tray.jpg)
+
+> Descrição da Imagem: Digit Tray do ENIAC. Bandeja física utilizada para interconectar unidades do ENIAC por meio de linhas condutoras. O componente possuía onze linhas de transmissão associadas ao transporte dos dados numéricos e do sinal. Fonte: National Museum of American History, Smithsonian Institution.
+
+As Digit Trays eram responsáveis pelo transporte dos sinais que representavam os dados numéricos. Elas eram diferentes das **Program Trays**, utilizadas para transportar os pulsos de controle responsáveis por coordenar a sequência das operações.
+
+### 6.2.1 Conexão física entre as unidades
+
+O ENIAC utilizava conexões físicas para determinar quais unidades poderiam trocar dados. Cabos conectavam as entradas e saídas dos acumuladores às linhas presentes nas Digit Trays. Uma Digit Tray podia ser conectada a diferentes entradas e saídas. O comportamento efetivamente utilizado durante uma operação dependia da configuração dos circuitos de controle e do momento em que os pulsos eram enviados.
+
+Essa arquitetura era bastante diferente de um computador moderno. Em vez de uma instrução indicar um endereço de memória de origem e outro de destino, a própria montagem física da máquina estabelecia os caminhos pelos quais os dados poderiam circular.
+
+### 6.2.2 Transmissão dos dígitos
+
+O ENIAC utilizava representação decimal. Cada acumulador armazenava seus números utilizando décadas, e cada década utilizava um contador de anel para representar um dos dez possíveis algarismos, de `0` a `9`. Quando um acumulador precisava transmitir seu conteúdo, seus circuitos de transmissão utilizavam os pulsos de temporização da máquina para transformar o estado armazenado em uma sequência de pulsos elétricos.
+
+O número, portanto, não era transportado pelo cabo como uma sequência de bits armazenados em uma memória. O que percorria a bandeja eram **sinais elétricos temporizados**, cuja sequência representava os dígitos do número.
+
+### 6.2.3 Recepção no destino
+
+Na unidade de destino, os pulsos recebidos eram encaminhados para os circuitos de entrada correspondentes. No caso de um acumulador, esses pulsos podiam alterar os contadores de anel e, dependendo da configuração da operação, adicionar ou subtrair o valor recebido do conteúdo já armazenado.
+
+### 6.2.4 Controle e sincronização
+
+A transferência dos dados não acontecia de maneira independente do restante da máquina. O ENIAC era um sistema síncrono, coordenado pelos pulsos produzidos pela **Cycling Unit**. O ciclo básico de operação tinha duração de aproximadamente 200 microssegundos, e os pulsos de temporização eram utilizados para coordenar as diferentes unidades.
+
+Assim, é importante distinguir:
+- **Digit Trays:** transportavam os dados numéricos;
+- **Program Trays:** transportavam os sinais de controle da programação;
+- **Cycling Unit:** fornecia a temporização que sincronizava as operações.
+
+Essa separação permitia que uma unidade soubesse não apenas **qual dado** deveria receber ou transmitir, mas também **quando** a transferência deveria ocorrer.
+
+![Acumulador no ENIAC](./images/photos/accumulator-in-the-eniac.gif)
+
+> Descrição da Imagem: Diagrama esquemático de um Acumulador do ENIAC, mostrando como essa unidade armazenava números e se comunicava com outras partes da máquina. Na parte superior, aparecem os circuitos que representam e armazenam os algarismos do número, além das entradas e saídas utilizadas para receber e transmitir dados. À direita, o bloco Data IN/OUT conecta o acumulador ao Digit Trunk, conjunto de linhas elétricas usado para transportar os números entre as unidades; as entradas α, β, γ, δ e ϵ recebem dados, enquanto A e S permitem transmitir o valor para operações de adição ou subtração. Na parte inferior, os controles de programa determinam quando essas operações devem ocorrer, utilizando o Program Trunk para transmitir os sinais de controle. O diagrama também mostra o Synchronizing Trunk, responsável por fornecer os sinais que mantêm as operações da máquina sincronizadas.
 
 ## 6.3 Intermediate Results
 
