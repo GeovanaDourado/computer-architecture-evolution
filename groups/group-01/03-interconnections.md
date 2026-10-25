@@ -169,7 +169,7 @@ Para possibilitar o funcionamento das linhas de programa, esse obstáculo elétr
 
 > Nota: Ainda que o cabo coaxial preservasse o formato do sinal melhor que fios convencionais, as perdas resistivas ao longo de dezenas de metros continuavam presentes, tornando obrigatório o uso periódico dos Pulse Standardizers nas unidades de destino para restaurar a amplitude e os cantos retangulares da onda. (Mais detalhes sobre isso no tópico 3.2, subtópico Pulse Standardizers)
 
-### 3.7.4 Portable Units and Umbilical Cabling
+### 3.7.4 Umbilical Cabling
 Além dos cabos de manobra locais e dos barramentos horizontais nas calhas, a operação do ENIAC dependia de interconexões pesadas para integrar periféricos móveis, com destaque para a Tabela de Funções Portátil. Por se tratar de um painel montado sobre rodízios e sem válvulas ativas internas, a leitura de suas matrizes de interruptores manuais exigia uma linha umbilical de transmissão estática direta com os painéis principais da máquina.
 
 Ao contrário das linhas dinâmicas de 11 vias dos Digit Trunks, o cabo de conexão da Tabela de Funções agregava dezenas de condutores paralelos sob uma espessa blindagem mecânica. Como o periférico operava no centro da sala e precisava ser manobrado livremente, o cabo era exposto a atrito e pisoteamento constante. A proteção contra desgaste era garantida por uma jaqueta externa tubular tecida em malha de cobre estanhado ou aço, que atuava simultaneamente como barreira contra abrasão mecânica e malha de aterramento contínuo.
