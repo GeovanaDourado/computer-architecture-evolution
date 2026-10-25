@@ -46,8 +46,79 @@ A principal limitação estrutural para a escala do paralelismo global era a dis
 ## 7.3 Accumulators
 - Como estes performavam adições e subtrações usando trens de pulso
 
+A ideia central é que o ENIAC representava números por quantidade de pulsos que ficava armazenado temporiariamente em um flip-flop. Um dígito "X" era o equivalente a "X" pulsos em um fio, e um número de 10 dígitos mais o sinal viajava em 11 fios ao mesmo tempo, um por casa decimal e um para o sinal, essa junção de fios eram as chamadas trays (bandejas).
+
+### 7.3.1 Agrupamento de pulsos e dígitos
+
+Cada casa decimal do numéro correspondia a um anel de 10 flip-flops. O dígito era indicado pelo único flip-flop em estado diferente dos outros nove. Logo se o terceiro flip-flop estava acionado e o resto desligado, o número daquela casa decimal seria o 3. Havia ainda um contador binário (PM) para o sinal, separando assim número positivos ou negativos.
+Cada pulso recebido avançava o anel uma posição, como a roda de uma calculadora mecânica. Um anel em 5 que recebe 3 pulsos avança e para em 8. Se o anel passa de 9 para 0, gera um pulso de “vai-um” para a casa vizinha. Assim aumentando a contagem do próximo acumulador.
+> Importante dizer que negativos eram guardados como complemento de 10¹⁰ com sinal M, o que evitava fazer o contador girar ao contrário.
+
+### 7.3.2 Origem dos pulsos e trens de pulso
+
+Como já mencionado, os acumuladores não geravam os pulsos. Na realidade apenas abriam portas para deixar passar pulsos novos provenientes da Unidade de ciclagem, visto que os pulsos se enfraqueciam ao percorrer a máquina.Nesse caso a Unidade de ciclagem emitia vários trens de pulso a cada tempo de adição, que correspondiam a 20 pulsos, ou 200 µs. O que equivale a 5.000 vezes por segundo. 
+Os trens relevantes para soma e subtração são:
+
+
+CPP (pulso de programa central)	Dispara a próxima operação programada.
+> Usado de forma ampla por todo o sitema, destrava as próximas portas para que os pulsos seguissem.
+
+10P (10 pulsos)	Gira os anéis na transmissão. Uma volta completa devolve o número ao valor original.
+> Pulso simples, apenas adiciona um valor ao anel de flip-flops.
+
+9P (9 pulsos)	Vira os pulsos de dígito que saem pelas saídas A e S.
+> Reinicia os flip-flops e abre as saídas para rediricionar os pulsos quando uma soma de 10 digítos era alcançada.
+
+1'P (pulso de complemento)	Completa o complemento de 10.
+> Trabalhando em conjunto com o 9P, esse pulso serve como "saída" final, indicando a nova dezena, centena ou etc do próximo anel de flip-flops.
+
+Carry-clear (pulso longo de 70 µs)	Mantém abertas as portas de vai-um.
+> O pulso responsável por permetir a passagem do pulso Vai-um
+
+Reset	Rearma os flip-flops de vai-um.
+> Usado para reprogramar caso fosse necessário usar o vai-um (quase sempre)
+
+### 7.3.3 Transmissão
+
+Os 10P entravam em todas as casas ao mesmo tempo. Se a casa guarda o dígito "X", os primeiros 9−X dos 9P saem pela saída S (complemento). O pulso que leva o anel de 9 para 0 aciona o flip-flop da casa, que fecha S e abre A, e os "X" pulsos seguintes saem por A, assim garantindo que cada unidade, dezena e assim por diante estivesse em seu devido lugar. Ao fim, o anel volta ao dígito original, então transmitir não apagava o número, a menos que a chave de limpeza mandasse.
+
+### 7.3.4 Receber e propagar o vai-um
+
+O acumulador receptor abria as portas de um dos 5 canais de entrada, e cada pulso recebido avançava o anel. Se uma casa chegava ao 9 e recebia mais um pulso, o flip-flop da casa “lembrava” o vai-um. Esse vai-um era liberado depois, pelo pulso de reset. Quando o vai-um caía numa casa que já estava em 9, usava-se o carry-clear para propagar em cascata. No pior caso, se considerar 1 + 9.999.999.999, o vai-um deveria passar por todos os estágios dos flip-flops de todos os aneis, sabendo que a propagação levava até 25 µs foi criada uma janela de 70 µs para que o vai-um pudesse contabilizar tudo.
+
+### 7.3.5 Subtração
+
+Subtrair era somar o complemento. A saída S enviava o complemento de 9 de cada dígito, mais o pulso 1'P na casa certa para virar complemento de 10. O sinal era invertido (P envia 9 pulsos pelo fio de sinal, M envia nenhum). Por último o vai-um da 10ª casa entrava no contador de sinal, o que dava o sinal correto no resultado.
+
+### 7.3.6 Exemplos
+
+#### 7.3.6.1 Soma: 
+O acumulador 1 guarda 15 e o 2 guarda 27. O 1 transmite 1 pulso na casa das dezenas e 5 nas unidades. No 2, as dezenas vão de 2 para 3, as unidades vão de 7 para 2 com vai-um contabilizado, e as dezenas chegam a 4, resultando em 42.
+
+#### 7.3.6.2 Subtração 
+27 − 15. A saída S do 15 envia 8 pulsos nas dezenas (9−1) e 4 nas unidades (9−5), mais o 1'P, o que dá 85, o complemento de 15 em 100. Somando, 27 + 85 = 112. O vai-um que sai da casa mais alta inverte o sinal e deixa +12.
+
+> Somar, subtrair e transmitir levavam um tempo de adição, ou seja, 200 µs.
+
+> Cada acumulador tinha cerca de 550 válvulas, o que dá cerca de 11.000 só nos 20 acumuladores.
+
 ## 7.4 High-Speed Multiplier
-- Unidade dedicada à operações de multiplicação
+
+ A unidade dedicada a operações de multiplicação por uma tebela foi idealizada pelos projetistas na necessidade de otimizar os calculos. Inicialmente cogitaram multiplicar por somas repetidas. No entanto, mesmo sendo rápido eletronicamente, acabaram optando por uma consulta a uma tabela. Visto que assim poupariam processamento e memória. Como só havia um multiplicador na máquina, era de suma necessidade que este fosse o mais rápido possível, visto que multiplicações apareciam com frequência semelhante à das somas.
+
+### 7.4.1 Funcionamento
+
+A tabuada era uma matriz de resistores. Ao receber dois dígitos decimais, ela devolvia dois pulsos que representavam o produto, sempre com dois dígitos, como por exemplo 2 × 3 = 06.
+A casa das unidades era enviada para um acumulador, enquanto as dezenas eram enviadas a outro, formando dois produtos parciais. Ao fim, eles eram somados. Isso foi inspirado no método usado pelo multiplicador eletromecânico da IBM 601. 
+Os dígitos do multiplicador chegavam de forma estática até os “seletores do multiplicador”, que eram uma matriz 10 × 10 de válvulas ligada por cabos aos contadores do acumulador, a válvula da linha "X" e coluna "Y" acendia quando a casa "Y" guardava o dígito "X", assim concretizando o resultado da multiplicação. Ligar isso levava cerca de um tempo de adição, ou 200 µs.
+
+### 7.4.2 Exemplo: 
+23 × 4. Pela tabuada, 3 × 4 = 12, nesse caso seriam repassados os dados de unidade 2, dezena 1. Já em 2 × 4 = 08 geraria unidade 8, dezena 0. O parcial das unidades fica 82 com 2 na casa das unidades e 8 na das dezenas. O parcial das dezenas fica 10, sendo 1 na casa das dezenas e 0 na das centenas. Somando ambos se tem o resultado. 82 + 10 = 92.
+
+### 7.4.3 Tempo de operação
+
+Cada dígito do multiplicador levava um tempo de adição, os famosos 200 µs. A conta total era "X" + 4 tempos de adição, onde "X" é o número de dígitos do multiplicador. Num exemplo rápido, 7 dígitos dão 11 e 10 dígitos dão 14. Já para dois números de 10 dígitos, isso é 14 tempos, ou 2,8 ms, oque gera cerca de 357 multiplicações por segundo.
+O produto tinha até 20 dígitos, e o operador escolhia 10, sendo os mais significativos e com arredondamento, já o multiplicador e multiplicando eram preservados.Era possível usar o multiplicador enquanto acumuladores somavam e o divisor calculava, desde que as bandejas de dígitos fossem separadas.
 
 ## 7.5 Divider & Square-Rooter
 - Unidade dedicada à aritimética mais complexa
@@ -62,7 +133,69 @@ A principal limitação estrutural para a escala do paralelismo global era a dis
 - Unidade de controle para loops, ramificações e sub-rotinas
 
 ## 7.9 Mathematical Precision
-- Operação com números decimais com sinal de 10 dígitos (tamanho da palavra) 
+
+### 7.9.1 Representação dos números decimais:
+
+O ENIAC utilizava o sistema decimal, diferentemente dos computadores modernos, que utilizam predominantemente o sistema binário.
+
+Cada um dos 20 acumuladores podia armazenar um número de 10 dígitos decimais, acompanhado de um sinal positivo ou negativo.
+
+Por exemplo:
+
+(+) 0 0 0 0 0 5 8 9 2 5 = 58.925
+
+(-) 0 0 0 0 0 0 3 8 9 4 = -3.894
+
+Assim, o maior número positivo que um acumulador podia representar era +9.999.999.999, enquanto o menor era -9.999.999.999.
+
+### 7.9.2 Precisão decimal e suas limitações:
+
+O ENIAC utilizava aritmética decimal de ponto fixo. Isso significa que a posição da vírgula não era armazenada automaticamente, sendo determinada pela organização do cálculo.
+
+Por exemplo, os dígitos 0000012345 poderiam representar:
+12345;
+1234,5;
+123,45;
+12,345;
+E outras opções, dependendo da posição estabelecida para a vírgula.
+
+A principal limitação era a capacidade de 10 dígitos por acumulador. Se uma operação produzisse um resultado maior, seria necessário utilizar técnicas adicionais para representá-lo corretamente.
+
+Portanto, a precisão dependia tanto da capacidade dos acumuladores quanto da escala e dos métodos matemáticos utilizados.
+
+![Contador Decimal Físico](./images/photos/contador-decimal-fisico.jpg)
 
 ## 7.10 Processing Cycle
-- Como um pulso desengatilhava uma sequência de operações pelas unidades
+### 7.10.1 Como funcionava o ciclo de processamento:
+
+O ENIAC utilizava pulsos elétricos para sincronizar e executar suas operações. A unidade responsável pela sincronização era chamada de Cycling Unit.
+
+Ela operava com uma frequência principal de 100.000 ciclos por segundo (100 kHz), enquanto uma operação básica de adição podia ser realizada em aproximadamente 200 microssegundos, permitindo até 5.000 adições por segundo.
+
+Diferentemente dos computadores modernos, o ENIAC original não buscava instruções em uma memória convencional. As operações eram determinadas por conexões físicas e controles previamente configurados.
+
+### 7.10.2 Como um pulso iniciava uma sequência de operações:
+
+O processamento ocorria da seguinte maneira:
+1. Os operadores configuravam os cabos e interruptores necessários para o cálculo.
+2. Um pulso de programação iniciava a primeira operação.
+3. A unidade recebia o pulso e executava a operação configurada.
+4. Ao terminar, enviava um pulso de conclusão para acionar a próxima unidade.
+5. O processo continuava automaticamente até finalizar a sequência.
+Dessa forma, um único pulso inicial podia desencadear diversas operações consecutivas, sem necessidade de intervenção humana durante cada etapa.
+
+### 7.10.3 Exemplo prático:
+
+Suponha que o ENIAC precisasse calcular:
+
+(132 + 29) × 2 = 322
+
+Primeiro, um pulso de programação iniciava a soma entre os acumuladores, produzindo 161.
+
+Ao finalizar, um pulso de conclusão acionava a etapa seguinte, na qual a unidade multiplicadora realizava 161 × 2.
+
+O resultado 322 era então armazenado no acumulador destinado a recebê-lo.
+
+Esse mecanismo permitia ao ENIAC executar sequências de cálculos automaticamente, utilizando os pulsos de programação para coordenar as operações e a Cycling Unit para sincronizar os circuitos.
+
+![Programadoras do ENIAC](./images/photos/eniac-programmers.jpg)
