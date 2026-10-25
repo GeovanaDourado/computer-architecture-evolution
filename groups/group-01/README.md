@@ -16,12 +16,12 @@ ENIAC
 
 - Gustavo Morais
 
-## [ Submission x Issue x Question ] Plan Table
+## [ Submission x Issue x Presentation ] Plan Table
 
-| Submission | Issue | Question | Done |
+| Submission | Issue | Presentation | Done |
 |------|--------|------|------|
 |README|Entrega 01||✅|
-|02-system-overview e 03-interconnections|Entrega 02|1 - Como funcionava a comunicação interna do ENIAC?|🅾️|
+|02-system-overview e 03-interconnections|Entrega 02|1 - Como funcionava a comunicação interna do ENIAC?|✅|
 |04-input-output|Entrega 03|2 - Como era a interface do ENIAC?|🅾️|
 |05-memory|Entrega 04|3 - |🅾️|
 |06-data-pathways|Entrega 05 & Entrega 10|4 - |🅾️|
