@@ -1,10 +1,101 @@
 # 6. Data Flow and Access
 
+![Diagrama do fluxo de dados no ENIAC](./images/layout/data-pathways.png)
+
+> Descrição da Imagem: Diagrama de blocos conceitual mapeando a topologia de comunicação, fluxo de dados e controle entre os módulos funcionais do ENIAC. Na borda externa, o barramento de sincronização (Synchronization Bus) recebe os sinais de temporização da Unidade Cíclica (Cycling Unit) e os distribui continuamente para todos os blocos do sistema. Ao centro, duas vias de comunicação horizontais interligam as unidades: a calha de programa (Program Trays), que conduz os pulsos de controle que ordenam o início das operações, e a calha de dados (Digit Trays), responsável pelo tráfego dos operandos numéricos. No topo esquerdo, o bloco de controle abriga a Unidade Cíclica e a Unidade Iniciadora (Initializing Unit), que fornece os comandos de partida para a malha de programa. À direita, o bloco aritmético e de memória distribui os 20 Acumuladores, o Multiplicador e a Unidade de Divisão e Raiz Quadrada, conectados bidirecionalmente a ambas as calhas centrais para receber instruções de temporização e permutar valores intermediários. Na base esquerda, o setor de entrada e saída (Input / Output) integra o Leitor de Cartões com o Transmissor de Constantes e a Perfuradora com a Unidade de Impressão, gerenciando a leitura e gravação da mídia física externa de cartões perfurados (Outside Recording Media).
+
 ## 6.1 Data Origins
-- De onde vinham os operandos (transmissor de constante ou cálculo anterior)
+
+No ENIAC, os operandos não eram obtidos a partir de uma memória central endereçável como ocorre em computadores modernos. A máquina não possuía uma RAM central na qual cada valor pudesse ser localizado por meio de um endereço. Em vez disso, os dados permaneciam armazenados nas próprias unidades funcionais e eram transferidos entre elas por meio de conexões físicas configuradas previamente.
+
+Duas situações são especialmente importantes para compreender a origem dos operandos: a introdução de constantes pelo **Constant Transmitter** e a utilização de resultados produzidos anteriormente durante o processamento.
+
+### 6.1.1 Constant Transmitter
+
+O **Constant Transmitter** era uma unidade utilizada para fornecer valores constantes ao restante do ENIAC. Ele podia receber números provenientes do sistema de entrada, como cartões perfurados, além de permitir a configuração manual de valores.
+
+O Constant Transmitter, portanto, funcionava como uma das fontes de operandos da máquina. Seu papel não era equivalente ao de uma RAM moderna: ele fornecia valores previamente configurados para que outras unidades pudessem utilizá-los durante a execução.
+
+### 6.1.2 Resultado de uma operação anterior
+
+Outra origem importante dos operandos era o próprio processamento do ENIAC. Os **Acumuladores** combinavam armazenamento e operações aritméticas. Dessa forma, o resultado produzido por uma operação podia permanecer armazenado em um acumulador e posteriormente ser transmitido para outra unidade.
+
+Por exemplo, considerando dois acumuladores:
+
+```text
+Accumulator A = 15
+Accumulator B = 27
+```
+
+uma operação de adição poderia produzir:
+
+```text
+15 + 27 = 42
+```
+
+O valor `42` passava então a estar armazenado no acumulador de destino. Esse resultado poderia ser utilizado como operando em uma operação posterior:
+
+```text
+Operação 1
+15 + 27
+   │
+   ▼
+  42
+   │
+   ▼
+armazenado no acumulador
+   │
+   ▼
+Operação 2
+42 + outro valor
+```
+
+Esse mecanismo permite compreender uma característica fundamental da arquitetura do ENIAC: os resultados intermediários não precisavam ser imediatamente enviados para uma memória externa. Eles podiam permanecer nas unidades que participavam diretamente do processamento e posteriormente ser transmitidos por meio das conexões configuradas.
+
+Portanto, a origem de um operando no ENIAC estava relacionada à própria organização física da máquina: um valor poderia ser fornecido por uma unidade de entrada/constantes ou ser resultado de uma operação anterior armazenado em uma unidade funcional.
+
+---
 
 ## 6.2 Data Movement Process
-- Como um número percorria o caminho da Unidade A até a Unidade B por meio de bandejas de dígitos
+
+Depois que um número estava disponível em uma unidade de origem, era necessário transportá-lo até a unidade que executaria a próxima operação. No ENIAC, essa comunicação era realizada por meio de **Digit Trays**, conjuntos de linhas de transmissão que percorriam fisicamente os painéis da máquina.
+
+![Foto real de um Digit Tray](./images/photos/digit-tray.jpg)
+
+> Descrição da Imagem: Digit Tray do ENIAC. Bandeja física utilizada para interconectar unidades do ENIAC por meio de linhas condutoras. O componente possuía onze linhas de transmissão associadas ao transporte dos dados numéricos e do sinal. Fonte: National Museum of American History, Smithsonian Institution.
+
+As Digit Trays eram responsáveis pelo transporte dos sinais que representavam os dados numéricos. Elas eram diferentes das **Program Trays**, utilizadas para transportar os pulsos de controle responsáveis por coordenar a sequência das operações.
+
+### 6.2.1 Conexão física entre as unidades
+
+O ENIAC utilizava conexões físicas para determinar quais unidades poderiam trocar dados. Cabos conectavam as entradas e saídas dos acumuladores às linhas presentes nas Digit Trays. Uma Digit Tray podia ser conectada a diferentes entradas e saídas. O comportamento efetivamente utilizado durante uma operação dependia da configuração dos circuitos de controle e do momento em que os pulsos eram enviados.
+
+Essa arquitetura era bastante diferente de um computador moderno. Em vez de uma instrução indicar um endereço de memória de origem e outro de destino, a própria montagem física da máquina estabelecia os caminhos pelos quais os dados poderiam circular.
+
+### 6.2.2 Transmissão dos dígitos
+
+O ENIAC utilizava representação decimal. Cada acumulador armazenava seus números utilizando décadas, e cada década utilizava um contador de anel para representar um dos dez possíveis algarismos, de `0` a `9`. Quando um acumulador precisava transmitir seu conteúdo, seus circuitos de transmissão utilizavam os pulsos de temporização da máquina para transformar o estado armazenado em uma sequência de pulsos elétricos.
+
+O número, portanto, não era transportado pelo cabo como uma sequência de bits armazenados em uma memória. O que percorria a bandeja eram **sinais elétricos temporizados**, cuja sequência representava os dígitos do número.
+
+### 6.2.3 Recepção no destino
+
+Na unidade de destino, os pulsos recebidos eram encaminhados para os circuitos de entrada correspondentes. No caso de um acumulador, esses pulsos podiam alterar os contadores de anel e, dependendo da configuração da operação, adicionar ou subtrair o valor recebido do conteúdo já armazenado.
+
+### 6.2.4 Controle e sincronização
+
+A transferência dos dados não acontecia de maneira independente do restante da máquina. O ENIAC era um sistema síncrono, coordenado pelos pulsos produzidos pela **Cycling Unit**. O ciclo básico de operação tinha duração de aproximadamente 200 microssegundos, e os pulsos de temporização eram utilizados para coordenar as diferentes unidades.
+
+Assim, é importante distinguir:
+- **Digit Trays:** transportavam os dados numéricos;
+- **Program Trays:** transportavam os sinais de controle da programação;
+- **Cycling Unit:** fornecia a temporização que sincronizava as operações.
+
+Essa separação permitia que uma unidade soubesse não apenas **qual dado** deveria receber ou transmitir, mas também **quando** a transferência deveria ocorrer.
+
+![Acumulador no ENIAC](./images/photos/accumulator-in-the-eniac.gif)
+
+> Descrição da Imagem: Diagrama esquemático de um Acumulador do ENIAC, mostrando como essa unidade armazenava números e se comunicava com outras partes da máquina. Na parte superior, aparecem os circuitos que representam e armazenam os algarismos do número, além das entradas e saídas utilizadas para receber e transmitir dados. À direita, o bloco Data IN/OUT conecta o acumulador ao Digit Trunk, conjunto de linhas elétricas usado para transportar os números entre as unidades; as entradas α, β, γ, δ e ϵ recebem dados, enquanto A e S permitem transmitir o valor para operações de adição ou subtração. Na parte inferior, os controles de programa determinam quando essas operações devem ocorrer, utilizando o Program Trunk para transmitir os sinais de controle. O diagrama também mostra o Synchronizing Trunk, responsável por fornecer os sinais que mantêm as operações da máquina sincronizadas.
 
 ## 6.3 Intermediate Results
 
@@ -105,15 +196,140 @@ Ao final do ciclo de 200 microssegundos, a chave de programa determinava o estad
 - Modo de Retenção: O anel permanecia no estágio original (preservando o número 4 para cálculos futuros).
 - Modo de Limpeza (Clear): No tempo 19/20, um pulso de Reset era injetado no anel, forçando o estágio ativo a ir para o estágio 0, apagando o resultado intermediário e liberando a unidade para receber novos dados.
 
+
 ## 6.4 Operand Identification
-- Como dados específicos eram selecionados (conexão direta de cabos, não endereços)
+No ENIAC original, a seleção e a transferência de dados eram realizadas por meio de conexões físicas e controles de programação, diferente dos computadores modernos, que utilizam endereços de memória para localizar informações na RAM.
+
+Os números ficavam armazenados em unidades específicas, como os acumuladores, o Constant Transmitter e as Function Tables. Para a comunicação entre essas unidades, os operadores configuravam cabos, interruptores e controles nos painéis do computador.
+
+### 6.4.1 Como funcionavam as conexões:
+O ENIAC utilizava dois sistemas importantes de transmissão:
+
+1. Digit Trays: responsáveis por transportar os pulsos elétricos que representavam os valores numéricos.
+2.  Program Trays: responsáveis por transmitir sinais de controle, para coordenar a execução das operações.
+
+Esses sistemas permitiam estabelecer a comunicação entre diferentes unidades do computador.
+
+As conexões eram configuradas antes da execução e podiam ser utilizadas novamente durante o processamento, sem a necessidade de modificar os cabos a cada operação.
+
+### 6.4.2 Exemplo prático:
+Considerando que o acumulador A armazene o valor 154 e o acumulador B armazene 47.
+
+Para realizar a soma, os operadores configuravam as conexões e os controles necessários para que o acumulador A transmitisse seu valor ao acumulador B.
+
+Quando a operação era acionada, o acumulador A enviava os pulsos elétricos correspondentes ao número 154. O acumulador B recebia esses pulsos e realizava a soma com o número 47, armazenando o resultado 201.
+
+Dessa forma, a seleção da origem e do destino dos dados era determinada pela configuração das conexões e pelos sinais de controle, sem utilizar endereços de memória RAM.
+
+### 6.4.3 Seleção de valores nas Function Tables:
+As Function Tables possuíam um mecanismo específico para selecionar valores numéricos configurados anteriormente.
+
+Cada tabela apresentava 104 linhas, numeradas de -2 até 101, e a seleção de uma linha era realizada a partir de um argumento numérico fornecido por um acumulador.
+
+Por exemplo, caso o argumento fosse 5, o ENIAC poderia selecionar a linha 5 e transmitir os valores previamente configurados nela.
+Esse mecanismo permitia acessar diferentes valores durante o processamento, mas não representava um sistema geral de endereçamento de memória RAM.
+
+![Cabos e conexões do ENIAC](./images/photos/very-scary-image.jpg)
 
 ## 6.5 Lack of Modern Addressing
-- Por que conceitos como endereços de RAM ou ponteiros não se aplicam ao ENIAC
+Nos computadores modernos, a memória RAM é organizada em posições identificadas por endereços numéricos. Esses endereços permitem o processador de localizar, recuperar e modificar informações armazenadas.
+
+No ENIAC, não existia uma memória RAM centralizada organizada dessa maneira. Os dados eram armazenados em unidades específicas, e sua transferência dependia de conexões físicas e controles de programação.
+
+### 6.5.1 Endereços de memória:
+Um endereço de memória identifica uma posição na qual determinada informação está armazenada.
+
+Por exemplo, em um computador moderno, o endereço 0x1000 poderia identificar uma posição que contém o valor 125.
+
+No ENIAC original, entretanto, o acesso a um valor armazenado em um acumulador não era realizado por meio de um endereço geral de RAM, mas pela seleção e ativação da unidade correspondente.
+
+### 6.5.2 Ponteiros:
+Na programação moderna, um ponteiro é um valor que representa um endereço de memória, permitindo acessar indiretamente uma informação armazenada.
+
+No ENIAC, esse conceito não era aplicado igualmente, pois o computador não possuía uma memória RAM geral endereçável, na qual os endereços pudessem ser utilizados para acessar diferentes posições de armazenamento.
+
+Embora as tabelas de funções permitissem selecionar valores por argumentos numéricos, esse mecanismo não era equivalente ao uso de ponteiros em uma memória RAM moderna.
+
+### 6.5.3 Modificações em 1948:
+É válido destacar que o ENIAC passou por modificações em 1948, permitindo a execução de programas codificados e armazenados nas tabelas de funções.
+
+Com essa mudança, o computador passou a utilizar mecanismos de endereçamento das tabelas para recuperar instruções e valores previamente configurados.
+
+Mesmo assim, após essas modificações, o ENIAC não possuía uma memória RAM convencional como a utilizada nos computadores modernos.
+
+Logo, a ausência de endereçamento geral de RAM e de ponteiros convencionais caracteriza principalmente a arquitetura original do ENIAC, baseada em conexões físicas e controles distribuídos.
+
 
 ## 6.6 Switch-Based Data Selection
 - Uso de chaves seletoras para indicar a um acumulador quais dados internos enviar para a saída
 
-## 6.7 Access Bottlenecks (DO NOT READ THE BEGINNING OF THIS LINE, IT IS DEATH MAGIC!)
-- Limitações físicas no encaminhamento de dados entre painéis distantes
+Cada acumulador Do Eniac tinha 12 controles de programa, e cada um tinha uma chave de operação de 9 posições. Essa chave decidia se o acumulador receberia dados (por qual dos 5 canais de entrada) ou transmitiria o número guardado, o seu complemento, ou os dois. Outras chaves definiam quantas vezes transmitir e se limpar depois. Essa junção simples de ações, quando combinadas geravam a complexidade assustadora do Eniac.
+
+### 6.6.1 Separação e divisão das chaves seletoras
+
+Quanto as chaves em si, cada posição direcionava o acumulador a uma ação diferente, sendo que as posições se dividiam em:
+
+α (Alfa), β (Beta), γ (Gama), δ (Delta), ε (Épsilon) Recebiam o número que chega pelo canal de entrada correspondente
+> Essas serviam apenas como direcionadoras de dados, representando uma espécie de ponte para que as operações pudessem ser reorganizadas e alinhadas. Um fato curioso é que de certa forma, é possível compreender estas como "Váriaveis" visto que são cabeamentos tratados como icógnitas que apenas representam valor verdadeiro após algum outro valor ter sido atrelado a este anteriormente.
+
+A	Transmitir o número armazenado (saída “add”)
+> Nesse caso o número armazenado era repassado com o comando ADD, gerando uma soma com seja lá qual outro número era complementado.
+
+S	Transmitir o complemento do número (saída “subtract”)
+> Mesma situação do coamndo ADD mas nesse caso sendo o SUBTRACT, logo, subtraindo o valor do conjunto de dados.
+
+AS	Transmitir os dois ao mesmo tempo
+> Usado em operações mais complexas para trnasmitir um mesmo valor como soma e subtração sem necessitar do uso de dois acumuladores. Economizando linhas de transferência de dados.
+
+O	Não receber nem transmitir (útil para limpar ou atrasar um pulso)
+> Uso mais situacional e dependente da necessidade de sincronização ou "descarte" de dados. Também utilizado quando não havia dado correlacionado necessário.
+
+### 6.6.2 Funcinamento das chaves seletoras
+
+A chave não movia dados diretamente, mas sim escolhia qual circuito seria ativado quando um pulso de programa chegasse ao controle. O flip-flop do controle estimulado enviava um sinal por uma seção da chave aos circuitos de recepção ou de transmissão. Na transmissão, abria as portas que deixavam os pulsos de dígitos chegarem às saídas A e/ou S.
+Já para a saída do dado interno, na transmissão, os pulsos 10P eram enviados a todas as décadas do acumulador ao mesmo tempo, e cada pulso avançava o contador de anel um estágio para um dígito d armazenado.
+Primeiro saíam 9−"d" pulsos de uma outra linha (9P) pela saída S, que representam o complemento do dígito.
+O pulso que levava o contador de 9 para 0 acionava o flip-flop da década, que fechava a saída S e abria a A.
+Depois saíam "d" pulsos pela saída A, que representam o próprio dígito.
+
+> Nesse caso, "d" representa o valor variavél que era trago pela linha 9P
+
+Ao fim dos 10 pulsos, o contador voltava ao dígito original. Ou seja, transmitir não apagava o número, a menos que a chave de limpeza (O) mandasse. Já o sinal seguia uma regra parecida. Para um número positivo, 9 pulsos saíam pelo fio de sinal da saída S. Para um negativo, saíam pelo da saída A. Essa diferença era usada para decisões de desvio, enviando o sinal a um “programa fantasma” onde posteriormente poderia ser resgatado.
+
+### 6.6.3 Chaves extras
+
+Haviam outras chaves extras que completavam a seleção, sendo elas:
+
+Chave de limpeza e correção (C ou O), sendo que em transmissão, o C faz o acumulador se limpar depois de enviar. Em recepção, C faz com que ele capture o pulso 1'P (usado para completar o complemento de 10).
+> Como já citado, a chave "O" servia como negativo, então apenas cortava e limpava o pulso como um todo sem maiores rodeios.
+
+Chave de repetição (1 a 9), nessas o acumulador executa a operação "r" vezes seguidas, uma por tempo de adição. A limpeza ocorre uma única vez, no fim da última repetição, e o pulso de saída é emitido depois de "r" tempos.
+> Sendo logicamente, "r" o número selecionado na chave.
+
+Chave de algarismos significativos (0 a 10), essa chave em especial é comum ao acumulador inteiro, definindo em que casa o pulso 1'P entra quando se transmite o complemento e em que década fica o “5” ao limpar.
+>  Isso representava a forma de arredondar contas com valores quebrados, caso fosse necessário.
+
+Chave de limpeza seletiva (SC ou O), essa aqui definia quais acumuladores limpam quando a unidade iniciadora manda um sinal geral.
+> Novamente citando que (O) era uma limpeza geral do acumulador, enquanto SC limpava de forma mais ordenada seguindo  o sinal geral.
+
+### 6.6.4 Exemplo didático
+
+Um exemplo mais prático e visual seria:
+
+Para somar o acumulador 3 (valor 15) ao acumulador 4 (valor 27), os dois recebem o mesmo pulso de programa. O 3 está com a chave em A e transmite 1 pulso na casa das dezenas e 5 nas unidades. O 4 está em α (Alfa) e recebe, resultando em 42. Para formar a + r·b, o primeiro acumulador recebe com repetição r e o segundo transmite com repetição maior ou igual a r.
+> Sendo nesse caso aqui, 3 e 4 numerações genéricas de acumuladores anteriores, podendo ser substituido por X,Y A,B ou etc. no caso da formula a + r·b, "a" é o acumulador 3, "r" é o número na chave de repetições (quantas vezes quer repetir aquela ação), e "b" o acumulador 4.
+
+## 6.7 Access Bottlenecks
+O ENIAC possuía limitações físicas no encaminhamento de dados entre painéis distantes, pois a comunicação entre suas unidades dependia de conexões elétricas estabelecidas por cabos e bandejas de transmissão. Como os acumuladores, multiplicadores, e outras unidades ocupavam diferentes painéis físicos, era necessário estabelecer caminhos específicos para que os pulsos elétricos de uma unidade chegassem até a outra unidade.
+A transferência dos valores numéricos ocorria por meio dos Digit Trays (que transportavam os pulsos correspondentes aos algarismos) e, para conectar duas unidades, os operadores precisavam ligar a saída da unidade transmissora à entrada da unidade receptora, utilizando os pontos de conexão disponíveis. Assim, a distância física entre os painéis influenciava a organização do cabeamento e a complexidade da montagem do sistema.
+
+### 6.7.1 Dificuldades no encaminhamento dos dados
+Uma das principais limitações era a necessidade de organizar fisicamente as conexões entre as unidades. Quando uma operação exigia que o resultado de um cálculo fosse enviado a um painel distante, era necessário garantir que os cabos estivessem conectados aos terminais corretos e que os controles de programa estivessem configurados para autorizar a transmissão e a recepção dos dados e, por isso, a grande quantidade de cabos e conexões dificultava a identificação de falhas. 
+Além disso, uma ligação incorreta, um mau contato ou uma configuração inadequada poderia impedir que os pulsos chegassem ao destino esperado, exigindo verificações nos painéis e no cabeamento.
+Ademais, sua estrutura física limitava a flexibilidade do encaminhamento porque o ENIAC dependia de rotas previamente estabelecidas e, para modificar o caminho dos dados, os operadores precisavam alterar as conexões e os controles envolvidos.
+
+### 6.7.2 Impacto na execução dos cálculos
+Em cálculos que envolviam várias unidades, era necessário definir antecipadamente como os valores seriam transferidos de um painel para outro, garantindo que cada resultado chegasse à unidade responsável pela próxima operação.
+Embora os pulsos elétricos percorressem os cabos rapidamente, a complexidade estava principalmente na organização física das ligações, na manutenção dos contatos e na necessidade de sincronizar as unidades transmissoras e receptoras. Portanto, a distância entre os painéis não representava um grande atraso elétrico por si só, mas aumentava as exigências de cabeamento, organização e manutenção.
+Dessa forma, os gargalos de acesso do ENIAC estavam associados à dependência de conexões físicas específicas para encaminhar informações entre unidades distantes. Essa característica tornava alterações na estrutura de processamento mais trabalhosas.
 
