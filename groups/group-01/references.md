@@ -15,3 +15,13 @@
 [7] DA CRUZ, F. IBM Punch Cards. Columbia University Computing History, 2001, última atualização em 4 set. 2023. Disponível em: https://www.columbia.edu/cu/computinghistory/keypunch.html.
 
 [8] MAGNETIC-core memory. In: WIKIPEDIA, the free encyclopedia. Disponível em: https://en.wikipedia.org/wiki/Magnetic-core_memory. Acesso em: 18 out. 2026.
+
+[9] GOLDSTINE, H. H.; GOLDSTINE, Adele. The Electronic Numerical Integrator and Computer (ENIAC). In: RANDELL, Brian (ed.). The Origins of Digital Computers. Berlin, Heidelberg: Springer, 1982. p. 359–373. DOI: https://doi.org/10.1007/978-3-642-61812-3_29. Disponível em: https://link.springer.com/chapter/10.1007/978-3-642-61812-3_29. Acesso em: 29 out. 2026.  
+
+[10] SMITHSONIAN INSTITUTION. Interview with J. Presper Eckert. National Museum of American History. Washington, D.C., [s. d.]. Disponível em: https://americanhistory.si.edu/comphist/eckert.htm. Acesso em: 29 out. 2026.  
+
+[11] COMPUTER HISTORY MUSEUM. A survey of large-scale digital computers and computer projects. 1950. Disponível em: https://archive.computerhistory.org/resources/access/text/2012/05/102660735-05-01.acc.pdf. Acesso em: 29 out. 2026.  
+
+[12] UNIVERSITY OF MICHIGAN. ENIAC Display. Computer Science and Engineering. Ann Arbor, [s. d.]. Disponível em: https://cse.engin.umich.edu/about/history/eniac-display/. Acesso em: 29 out. 2026.  
+
+[13] DA CRUZ, Frank. ENIAC Programmers. Columbia University, 2011. Disponível em: https://www.columbia.edu/cu/computinghistory/eniac.html. Acesso em: 29 out. 2026.
