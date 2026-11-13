@@ -21,7 +21,7 @@ ENIAC
 | Submission | Issue | Question | Done |
 |------|--------|------|------|
 |README|Entrega 01||✅|
-|02-system-overview e 03-interconnections|Entrega 02|1 - Como funcionava a comunicação interna do ENIAC?|🅾️|
+|01-history, 02-system-overview e 03-interconnections|Entrega 02|1 - Como funcionava a comunicação interna do ENIAC?|🅾️|
 |04-input-output|Entrega 03|2 - Como era a interface do ENIAC?|🅾️|
 |05-memory|Entrega 04|3 - Como os dados eram armazenados no ENIAC?|🅾️|
 |06-data-pathways|Entrega 05 & Entrega 10|4 - Como os dados no ENIAC eram acessados e por onde passavam?|🅾️|
